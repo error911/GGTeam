@@ -84,7 +84,7 @@ namespace GGTeam.SmartMobileCore
                 {
                     bool ok = ListRemove(sceneID);
                     if (!ok) { Game.Log.Error("Scene", "Ошибка выгрузки сцены #" + sceneID + " из памяти."); return; }
-                    WaitTime(Game.Config.main.LEVEL_WAIT_AFTER_LOADING, _AfterWait);
+                    WaitTime(Game.Config.Current.LEVEL_WAIT_AFTER_LOADING, _AfterWait);
                     void _AfterWait()
                     {
                         OnComplete?.Invoke(true);

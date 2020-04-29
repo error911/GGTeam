@@ -205,7 +205,7 @@ namespace GGTeam.SmartMobileCore
         private void LevelsProgressSave(int lvlNum = 0, bool completeState = true, int newScore = 0)
         {
             if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
-            string s_data_level_completed_list = Game.Config.main.DATA_SAVE_PREFIX + "." + Game.Config.main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+            string s_data_level_completed_list = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
 
             if (lvlNum > 0)
             {
@@ -238,7 +238,7 @@ namespace GGTeam.SmartMobileCore
 
         private LevelsData LevelsProgressLoadAll()
         {
-            string s_data_level_completed_list = Game.Config.main.DATA_SAVE_PREFIX + "." + Game.Config.main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+            string s_data_level_completed_list = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
 
             progressLevelsLoaded = true;
             LevelsData tmp = new LevelsData();

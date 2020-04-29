@@ -10,7 +10,10 @@ namespace GGTeam.SmartMobileCore
 {
     public sealed class ConfigHeader
     {
-        public GameConfigSO main { get; private set; }
+        /// <summary>
+        /// Текущая, используемая конфигурация
+        /// </summary>
+        public GameConfigSO Current { get; private set; }
 
         private GameManager Game;
         string s_data_level_current = "";
@@ -19,11 +22,11 @@ namespace GGTeam.SmartMobileCore
         public ConfigHeader(GameManager gameManager, GameConfigSO gameConfig)
         {
             this.Game = gameManager;
-            this.main = gameConfig;
-            if (this.main == null) this.main = ScriptableObject.CreateInstance<GameConfigSO>();
+            this.Current = gameConfig;
+            if (this.Current == null) this.Current = ScriptableObject.CreateInstance<GameConfigSO>();
 
-            s_data_level_current = main.DATA_SAVE_PREFIX + "." + main.DATA_SAVE_SUFFIX + ".Config.Level.current";
-            s_data_level_completed_list = main.DATA_SAVE_PREFIX + "." + main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+            s_data_level_current = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.current";
+            s_data_level_completed_list = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
         }
 
         // ========== SAVED CORE DATA ==========
