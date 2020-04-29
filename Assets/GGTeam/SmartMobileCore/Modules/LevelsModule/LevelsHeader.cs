@@ -57,7 +57,6 @@ namespace GGTeam.SmartMobileCore
         {
             this.Game = gameManager;
             allLevels = GetAllLevels();
-
             CurrentNumber = gameManager.Config.SAVED_LEVEL_CURRENT;
             progressLevelsData = LevelsProgressLoadAll();
 
