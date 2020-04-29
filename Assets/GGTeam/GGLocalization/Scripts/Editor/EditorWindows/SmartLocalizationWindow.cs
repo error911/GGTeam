@@ -215,7 +215,7 @@ public class SmartLocalizationWindow : EditorWindow
 		EditorGUILayout.BeginHorizontal();
 		EditorGUILayout.BeginVertical();
 		Rect positionCheck = EditorGUILayout.GetControlRect( GUILayout.MaxWidth(maxWidth));
-		ReorderableListGUI.Title(positionCheck, "ƒобавить/ќбновить ¤зыки");
+		ReorderableListGUI.Title(positionCheck, "Добавить/Обновить языки");
 		createScrollPosition = GUILayout.BeginScrollView(createScrollPosition, GUILayout.MaxHeight(350),  GUILayout.MaxWidth(maxWidth));
 		createListContextMenu.Draw(createListAdaptor);
 		GUILayout.EndScrollView();
@@ -224,7 +224,7 @@ public class SmartLocalizationWindow : EditorWindow
 
 		EditorGUILayout.BeginVertical();
 		positionCheck = EditorGUILayout.GetControlRect( GUILayout.MaxWidth(maxWidth));
-		ReorderableListGUI.Title(positionCheck, "Ќастройки");	//Settings
+		ReorderableListGUI.Title(positionCheck, "Настройки");	//Settings
 		settingsContextMenu.Draw(settingsAdaptor);
 		EditorGUILayout.EndVertical();
 
@@ -251,20 +251,20 @@ public class SmartLocalizationWindow : EditorWindow
 		Rect newPosition = position;
 		newPosition.width = fullWindowWidth;
 		newPosition.height = controlHeight;
-		GUI.Label(newPosition, "Ќастройки", EditorStyles.boldLabel);    //Settings
-			if (GUI.Button(newPosition, "—оздать новую культуру"))
+		GUI.Label(newPosition, "Настройки", EditorStyles.boldLabel);    //Settings
+			if (GUI.Button(newPosition, "Создать новую культуру"))
 		{
 			CreateLanguageWindow.ShowWindow(this);
 		}
 		newPosition.y += controlHeight;
 		
-		if(GUI.Button(newPosition, "Ёкспортировать все ¤зыки"))
+		if(GUI.Button(newPosition, "Экспортировать все языки"))
 		{
 			BulkUpdateWindow.ShowWindow(BulkUpdateWindow.BulkUpdateMethod.Export, this);
 		}
 		newPosition.y += controlHeight;
 		
-		if(GUI.Button(newPosition, "»мпортировать все ¤зыки"))
+		if(GUI.Button(newPosition, "Импортировать все языки"))
 		{
 			BulkUpdateWindow.ShowWindow(BulkUpdateWindow.BulkUpdateMethod.Import, this);
 		}
@@ -276,7 +276,7 @@ public class SmartLocalizationWindow : EditorWindow
 		float fullWindowWidth = position.width + 30;
 		Rect newPosition = position;
 		newPosition.width = fullWindowWidth;
-		GUI.Label(newPosition, "јвтоматический перевод - Microsoft", EditorStyles.boldLabel);
+		GUI.Label(newPosition, "Автоматический перевод - Microsoft", EditorStyles.boldLabel);
 
 		float controlHeight = position.height * 0.15f;
 		newPosition.y += controlHeight;
@@ -293,7 +293,7 @@ public class SmartLocalizationWindow : EditorWindow
 		{
 			if(automaticTranslator.IsInitializing)
 			{
-				GUI.Label (newPosition, "ѕроверка подлинности...", EditorStyles.boldLabel);
+				GUI.Label (newPosition, "Проверка подлинности...", EditorStyles.boldLabel);
 			}
 			else if(!automaticTranslator.IsInitialized)
 			{
@@ -302,7 +302,7 @@ public class SmartLocalizationWindow : EditorWindow
 				{
 					automaticTranslator.Initialize(OnTranslatorInitialized, mtClientID, mtClientSecret);
 				}
-				else if(GUI.Button(newPosition, "јутентифицировать"))
+				else if(GUI.Button(newPosition, "Аутентифицировать"))
 				{
 					automaticTranslator.Initialize(OnTranslatorInitialized, mtClientID, mtClientSecret);
 				}
@@ -333,12 +333,12 @@ public class SmartLocalizationWindow : EditorWindow
 		newPosition.width = buttonWidth;
 		newPosition.x = fullWindowWidth - newPosition.width;
 
-		if(GUI.Button(newPosition,"—оздать"))
+		if(GUI.Button(newPosition,"Создать"))
 		{
 			OnCreateLanguageClick(info);
 		}
 		newPosition.x -= buttonWidth;
-		if(GUI.Button(newPosition,"»мпорт"))
+		if(GUI.Button(newPosition,"Импорт"))
 		{
 			LanguageImportWindow.ShowWindow(info, OnInitializeCollectionsCallback);
 		}
@@ -360,17 +360,17 @@ public class SmartLocalizationWindow : EditorWindow
 			newPosition.width = buttonWidth;
 			newPosition.x = fullWindowWidth - buttonWidth;
 
-			if(GUI.Button(newPosition,"ќбновить"))
+			if(GUI.Button(newPosition,"Обновить"))
 			{
 				LanguageUpdateWindow.ShowWindow(info, this);
 			}
 			newPosition.x -= buttonWidth;
-			if(GUI.Button(newPosition,"Ёкспорт"))
+			if(GUI.Button(newPosition,"Экспорт"))
 			{
 				LanguageExportWindow.ShowWindow(info);
 			}
 			newPosition.x -= buttonWidth;
-			if(GUI.Button(newPosition, "ѕеревести"))
+			if(GUI.Button(newPosition, "Перевести"))
 			{
 				OnTranslateButtonClick(info);
 			}
@@ -378,7 +378,7 @@ public class SmartLocalizationWindow : EditorWindow
 		else
 		{
 			position.width += 28;
-			if(GUI.Button(position, "–едактировать файл корневого ¤зыка"))
+			if(GUI.Button(position, "Редактировать файл корневого языка"))
 			{
 				OnRootEditClick();
 			}
@@ -393,7 +393,7 @@ public class SmartLocalizationWindow : EditorWindow
 			this.Close();
 		}
 
-		ReorderableListGUI.Title("—озданные ¤зыки");
+		ReorderableListGUI.Title("Созданные языки");
 		EditorGUILayout.Space();
 		scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 		languageListContextMenu.Draw(languageListAdaptor);

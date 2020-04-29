@@ -34,11 +34,11 @@ public class LocalizedGUITextInspector : Editor
 		
 		selectedKey = LocalizedKeySelector.SelectKeyGUI(selectedKey, true, LocalizedObjectType.STRING);
 		
-		if(!Application.isPlaying && GUILayout.Button("Use Key", GUILayout.Width(70)))
+		if(!Application.isPlaying && GUILayout.Button("Использовать Ключ", GUILayout.Width(130)))
 		{
 			LocalizedGUIText textObject = ((LocalizedGUIText)target);		
 			textObject.localizedKey = selectedKey;
 		}
 	}
 }
-} //namespace SmartLocalization.Editor
+}

@@ -1,6 +1,4 @@
-﻿// CreateLanguageWindow.cs
-//
-// Written by Niklas Borglund and Jakob Hillerström
+// CreateLanguageWindow.cs
 //
 
 namespace GGTools.SmartLocalization.Editor

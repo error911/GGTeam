@@ -34,11 +34,11 @@ public class LocalizedAudioSourceInspector : Editor
 		
 		selectedKey = LocalizedKeySelector.SelectKeyGUI(selectedKey, true, LocalizedObjectType.AUDIO);
 		
-		if(!Application.isPlaying && GUILayout.Button("Use Key", GUILayout.Width(70)))
+		if(!Application.isPlaying && GUILayout.Button("Использовать Ключ", GUILayout.Width(130)))
 		{
 			LocalizedAudioSource audioObject = ((LocalizedAudioSource)target);			
 			audioObject.localizedKey = selectedKey;
 		}
 	}
 }
-} //namespace SmartLocalization.Editor
+}

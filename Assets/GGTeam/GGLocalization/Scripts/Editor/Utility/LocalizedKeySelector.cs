@@ -36,8 +36,8 @@ public static class LocalizedKeySelector
 		}
 
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("Smart Localization",EditorStyles.boldLabel);
-		if (GUILayout.Button("Открыть", GUILayout.Width(50)))
+		GUILayout.Label("GGLocalization",EditorStyles.boldLabel);
+		if (GUILayout.Button("Открыть", GUILayout.Width(70)))
         {
 			SmartLocalizationWindow.ShowWindow();
 		}
@@ -49,14 +49,14 @@ public static class LocalizedKeySelector
 		}
 
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("Sort Mode: ",EditorStyles.miniLabel, GUILayout.Width(55));
+		//GUILayout.Label("Режим сортировки: ", EditorStyles.miniLabel, GUILayout.Width(100));
 		if(sort)
 		{
-			GUILayout.Label(sortType.ToString() + " only.",EditorStyles.miniLabel);
+			GUILayout.Label("Режим сортировки: " + sortType.ToString() + " только.",EditorStyles.miniLabel);
 		}
 		else
 		{
-			GUILayout.Label("Showing ALL types",EditorStyles.miniLabel);
+			GUILayout.Label("Режим сортировки: Показаны ВСЕ типы", EditorStyles.miniLabel);
 		}
 		EditorGUILayout.EndHorizontal();
 		
@@ -71,7 +71,7 @@ public static class LocalizedKeySelector
 			currentKey = parsedRootValues[newIndex];
 		}
 			
-		if(!autoRefresh && GUILayout.Button("Refresh list", GUILayout.Width(70)))
+		if(!autoRefresh && GUILayout.Button("Обновить список", GUILayout.Width(130)))
 		{
 			RefreshList(sort, sortType);
 		}
@@ -148,4 +148,4 @@ public static class LocalizedKeySelector
 		}
 	}
 }
-} //namespace SmartLocalization.Editor
+}
