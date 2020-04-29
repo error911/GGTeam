@@ -1,4 +1,8 @@
-﻿using GGTeam.SmartMobileCore;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using GGTeam.SmartMobileCore;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;

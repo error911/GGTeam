@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;

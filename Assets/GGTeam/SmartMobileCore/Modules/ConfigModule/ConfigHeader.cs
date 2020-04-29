@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

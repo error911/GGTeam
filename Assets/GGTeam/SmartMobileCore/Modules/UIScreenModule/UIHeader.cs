@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +20,6 @@ namespace GGTeam.SmartMobileCore
             this.Game = game;
             GFX = new GFXHeader(this);
         }
-
 
         // Открывает начальные интерфейсы
         public void Init()
@@ -53,7 +56,6 @@ namespace GGTeam.SmartMobileCore
             }
 
 
-
             //void WaitSeconds(float seconds, Action onComplete)
             void WaitSeconds(Action _OnComplete)
             {
@@ -68,13 +70,10 @@ namespace GGTeam.SmartMobileCore
                         yield return new WaitForEndOfFrame();
                         n--;
                     }
-
                     _OnComplete?.Invoke();
                 }
             }
-
         }
-
 
         /// <summary>
         /// Отобразить интерфейс
@@ -99,15 +98,6 @@ namespace GGTeam.SmartMobileCore
         }
 
         /// <summary>
-        /// Скрыть интерфейс
-        /// </summary>
-        /// <param name="screen"></param>
-        //public void Close(UIScreen screen, bool use_animate = true)
-        //{
-        //    screen.Close(use_animate);
-        //}
-
-        /// <summary>
         /// Скрыть все интерфейсы типа
         /// </summary>
         /// <param name="uiType"></param>
@@ -122,8 +112,6 @@ namespace GGTeam.SmartMobileCore
                 }
             }
         }
-
-
 
 
         #region === Приватные методы ===
@@ -156,16 +144,18 @@ namespace GGTeam.SmartMobileCore
 
             bool process = false;
 
-
-            UIHeader UI;
+            //UIHeader UI;
             UnityEngine.UI.Image image;
-            public GFXHeader(UIHeader uI)
+            
+            
+            internal GFXHeader(UIHeader uI)
             {
-                UI = uI;
+                //UI = uI;
 //                image = CreateToolsCanvas();
 //                color_current = colorShowIn;
 //                image.color = color_current;
             }
+            
 
             List<LerpStruct> lerps = new List<LerpStruct>();
             public struct LerpStruct
@@ -178,7 +168,6 @@ namespace GGTeam.SmartMobileCore
                     this.OnComplete = onComplete;
                 }
             }
-
 
             public void Show(Action OnComplete = null)
             {

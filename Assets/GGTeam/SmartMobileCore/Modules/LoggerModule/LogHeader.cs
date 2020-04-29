@@ -1,4 +1,8 @@
-﻿namespace GGTeam.SmartMobileCore
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+namespace GGTeam.SmartMobileCore
 {
     public sealed class LogHeader
     {
@@ -48,9 +52,6 @@
         {
             RenderLogError("<color=red><b>" + caption + "> </b></color>" + message);
         }
-
-
-
 
         void RenderLogDebug(string mes)
         {
