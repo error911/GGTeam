@@ -34,7 +34,7 @@ namespace GGTools.SmartLocalization
 			//Initialize all your language specific variables here
 
 #pragma warning disable CS0618 // “ип или член устарел
-			GetComponent<GUITexture>().texture = LanguageManager.Instance.GetTexture(localizedKey);
+			// Obsolete GetComponent<GUITexture>().texture = LanguageManager.Instance.GetTexture(localizedKey);
 #pragma warning restore CS0618 // “ип или член устарел
 		}
 	}

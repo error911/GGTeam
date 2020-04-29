@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +42,7 @@ namespace GGTeam.SmartMobileCore
 
 
 
-
+        /*
         public Dictionary<int, bool> SAVED_LEVEL_COMPLETED_LISTQQQ
         {
             get
@@ -57,6 +61,7 @@ Debug.Log("!!!Save> " + s);
                 if (s != null && s.Length > 0) PlayerPrefs.SetString(s_data_level_completed_list, s);
             }
         }
+        */
 
 
         

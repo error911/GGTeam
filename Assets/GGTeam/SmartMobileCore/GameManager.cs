@@ -2,6 +2,7 @@
 // Free license: CC BY Murnik Roman
 // ================================
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,21 +12,52 @@ namespace GGTeam.SmartMobileCore
     {
         [SerializeField] GameConfigSO gameConfig = null;
 
+        /// <summary>
+        /// Конфигурация
+        /// </summary>
         public ConfigHeader Config;
+
+        /// <summary>
+        /// Логирование
+        /// </summary>
         public LogHeader Log;
+
+        /// <summary>
+        /// Сцены
+        /// </summary>
+        //[Obsolete("Будет исключено в будующем")]
         public ScenesHeader Scenes;
+
+        /// <summary>
+        /// Уровни
+        /// </summary>
         public LevelsHeader Levels;
+
+        /// <summary>
+        /// Пользовательский интерфейс
+        /// </summary>
         public UIHeader UI;
+
+        /// <summary>
+        /// Рекламная площадка
+        /// </summary>
         public AdsHeader ADS;
-        IAdsProvider adwareProvider = new IronSourceAdsProvider();
+        IAdsProvider adsProvider = new IronSourceAdsProvider();
 
         internal bool inited = false;
-        public static GameManager api;
+
+        /// <summary>
+        /// Синглтон
+        /// </summary>
+        [Obsolete("Будет исключено в будующем (Используйте Level->Game)")]
+        public static GameManager API;
 
 
         void Awake()
         {
-            api = this;
+            #pragma warning disable CS0618 // Тип или член устарел
+            API = this;
+            #pragma warning restore CS0618 // Тип или член устарел
 
             Prepare();
             Init();
@@ -38,7 +70,7 @@ namespace GGTeam.SmartMobileCore
             Scenes = new ScenesHeader(this);
             Levels = new LevelsHeader(this);
             UI = new UIHeader(this);
-            ADS = new AdsHeader(this, adwareProvider);
+            ADS = new AdsHeader(this, adsProvider);
         }
 
         void Init()
@@ -57,7 +89,7 @@ namespace GGTeam.SmartMobileCore
                     GDRPPolicy created_GDRPPolicy = go.GetComponent<GDRPPolicy>();
                     if (created_GDRPPolicy != null)
                     {
-                        created_GDRPPolicy.Init(Config.main.POLICY_GDRP_TEXT, Config.main.POLICY_CCOPA_TEXT, On_GDRPP_Complete);
+                        created_GDRPPolicy.Init(Config.main.POLICY_GDRP_TEXT_EN, Config.main.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
                     }
                 }
 
@@ -69,7 +101,6 @@ namespace GGTeam.SmartMobileCore
                     go.AddComponent<EventSystem>();
                     go.AddComponent<StandaloneInputModule>();
                 }
-
             }
             else
             {

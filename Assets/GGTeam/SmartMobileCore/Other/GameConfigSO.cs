@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MainConfig", menuName = "SmartMobileCore/GameConfig", order = 1)]
+[CreateAssetMenu(fileName = "MainConfig", menuName = "GGTeam/SmartMobileCore/GameConfig", order = 1)]
 public class GameConfigSO : ScriptableObject
 {
     // ========== POLICY ==========
@@ -10,9 +14,9 @@ public class GameConfigSO : ScriptableObject
 
     public int POLICY_AGE_MIN = 16;
     [TextArea(1,6)]
-    public string POLICY_GDRP_TEXT = "I hereby consent to {company} processing of my personal data to personalize and improve the game and serving targeted advertisements in the game through advertising networks and their partners based on my personal preferences.";
+    public string POLICY_GDRP_TEXT_EN = "I hereby consent to {company} processing of my personal data to personalize and improve the game and serving targeted advertisements in the game through advertising networks and their partners based on my personal preferences.";
     [TextArea(1,6)]
-    public string POLICY_CCOPA_TEXT = "By checking ON the box above, I accept that I`ve read and agreed with Privacy Policy and I accept that my age is older than 16. I understand that I can always withdraw my consent at any time from within Settings in the game.";
+    public string POLICY_CCOPA_TEXT_EN = "By checking ON the box above, I accept that I`ve read and agreed with Privacy Policy and I accept that my age is older than 16. I understand that I can always withdraw my consent at any time from within Settings in the game.";
 
     // ========== LEVEL ==========
 
@@ -38,5 +42,10 @@ public class GameConfigSO : ScriptableObject
     public string ADS_APP_KEY = "b4fa68fd";
     public bool ADS_ENABLE_VIDEO = true;
     public bool ADS_ENABLE_BANNER = false;
+
+    // ========== Publishing ==========
+    [Tooltip("Публикация")]
+    public string MARKET_URL_ANDROID = "";
+    public string MARKET_URL_IOS = "";
 
 }

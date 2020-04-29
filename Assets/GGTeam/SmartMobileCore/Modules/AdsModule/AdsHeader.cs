@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +14,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Отображать рекламу не чаще этого времени
         /// </summary>
-        public int show_time_min_sec = 60;
+        public int show_time_min_sec = 120;
 
         /// <summary>
         /// Начинать показывать рекламу с уровня N
@@ -80,7 +84,6 @@ namespace GGTeam.SmartMobileCore
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 if (!enable_video && !enable_banner) { isInited = true; isEnabled = false; } else isEnabled = true;
-//Debug.Log(isEnabled);
                 this.config.enable_video = enable_video;
                 this.config.enable_banner = enable_banner;
                 isInited = false;
@@ -164,7 +167,7 @@ namespace GGTeam.SmartMobileCore
             IronSource.Agent.displayBanner();
         }
 
-
+#if UNITY_EDITOR
         private void RenderDebugBanner()
         {
             if (!enabledDebugDraw) return;
@@ -190,8 +193,9 @@ namespace GGTeam.SmartMobileCore
             Debug.DrawLine(CToW(new Vector3(pos.x + bw, pos.y - bh, pos.z)), CToW(new Vector3(pos.x, pos.y - bh, pos.z)), c, time);
             Debug.DrawLine(CToW(new Vector3(pos.x, pos.y, pos.z)), CToW(new Vector3(pos.x, pos.y - bh, pos.z)), c, time);
         }
+#endif
 
-        Vector3 CToW(Vector3 pos)
+        private Vector3 CToW(Vector3 pos)
         {
             if (Camera.main != null)
                 return Camera.main.ScreenToWorldPoint(pos);

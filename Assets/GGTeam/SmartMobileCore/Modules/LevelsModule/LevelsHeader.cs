@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +19,6 @@ namespace GGTeam.SmartMobileCore
         [SerializeField]
         public List<LevelData> Data = new List<LevelData>();
     }
-
 
     public sealed class LevelsHeader
     {
@@ -77,10 +80,6 @@ namespace GGTeam.SmartMobileCore
             }
         }
 
-
-
-
-
         // ====================================================
 
         /// <summary>
@@ -113,7 +112,6 @@ namespace GGTeam.SmartMobileCore
             Game.UI.GFX.Show(_OnShowComplete);
             void _OnShowComplete()
             {
-//                _HideUI();  //CurrentNumber
                 ReplaceCurrentLevel(need_num, _AdShow);
 
                 // Реклама - Старт
@@ -227,7 +225,6 @@ namespace GGTeam.SmartMobileCore
             }
 
             string s = JsonUtility.ToJson(progressLevelsData);
-            //Debug.Log("Save> " + progressLevelsData.Data.Count + " / " + s);
             if (s != null && s.Length > 0) PlayerPrefs.SetString(s_data_level_completed_list, s);
         }
 
@@ -247,7 +244,6 @@ namespace GGTeam.SmartMobileCore
             LevelsData tmp = new LevelsData();
             string s = PlayerPrefs.GetString(s_data_level_completed_list, "");
             tmp = JsonUtility.FromJson<LevelsData>(s);
-            //Debug.Log("Load> " + s);
             if (tmp == null) tmp = new LevelsData();
             return tmp;
         }
@@ -304,14 +300,12 @@ namespace GGTeam.SmartMobileCore
         {
             // Скрываем главный интерфейс
             Game.UI.Close(UITypes.ScreenMainMenu, true);
-            //else Game.UI.Open(UITypes.ScreenMainMenu);
 
             // Скрываем окна завершения уровня
             Game.UI.Close(UITypes.ScreenLevelComplete, true);
             Game.UI.Close(UITypes.ScreenLevelFailed, true);
             Game.UI.Close(UITypes.InterfaceInGame, true);
         }
-
 
         // Загрузить уровень (по номеру 1..MaxNumber)
         private void OnlyLoad(int levelNumber, Action OnLoaded = null)
@@ -320,7 +314,6 @@ namespace GGTeam.SmartMobileCore
             void _OnLoadComplete()
             {
                 Game.Log.Debug("Level", "Уровень #" + levelNumber + " загружен.");
-//CurrentNumber = levelNumber;
                 ChangeCurrentNumber(levelNumber);
                 _LevelInit();
                 OnLoaded?.Invoke();
@@ -362,7 +355,6 @@ namespace GGTeam.SmartMobileCore
             return lvl;
         }
 
-
         // Получить список всех уровней из build-settings
         /*
         private List<int> GetAllLevels()
@@ -373,8 +365,6 @@ namespace GGTeam.SmartMobileCore
             return tmp;
         }
         */
-
-
 
         /// <summary>
         /// Получить номер предзагруженного уровеня (EditorMode)
@@ -398,9 +388,6 @@ namespace GGTeam.SmartMobileCore
         // Выгрузить
         private void Unload(int levelNumber, Action OnUnloaded = null)
         {
-            //if (levelNumber >= allList.Count || levelNumber < 1) { Game.Log.Error("Level", "Уровень #" + levelNumber + " не найден."); return; }
-            //int scene_current = allList[levelNumber];
-
             if (!allLevels.Contains(levelNumber) || levelNumber < 1) { Game.Log.Error("Level", "Уровень #" + levelNumber + " не найден."); return; }
             int scene_current = levelNumber;    // allList[levelNumber];
 
@@ -425,7 +412,6 @@ namespace GGTeam.SmartMobileCore
         }
 
         #endregion
-
 
     }
 }

@@ -34,7 +34,7 @@ namespace GGTools.SmartLocalization
 			//Initialize all your language specific variables here
 
 #pragma warning disable CS0618 // Тип или член устарел
-			GetComponent<GUIText>().text = LanguageManager.Instance.GetTextValue(localizedKey);
+			// Obsolete GetComponent<GUIText>().text = LanguageManager.Instance.GetTextValue(localizedKey);
 #pragma warning restore CS0618 // Тип или член устарел
 		}
 	}

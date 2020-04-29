@@ -1,4 +1,8 @@
-﻿using GGTeam.Tools.Tween;
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// ================================
+
+using GGTeam.Tools.Tween;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +22,6 @@ namespace GGTeam.SmartMobileCore
         public TweenType animateTypeClose = TweenType.SoftEaseOutQuint; // Bounce;
         public GameObject content;
         
-
         #region === Публичные ===
 
         /// <summary>
@@ -49,14 +52,12 @@ namespace GGTeam.SmartMobileCore
 
         #endregion
 
-
         #region === Приватные ===
         private float _anim_open_duration = 0.25f;
         private float _anim_close_duration = 0.15f;
         private bool inited = false;
         //private Animator anim;
         #endregion
-
 
         #region === Редактор ===
 #if UNITY_EDITOR
@@ -115,10 +116,10 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public virtual void Open(bool use_animate = true)
         {
-            if (content == null) { _Game.Log.Error("Content GO not found"); return; }
+            if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             opened = !opened;
 
-            Vector3 s_sc = new Vector3(1, 1, 1);// tr.localScale;
+            Vector3 s_sc = new Vector3(1, 1, 1);
 
             content.SetActive(true);
             if (use_animate && animate)
@@ -146,10 +147,10 @@ namespace GGTeam.SmartMobileCore
         public virtual void Close(bool use_animate = true)
         {
             //if (!opened) return;
-            if (content == null) { _Game.Log.Error("Content GO not found"); return; }
+            if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             opened = !opened;
 
-            Vector3 s_sc = new Vector3(1, 1, 1);// tr.localScale;
+            Vector3 s_sc = new Vector3(1, 1, 1);
 
             if (use_animate && animate)
             {
@@ -172,10 +173,6 @@ namespace GGTeam.SmartMobileCore
 
         private async void WaitForInit()
         {
-            //var game = Game;
-
-//if (game == null) game = GameManager.api;
-
             await Task.Run(() =>
             {
                 if (!Game.inited)
@@ -198,7 +195,6 @@ namespace GGTeam.SmartMobileCore
         private IEnumerator SkipFrameAndReg()
         {
             yield return new WaitForEndOfFrame();
-            //GameManager.api.UI.Register(this);
             Game.UI.Register(this);
         }
 
@@ -210,7 +206,7 @@ namespace GGTeam.SmartMobileCore
         void Awake()
         {
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
-//if (anim == null) anim = content.GetComponent<Animator>();
+            //if (anim == null) anim = content.GetComponent<Animator>();
             opened = content.activeSelf;
             if (showOnStart) Open();
             else Close();

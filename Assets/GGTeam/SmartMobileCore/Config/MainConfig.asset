@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   POLICY_ENABLED: 1
   POLICY_AGE_MIN: 16
-  POLICY_GDRP_TEXT: I2 hereby consent to {company} processing of my personal data
+  POLICY_GDRP_TEXT_EN: I hereby consent to {company} processing of my personal data
     to personalize and improve the game and serving targeted advertisements in the
     game through advertising networks and their partners based on my personal preferences.
-  POLICY_CCOPA_TEXT: By checking ON the box above, I accept that I`ve read and agreed
-    with Privacy Policy and I accept that my age is older than 16. I understand that
-    I can always withdraw my consent at any time from within Settings in the game.
+  POLICY_CCOPA_TEXT_EN: By checking ON the box above, I accept that I`ve read and
+    agreed with Privacy Policy and I accept that my age is older than 16. I understand
+    that I can always withdraw my consent at any time from within Settings in the
+    game.
   LEVEL_WAIT_AFTER_LOADING: 0
   LOG_SHOW_DEBUG: 0
   LOG_SHOW_WARNING: 1
@@ -29,3 +30,7 @@ MonoBehaviour:
   DATA_SAVE_PREFIX: GGTeam
   DATA_SAVE_SUFFIX: MobileCore
   ADS_APP_KEY: b4fa68fd
+  ADS_ENABLE_VIDEO: 1
+  ADS_ENABLE_BANNER: 0
+  MARKET_URL_ANDROID: 
+  MARKET_URL_IOS: 
