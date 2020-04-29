@@ -9,7 +9,7 @@ public class GameConfigSO : ScriptableObject
 {
     // ========== POLICY ==========
     [Space(8)]
-    [Header("- POLICY -----------------------------------------------------------------")]
+    [Header("- POLICY (Supported tags:{company},{age}) -----------------------------------------------------------------")]
     public bool POLICY_ENABLED = true;
 
     public int POLICY_AGE_MIN = 16;
