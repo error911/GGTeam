@@ -57,7 +57,7 @@ namespace GGTeam.SmartMobileCore
                     GDRPPolicy created_GDRPPolicy = go.GetComponent<GDRPPolicy>();
                     if (created_GDRPPolicy != null)
                     {
-                        created_GDRPPolicy.Init(Config.main.POLICY_GDRP_TEXT, Config.main.POLICY_CCOPA_TEXT, On_GDRPP_Complete);
+                        created_GDRPPolicy.Init(Config.main.POLICY_GDRP_TEXT_EN, Config.main.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
                     }
                 }
 

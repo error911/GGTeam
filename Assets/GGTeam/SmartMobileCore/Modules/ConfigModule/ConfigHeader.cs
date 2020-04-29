@@ -38,7 +38,7 @@ namespace GGTeam.SmartMobileCore
 
 
 
-
+        /*
         public Dictionary<int, bool> SAVED_LEVEL_COMPLETED_LISTQQQ
         {
             get
@@ -57,6 +57,7 @@ Debug.Log("!!!Save> " + s);
                 if (s != null && s.Length > 0) PlayerPrefs.SetString(s_data_level_completed_list, s);
             }
         }
+        */
 
 
         
