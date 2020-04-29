@@ -41,7 +41,6 @@ namespace GGTeam.SmartMobileCore
 
         public Action<int> OnLevelChanged;
 
-
         private readonly GameManager Game;
         private bool loadingProcess = false;
         private int ended_last_level_num = 0;
@@ -53,80 +52,7 @@ namespace GGTeam.SmartMobileCore
 
         // ====================================================
 
-        private List<int> GetAllLevels()
-        {
-            List<int> tmp = new List<int>();
-            int sceneCount = SceneManager.sceneCountInBuildSettings;
-            for (int i = 0; i < sceneCount; i++) if (i != 0) tmp.Add(i);
-            return tmp;
-        }
-
-        public LevelData ChandeProgress(int lvlNum)
-        {
-            if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
-            return progressLevelsData.Data.Where(x => x.num == lvlNum).SingleOrDefault();
-        }
-
-        private void LevelsProgressSave(int lvlNum = 0, bool completeState = true, int newScore = 0)
-        {
-            if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
-            string s_data_level_completed_list = Game.Config.main.DATA_SAVE_PREFIX + "." + Game.Config.main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
-
-            if (lvlNum > 0)
-            {
-                var findingLvl = progressLevelsData.Data.Where(x => x.num == lvlNum).SingleOrDefault();
-                if (findingLvl == null)
-                {
-                    LevelData d = new LevelData(lvlNum);
-                    d.completed = completeState;
-                    d.score = newScore;
-                    progressLevelsData.Data.Add(d);
-                }
-                else
-                {
-                    findingLvl.completed = completeState;
-                    if (newScore > findingLvl.score) findingLvl.score = newScore;
-                }
-            }
-
-            string s = JsonUtility.ToJson(progressLevelsData);
-//Debug.Log("Save> " + progressLevelsData.Data.Count + " / " + s);
-            if (s != null && s.Length > 0) PlayerPrefs.SetString(s_data_level_completed_list, s);
-        }
-
-        private LevelsData LevelsProgressLoadAll()
-        {
-            string s_data_level_completed_list = Game.Config.main.DATA_SAVE_PREFIX + "." + Game.Config.main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
-
-            progressLevelsLoaded = true;
-            LevelsData tmp = new LevelsData();
-            string s = PlayerPrefs.GetString(s_data_level_completed_list, "");
-            tmp = JsonUtility.FromJson<LevelsData>(s);
-//Debug.Log("Load> " + s);
-            if (tmp == null) tmp = new LevelsData();
-            return tmp;
-        }
-
-
-        // ====================================================
-
-
-
-        // Изменить номер уровня и сохранить предыдущий, как пройденный
-        void ChangeCurrentNumber(int n)
-        {
-            if (Game == null) return;
-            if (n <= 0) return;
-            CurrentNumber = n;
-
-            if (n - 1 >= 0)
-            {
-                ended_last_level_num = n - 1;
-                LevelsProgressSave(ended_last_level_num, true);
-            }
-            Game.Config.SAVED_LEVEL_CURRENT = ended_last_level_num;
-        }
-
+        // Конструктор
         public LevelsHeader(GameManager gameManager)
         {
             this.Game = gameManager;
@@ -134,7 +60,7 @@ namespace GGTeam.SmartMobileCore
 
             CurrentNumber = gameManager.Config.SAVED_LEVEL_CURRENT;
             progressLevelsData = LevelsProgressLoadAll();
-            
+
             if (progressLevelsData.Data.Count == 0 && allLevels.Count > 0)
             {
                 foreach (var item in allLevels)
@@ -153,8 +79,21 @@ namespace GGTeam.SmartMobileCore
         }
 
 
-        
 
+
+
+        // ====================================================
+
+        /// <summary>
+        /// Доступ к данным прогресса уровня
+        /// </summary>
+        /// <param name="lvlNum"></param>
+        /// <returns></returns>
+        public LevelData LevelData(int lvlNum)
+        {
+            if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
+            return progressLevelsData.Data.Where(x => x.num == lvlNum).SingleOrDefault();
+        }
 
         // TODO ===== Вернуть ссылку на класс логики уровня! =====
         /// <summary>
@@ -192,8 +131,8 @@ namespace GGTeam.SmartMobileCore
                     Game.UI.GFX.Hide(_OnHided);
                     void _OnHided()
                     {
-                        if (ChandeProgress(need_num) != null)
-                        { ChandeProgress(need_num).played = true; LevelsProgressSave(); }
+                        if (LevelData(need_num) != null)
+                        { LevelData(need_num).played = true; LevelsProgressSave(); }
 
                         loadingProcess = false;
                         OnLoaded?.Invoke();
@@ -203,11 +142,12 @@ namespace GGTeam.SmartMobileCore
             }
         }
 
-        // TODO ===== Вернуть ссылку на класс логики уровня! =====
+        // TODO ===== Вернуть ссылку на класс логики уровня! (например Action<Level> OnLoaded)=====
         /// <summary>
         /// Загрузить уровень (по номеру 1..MaxNumber)
         /// </summary>
-        /// <param name="levelNumber"></param>
+        /// <param name="levelNumber">номер уровня 1...MaxLevelNum</param>
+        /// <param name="OnLoaded"></param>
         public void Load(int levelNumber, Action OnLoaded = null)
         {
             if (loadingProcess) return;
@@ -264,6 +204,69 @@ namespace GGTeam.SmartMobileCore
 
 
         #region === Приватные методы ===
+
+        private void LevelsProgressSave(int lvlNum = 0, bool completeState = true, int newScore = 0)
+        {
+            if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
+            string s_data_level_completed_list = Game.Config.main.DATA_SAVE_PREFIX + "." + Game.Config.main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+
+            if (lvlNum > 0)
+            {
+                var findingLvl = progressLevelsData.Data.Where(x => x.num == lvlNum).SingleOrDefault();
+                if (findingLvl == null)
+                {
+                    LevelData d = new LevelData(lvlNum);
+                    d.completed = completeState;
+                    d.score = newScore;
+                    progressLevelsData.Data.Add(d);
+                }
+                else
+                {
+                    findingLvl.completed = completeState;
+                    if (newScore > findingLvl.score) findingLvl.score = newScore;
+                }
+            }
+
+            string s = JsonUtility.ToJson(progressLevelsData);
+            //Debug.Log("Save> " + progressLevelsData.Data.Count + " / " + s);
+            if (s != null && s.Length > 0) PlayerPrefs.SetString(s_data_level_completed_list, s);
+        }
+
+        private List<int> GetAllLevels()
+        {
+            List<int> tmp = new List<int>();
+            int sceneCount = SceneManager.sceneCountInBuildSettings;
+            for (int i = 0; i < sceneCount; i++) if (i != 0) tmp.Add(i);
+            return tmp;
+        }
+
+        private LevelsData LevelsProgressLoadAll()
+        {
+            string s_data_level_completed_list = Game.Config.main.DATA_SAVE_PREFIX + "." + Game.Config.main.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+
+            progressLevelsLoaded = true;
+            LevelsData tmp = new LevelsData();
+            string s = PlayerPrefs.GetString(s_data_level_completed_list, "");
+            tmp = JsonUtility.FromJson<LevelsData>(s);
+            //Debug.Log("Load> " + s);
+            if (tmp == null) tmp = new LevelsData();
+            return tmp;
+        }
+
+        // Изменить номер уровня и сохранить предыдущий, как пройденный
+        private void ChangeCurrentNumber(int n)
+        {
+            if (Game == null) return;
+            if (n <= 0) return;
+            CurrentNumber = n;
+
+            if (n - 1 >= 0)
+            {
+                ended_last_level_num = n - 1;
+                LevelsProgressSave(ended_last_level_num, true);
+            }
+            Game.Config.SAVED_LEVEL_CURRENT = ended_last_level_num;
+        }
 
         // Ожидаем загрузки сцены (в редакторе)
         private async void WaitSceneLoad(int predloaded_level)
@@ -372,9 +375,12 @@ namespace GGTeam.SmartMobileCore
         }
         */
 
-        
 
-        // Получить номер предзагруженного уровеня
+
+        /// <summary>
+        /// Получить номер предзагруженного уровеня (EditorMode)
+        /// </summary>
+        /// <returns></returns>
         internal int GetLevelPreloaded()
         {
             List<int> tmp = new List<int>();
