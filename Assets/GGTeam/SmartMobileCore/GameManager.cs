@@ -75,7 +75,7 @@ namespace GGTeam.SmartMobileCore
 
         void Init()
         {
-            if (Config.main.POLICY_ENABLED)
+            if (Config.Current.POLICY_ENABLED)
             {
                 var gdrpPref = Resources.Load<GameObject>("Prefabs/[GDRPPolicy]");
                 if (gdrpPref == null)
@@ -89,7 +89,7 @@ namespace GGTeam.SmartMobileCore
                     GDRPPolicy created_GDRPPolicy = go.GetComponent<GDRPPolicy>();
                     if (created_GDRPPolicy != null)
                     {
-                        created_GDRPPolicy.Init(Config.main.POLICY_GDRP_TEXT_EN, Config.main.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
+                        created_GDRPPolicy.Init(Config.Current.POLICY_GDRP_TEXT_EN, Config.Current.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
                     }
                 }
 
@@ -115,10 +115,10 @@ namespace GGTeam.SmartMobileCore
 
         void Start()
         {
-            if (Config.main.ADS_APP_KEY.Length > 0) ADS.Init(Config.main.ADS_APP_KEY, Config.main.ADS_ENABLE_VIDEO, Config.main.ADS_ENABLE_BANNER);
+            if (Config.Current.ADS_APP_KEY.Length > 0) ADS.Init(Config.Current.ADS_APP_KEY, Config.Current.ADS_ENABLE_VIDEO, Config.Current.ADS_ENABLE_BANNER);
             else ADS.Init("", false, false);
             
-            if (Config.main.HARD_TARGET_FRAMERATE >= 0) Application.targetFrameRate = Config.main.HARD_TARGET_FRAMERATE;
+            if (Config.Current.HARD_TARGET_FRAMERATE >= 0) Application.targetFrameRate = Config.Current.HARD_TARGET_FRAMERATE;
 
             inited = true;
             Log.Info("GameManager", "Started");

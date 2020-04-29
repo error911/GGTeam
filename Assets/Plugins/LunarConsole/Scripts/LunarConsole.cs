@@ -129,11 +129,11 @@ namespace LunarConsolePlugin
         public bool enabled = false;
 
         [SerializeField]
-        [Tooltip("Maximum visible lines count")]
+        [Tooltip("Максимальное количество видимых строк")]  //Maximum visible lines count
         public int maxVisibleLines = 3;
 
         [SerializeField]
-        [Tooltip("The amount of time each line would be diplayed")]
+        [Tooltip("Время, в течение которого будет отображаться каждая строка")]   //The amount of time each line would be diplayed
         public float timeout = 1.0f;
 
         [SerializeField]
@@ -153,20 +153,21 @@ namespace LunarConsolePlugin
         public LogOverlaySettings logOverlay;
 
         [Range(128, 65536)]
-        [Tooltip("Log output will never become bigger than this capacity")]
+        [Tooltip("Выходной журнал никогда не станет больше, чем эта емкость")]   //Log output will never become bigger than this capacity
         [SerializeField]
         public int capacity = 4096;
 
         [Range(128, 65536)]
-        [Tooltip("Log output will be trimmed this many lines when overflown")]
+        [Tooltip("Выход журнала будет обрезан на столько строк при переполнении")]   //Log output will be trimmed this many lines when overflown
         [SerializeField]
         public int trim = 512;
 
-        [Tooltip("Gesture type to open the console")]
+        [Tooltip("Тип жеста, чтобы открыть консоль")]   //Gesture type to open the console
         [SerializeField]
         public Gesture gesture = Gesture.SwipeDown;
 
-        [Tooltip("If checked - removes <color>, <b> and <i> rich text tags from the output (may cause performance overhead)")]
+        //If checked - removes <color>, <b> and <i> rich text tags from the output (may cause performance overhead)
+        [Tooltip("Если проверено - удалить <color>, <b> и <i> теги расширенного текста из вывода (может привести к снижению производительности)")]
         [SerializeField]
         public bool removeRichTextTags;
 
@@ -255,18 +256,18 @@ namespace LunarConsolePlugin
                 {
                     s_instance = this;
                     DontDestroyOnLoad(gameObject);
-                    Log.dev("Instance created...");
+                    Log.dev("Экземпляр создан..."); //Instance created
                 }
                 else
                 {
                     Destroy(gameObject);
-                    Log.dev("Platform not supported. Destroying object...");
+                    Log.dev("Платформа не поддерживается. Уничтожение объекта ...");    //Platform not supported. Destroying object...
                 }
             }
             else if (s_instance != this)
             {
                 Destroy(gameObject);
-                Log.dev("Another instance exists. Destroying object...");
+                Log.dev("Другой экземпляр существует. Уничтожение объекта ...");    // Another instance exists. Destroying object...
             }
         }
 
@@ -275,7 +276,7 @@ namespace LunarConsolePlugin
             if (s_instance != null)
             {
                 bool succeed = InitPlatform(m_settings);
-                Log.dev("Platform initialized successfully: {0}", succeed.ToString());
+                Log.dev("Платформа успешно инициализирована: {0}", succeed.ToString());   //Platform initialized successfully
             }
         }
 
@@ -284,7 +285,7 @@ namespace LunarConsolePlugin
             if (s_instance != null)
             {
                 bool succeed = DestroyPlatform();
-                Log.dev("Platform destroyed successfully: {0}", succeed.ToString());
+                Log.dev("Платформа успешно уничтожена: {0}", succeed.ToString());    //Platform destroyed successfully
             }
         }
 
@@ -330,7 +331,7 @@ namespace LunarConsolePlugin
             }
             catch (Exception e)
             {
-                Log.e(e, "Can't init platform");
+                Log.e(e, "Не могу инициализировать платформу");   //Can't init platform
             }
 
             return false;
@@ -412,7 +413,7 @@ namespace LunarConsolePlugin
             {   
                 foreach (var assembly in ListAssemblies())
                 {
-                    Log.dev("Checking '{0}'...", assembly);
+                    Log.dev("Проверка '{0}'...", assembly); //Checking
 
                     try
                     {
@@ -424,13 +425,13 @@ namespace LunarConsolePlugin
                     }
                     catch (Exception e)
                     {
-                        Log.e(e, "Unable to register variables from assembly: {0}", assembly);
+                        Log.e(e, "Невозможно зарегистрировать переменные из сборки: {0}", assembly);    //Unable to register variables from assembly
                     }
                 }
             }
             catch (Exception e)
             {
-                Log.e(e, "Unable to register variables");
+                Log.e(e, "Невозможно зарегистрировать переменные");   //Unable to register variables
             }
         }
 
@@ -482,7 +483,7 @@ namespace LunarConsolePlugin
                             }
                             else
                             {
-                                Log.w("'{0}' attribute is only available with 'float' variables", typeof(CVarRangeAttribute).Name);
+                                Log.w("'{0}' атрибут доступен только с 'float' переменными", typeof(CVarRangeAttribute).Name); //attribute is only available with 'float' variables
                             }
                         }
 
@@ -492,7 +493,7 @@ namespace LunarConsolePlugin
             }
             catch (Exception e)
             {
-                Log.e(e, "Unable to initialize cvar container: {0}", type);
+                Log.e(e, "Невозможно инициализировать контейнер cvar: {0}", type); //Unable to initialize cvar container
             }
         }
 
@@ -510,7 +511,7 @@ namespace LunarConsolePlugin
                         var max = rangeAttribute.max;
                         if (max - min < 0.00001f)
                         {
-                            Log.w("Invalid range [{0}, {1}] for variable '{2}'", min.ToString(), max.ToString(), field.Name);
+                            Log.w("Неверный диапазон [{0}, {1}] для переменной '{2}'", min.ToString(), max.ToString(), field.Name);   //Invalid range [{0}, {1}] for variable '{2}'
                             return CVarValueRange.Undefined;
                         }
 
@@ -520,7 +521,7 @@ namespace LunarConsolePlugin
             }
             catch (Exception e)
             {
-                Log.e(e, "Exception while resolving variable's range: {0}", field.Name);
+                Log.e(e, "Исключение при разрешении диапазона переменных: {0}", field.Name);    //Exception while resolving variable's range
             }
 
             return CVarValueRange.Undefined;
@@ -533,7 +534,7 @@ namespace LunarConsolePlugin
                 var configPath = Path.Combine(Application.persistentDataPath, "lunar-mobile-console-variables.bin");
                 if (File.Exists(configPath))
                 {
-                    Log.dev("Loading variables from file {0}", configPath);
+                    Log.dev("Загрузка переменных из файла {0}", configPath);    //Loading variables from file
                     using (var stream = File.OpenRead(configPath))
                     {
                         using (var reader = new BinaryReader(stream))
