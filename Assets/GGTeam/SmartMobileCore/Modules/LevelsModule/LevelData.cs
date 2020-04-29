@@ -16,7 +16,12 @@ public class LevelData : DataModel
     /// Максимально набранные очки
     /// </summary>
     [SerializeField] public int score = 0;
-    
+
+    /// <summary>
+    /// Полученные звезды (желательно 0..3 с шагом 0.5f)
+    /// </summary>
+    [SerializeField] public float stars = 0;
+
     /// <summary>
     /// Пройден
     /// </summary>
