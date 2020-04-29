@@ -7,24 +7,17 @@ using UnityEngine.UI;
 
 public class LevelSelectWindow : UIScreen
 {
-    [SerializeField] GameObject CellPref;
-    [SerializeField] Transform CellContainer;
-    [SerializeField] Text lvlNum = null;
+    [SerializeField] GameObject CellPref = null;
+    [SerializeField] Transform CellContainer = null;
 
     public override void OnInit()
     {
         CellPref.SetActive(false);
 
-        Debug.Log("!"+Game.Levels.Count);
-
-
         for (int i = 1; i <= Game.Levels.Count; i++)
         //for (int i = Game.Levels.Count; i >= 1; i--)
         {
             var data = Game.Levels.LevelData(i);
-            Debug.Log(i);
-
-
             GameObject go = Instantiate(CellPref, CellContainer);
             go.SetActive(true);
             Transform normalTr = go.transform.Find("Normal");
@@ -62,7 +55,6 @@ public class LevelSelectWindow : UIScreen
                 }
                 else
                 {
-                    //star1.fillAmount = data.stars;
                     star2.fillAmount = data.stars - 1;
                     star3.fillAmount = 0;
                     continue;
@@ -76,15 +68,9 @@ public class LevelSelectWindow : UIScreen
                 }
                 else
                 {
-                    //star1.fillAmount = data.stars;
-                    //star2.fillAmount = data.stars - 1;
                     star3.fillAmount = data.stars - 2;
                     continue;
                 }
-
-
-
-
             }
             else
             {
@@ -133,6 +119,6 @@ public class LevelSelectWindow : UIScreen
 
     public override void OnOpen()
     {
-        lvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
+        //lvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
     }
 }
