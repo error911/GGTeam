@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0d69773cf4abe4e879f359c7f2b163, type: 3}
+  m_Name: MainConfig
+  m_EditorClassIdentifier: 
+  POLICY_ENABLED: 1
+  POLICY_AGE_MIN: 16
+  POLICY_GDRP_TEXT: I2 hereby consent to {company} processing of my personal data
+    to personalize and improve the game and serving targeted advertisements in the
+    game through advertising networks and their partners based on my personal preferences.
+  POLICY_CCOPA_TEXT: By checking ON the box above, I accept that I`ve read and agreed
+    with Privacy Policy and I accept that my age is older than 16. I understand that
+    I can always withdraw my consent at any time from within Settings in the game.
+  LEVEL_WAIT_AFTER_LOADING: 0
+  LOG_SHOW_DEBUG: 0
+  LOG_SHOW_WARNING: 1
+  LOG_SHOW_ERROR: 1
+  LOG_SHOW_INFO: 0
+  HARD_TARGET_FRAMERATE: 60
+  DATA_SAVE_PREFIX: GGTeam
+  DATA_SAVE_SUFFIX: MobileCore
+  ADS_APP_KEY: b4fa68fd
