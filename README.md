@@ -17,16 +17,23 @@ ____
 
  ## Структура проекта (ИДЕТ ПРОЦЕСС ФОРМИРОВАНИЯ)    
 
-- GameManager
-	- Config
-	- UI
-	    - UIScreen
-			- UserUI : UIScreen
-	- Levels
-    - Scenes
-- DataModel
-	- UserDataModel : DataModel
+- Assets
+	- Game
+		- Code		*//Пользовательские скрипты*
+		- Scenes	*//Сцены*
+			- Levels
+				Level_01 : Scene
+				Level_02 : Scene
+				Level_XX : Scene
+			MainScene : Scene
+		- MainConfig	*//Файл конфигурации*
+		- Data		*//Сохраняемые данные*
+			- UserDataModel : DataModel
 
+	- GGTeam	*//Мобильный движок*
+	- IronSource	*//Рекламный движок*
+	- Plugins
+- Packages
 
  ## Структура BuildSettings scenes
   - 0 Главная сцена
