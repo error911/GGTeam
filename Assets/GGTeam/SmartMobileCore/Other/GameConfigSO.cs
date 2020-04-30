@@ -55,6 +55,10 @@ public class GameConfigSO : ScriptableObject
     public string ADS_APP_KEY = "b4fa68fd";
     public bool ADS_ENABLE_VIDEO = true;
     public bool ADS_ENABLE_BANNER = false;
+    [Tooltip("Начинать показывать рекламу с уровня N")]
+    public int ADS_START_VIDEO_FROM_LEVEL = 3;
+    [Tooltip("Отображать рекламу не чаще этого времени")]
+    public int ADS_SHOW_TIME_MIN_SEC = 120;
 
     // ========== Publishing ==========
     [Space(8)]

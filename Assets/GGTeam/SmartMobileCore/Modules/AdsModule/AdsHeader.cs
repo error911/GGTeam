@@ -12,20 +12,9 @@ namespace GGTeam.SmartMobileCore
     public class AdsHeader
     {
         /// <summary>
-        /// Отображать рекламу не чаще этого времени
-        /// </summary>
-        public int show_time_min_sec = 120;
-
-        /// <summary>
-        /// Начинать показывать рекламу с уровня N
-        /// </summary>
-        public int show_start_level = 3;
-        
-        /// <summary>
         /// Отображать после каждого уровня
         /// </summary>
         public bool show_each_level = true;
-
 
         public bool ADS_ENABLED { get; private set; } = false;
         public Config config;
@@ -67,6 +56,15 @@ namespace GGTeam.SmartMobileCore
             public BannerSizes bannerSizes = BannerSizes.SMART;
             public bool enable_video = true;   // Включить видео рекламу
             public bool enable_banner = true;  // Включить баннеры
+            /// <summary>
+            /// Начинать показывать рекламу с уровня N
+            /// </summary>
+            public int show_video_start_level = 3;
+
+            /// <summary>
+            /// Отображать рекламу не чаще этого времени
+            /// </summary>
+            public int show_time_min_sec = 120;
         }
 
         public void AcceptPolicy(bool ok)
@@ -77,7 +75,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Инициализация
         /// </summary>
-        public void Init(string APP_KEY, bool enable_video, bool enable_banner)
+        public void Init(string APP_KEY, bool enable_video, bool enable_banner, int show_video_start_level, int show_time_min_sec)
         {
             if (enable_video || enable_banner) enabledDebugDraw = true;
 
@@ -86,6 +84,8 @@ namespace GGTeam.SmartMobileCore
                 if (!enable_video && !enable_banner) { isInited = true; isEnabled = false; } else isEnabled = true;
                 this.config.enable_video = enable_video;
                 this.config.enable_banner = enable_banner;
+                this.config.show_video_start_level = show_video_start_level;
+                this.config.show_time_min_sec = show_time_min_sec;
                 isInited = false;
                 if (isEnabled)
                 {
@@ -105,9 +105,9 @@ namespace GGTeam.SmartMobileCore
             if (!isEnabled) { OnComplete?.Invoke(false); return; }
             if (!isInited) { Game.Log.Warning("Adv", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnComplete?.Invoke(false); return; }
 
-            if (levelNum >= show_start_level && Game.ADS != null && Game.ADS.isEnabled)
+            if (levelNum >= config.show_video_start_level && Game.ADS != null && Game.ADS.isEnabled)
             {
-                if (Game.ADS.last_show_sec > show_time_min_sec)
+                if (Game.ADS.last_show_sec > config.show_time_min_sec)
                 {
                     adwareProvider.Show(levelNum, OnEndShow);
                 }
