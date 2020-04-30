@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gameplay : Level
+public class MyGameplay : Level
 {
     public override void OnLevelComplete(int score)
     {

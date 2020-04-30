@@ -20,7 +20,7 @@ public class GameConfigSO : ScriptableObject
 
     [Tooltip("Supported tags {company}, {age}")]
     [TextArea(1,6)]
-    public string POLICY_CCOPA_TEXT_EN = "By checking ON the box above, I accept that I`ve read and agreed with Privacy Policy and I accept that my age is older than 16. I understand that I can always withdraw my consent at any time from within Settings in the game.";
+    public string POLICY_CCOPA_TEXT_EN = "By checking ON the box above, I accept that I`ve read and agreed with Privacy Policy and I accept that my age is older than {age}. I understand that I can always withdraw my consent at any time from within Settings in the game.";
 
     // ========== LEVEL ==========
     [Space(8)]

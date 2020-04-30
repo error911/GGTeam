@@ -40,7 +40,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Максимальный уровень
         /// </summary>
-        public int MaxNumber => Count - 1;
+        public int MaxNumber => Count - 0;
 
         public Action<int> OnLevelChanged;
 
@@ -350,7 +350,7 @@ namespace GGTeam.SmartMobileCore
                 go.transform.position = Vector3.zero;
                 go.transform.rotation = Quaternion.identity;
                 go.transform.SetSiblingIndex(0);
-                lvl = go.AddComponent<Gameplay>();
+                lvl = go.AddComponent<SimpleGameplay>();
             }
             return lvl;
         }
