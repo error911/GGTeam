@@ -27,8 +27,8 @@ ____
 				- Level_XX : Scene
 			- MainScene : Scene
 		- MainConfig	*//Файл конфигурации*
-		- Data		*//Сохраняемые данные*
-			- UserDataModel : DataModel
+		- Data
+			- UserDataModel : DataModel	*//Сохраняемые данные*
 
 	- GGTeam	*//Мобильный движок*
 	- IronSource	*//Рекламный движок*
