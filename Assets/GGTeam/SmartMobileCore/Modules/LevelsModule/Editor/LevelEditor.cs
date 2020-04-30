@@ -31,9 +31,12 @@ public class LevelEditor : Editor
         var d_score = _Data.FindPropertyRelative("score").intValue;
         var d_stars = _Data.FindPropertyRelative("stars").floatValue;
 
+        //EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("- Логика уровня --------------------------------------------------------------------");
         EditorGUILayout.LabelField("Уровень: " + d_num + " / " + "Очки: " + d_score + " / " + "Звезды: " + d_stars);
         EditorGUILayout.LabelField("------------------------------------------------------------------------------------");
+        //EditorGUILayout.EndVertical();
+
 
         //EditorGUILayout.PropertyField(m);
         serializedObject.ApplyModifiedProperties();
