@@ -29,7 +29,13 @@ ____
 		- MainConfig	*//Файл конфигурации*
 		- Data
 			- UserDataModel : DataModel	*//Сохраняемые данные*
-
+		- Resources
+			- Atlases
+			- Materials
+			- Models
+			- Prefabs
+			- Sounds
+			- Textures
 	- GGTeam	*//Мобильный движок*
 	- IronSource	*//Рекламный движок*
 	- Plugins
