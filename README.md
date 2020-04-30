@@ -22,10 +22,10 @@ ____
 		- Code		*//Пользовательские скрипты*
 		- Scenes	*//Сцены*
 			- Levels
-				Level_01 : Scene
-				Level_02 : Scene
-				Level_XX : Scene
-			MainScene : Scene
+				- Level_01 : Scene
+				- Level_02 : Scene
+				- Level_XX : Scene
+			- MainScene : Scene
 		- MainConfig	*//Файл конфигурации*
 		- Data		*//Сохраняемые данные*
 			- UserDataModel : DataModel
