@@ -16,8 +16,8 @@ namespace GGTeam.SmartMobileCore
         /// Текущий номер уровеня
         /// </summary>
         public int CurrentNumber { get; private set; } = 0;
-
-        public LevelData Data;
+        public LevelData Data { get { return _Data; } set { _Data = value; } }
+        [HideInInspector] [SerializeField] LevelData _Data;
 
         public GameManager Game
         {
@@ -36,7 +36,7 @@ namespace GGTeam.SmartMobileCore
             CurrentNumber = levelNumber;
             _Game = gameManager;
 
-            Data = new LevelData(levelNumber);
+            _Data = new LevelData(levelNumber);
 
             StartCoroutine(SkipFrame(OnOk));
             void OnOk()
@@ -116,5 +116,7 @@ namespace GGTeam.SmartMobileCore
             Game.Levels.LoadCurrent();
         }
     }
+
+    
 
 }

@@ -1058,9 +1058,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d999ae095723a47b9121d10a8e417a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data:
+  _Data:
     num: 0
     score: 0
+    stars: 0
     completed: 0
     played: 0
 --- !u!4 &2001608654
