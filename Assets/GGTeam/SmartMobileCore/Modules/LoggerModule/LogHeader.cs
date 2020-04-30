@@ -6,7 +6,7 @@ namespace GGTeam.SmartMobileCore
 {
     public sealed class LogHeader
     {
-        private GameManager Game;
+        private readonly GameManager Game;
 
         public LogHeader(GameManager gameManager)
         {
