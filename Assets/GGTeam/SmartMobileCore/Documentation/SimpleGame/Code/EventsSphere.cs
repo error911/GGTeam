@@ -7,11 +7,11 @@ public class EventsSphere : MonoBehaviour
 {
     //public UnityEvent act;
     public bool Complete = false;
-    LevelLogic level;
+    Gameplay level;
 
     private void Awake()
     {
-        level = FindObjectOfType<LevelLogic>();
+        level = FindObjectOfType<Gameplay>();
     }
 
     private void OnMouseDown()
