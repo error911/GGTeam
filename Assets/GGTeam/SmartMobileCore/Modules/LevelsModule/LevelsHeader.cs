@@ -332,8 +332,8 @@ namespace GGTeam.SmartMobileCore
             if (!ok) return;
             */
 
-            var gm = GameObject.FindObjectOfType<GameManager>();
-            if (gm != null) return;
+//1            var gm = GameObject.FindObjectOfType<GameManager>();
+//1            if (gm != null) return;
 
             Level lvl = _FindLevelObject();
             lvl.Init(Game, CurrentNumber);
