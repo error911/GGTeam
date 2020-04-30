@@ -9,11 +9,10 @@ using UnityEngine;
 
 namespace GGTeam.SmartMobileCore
 {
-
     [Serializable]
     public abstract class DataModel
     {
-        private string filename = "";
+        private readonly string filename = "";
         const string filePrefix = "GGTeam.SmartMobileCore.DataModel.";
 
         /// <summary>
@@ -61,7 +60,6 @@ namespace GGTeam.SmartMobileCore
         {
             return _Load(filename);
         }
-
 
         private bool _Load(string _filename)
         {
