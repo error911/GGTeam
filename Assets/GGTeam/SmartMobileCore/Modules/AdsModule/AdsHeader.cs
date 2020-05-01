@@ -78,7 +78,6 @@ namespace GGTeam.SmartMobileCore
         public void Init(string APP_KEY, bool enable_video, bool enable_banner, int show_video_start_level, int show_time_min_sec)
         {
             if (enable_video || enable_banner) enabledDebugDraw = true;
-
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 if (!enable_video && !enable_banner) { isInited = true; isEnabled = false; } else isEnabled = true;

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace GGTeam.SmartMobileCore
 {
-    public class Gameplay : Level
+    public class SimpleGameplay : Level
     {
         public void Awake()
         {

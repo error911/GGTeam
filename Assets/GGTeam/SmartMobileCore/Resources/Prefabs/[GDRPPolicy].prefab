@@ -428,8 +428,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "By checking ON the box above, I accept that I`\x19ve read and agreed with
-    Privacy Policy and I accept that my age is older than 16. I understand that I
-    can always withdraw my consent at any time from within Settings in the game."
+    Privacy Policy and I accept that my age is older than {age}. I understand that
+    I can always withdraw my consent at any time from within Settings in the game."
 --- !u!1 &4259556861424086107
 GameObject:
   m_ObjectHideFlags: 0

@@ -324,7 +324,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -518,11 +518,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914856913}
     m_Modifications:
-    - target: {fileID: 4119483864333122142, guid: 421e3930d152db94786d6b01ea14340c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4119483865553511941, guid: 421e3930d152db94786d6b01ea14340c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -880,16 +875,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914856913}
     m_Modifications:
-    - target: {fileID: 5785678628006966690, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785678628036784089, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
-        type: 3}
-      propertyPath: animateQ
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5785678628036784090, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
         type: 3}
       propertyPath: m_LocalPosition.x
