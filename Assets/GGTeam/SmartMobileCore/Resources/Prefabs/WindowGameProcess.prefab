@@ -496,5 +496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiType: 1
   showOnStart: 0
+  animate: 0
+  animateTypeOpen: 14
+  animateTypeClose: 14
   content: {fileID: 5785678628006966690}
   lvlNumLext: {fileID: 5785678628032199399}
