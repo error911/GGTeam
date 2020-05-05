@@ -202,7 +202,7 @@ namespace GGTeam.SmartMobileCore
 
         #region === Приватные методы ===
 
-        private void LevelsProgressSave(int lvlNum = 0, bool completeState = true, int newScore = 0)
+        private void LevelsProgressSave(int lvlNum = 0, bool completeState = true, int newScore = 0, float newStars = 0)
         {
             if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
             string s_data_level_completed_list = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
@@ -215,12 +215,14 @@ namespace GGTeam.SmartMobileCore
                     LevelData d = new LevelData(lvlNum);
                     d.completed = completeState;
                     d.score = newScore;
+                    d.stars = newStars;
                     progressLevelsData.Data.Add(d);
                 }
                 else
                 {
                     findingLvl.completed = completeState;
                     if (newScore > findingLvl.score) findingLvl.score = newScore;
+                    if (newStars > findingLvl.stars) findingLvl.stars = newStars;
                 }
             }
 
