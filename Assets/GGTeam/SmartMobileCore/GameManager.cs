@@ -31,7 +31,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Уровни
         /// </summary>
-        public LevelsHeader Levels;
+        [SerializeField] public LevelsHeader Levels;
 
         /// <summary>
         /// Пользовательский интерфейс

@@ -70,7 +70,8 @@ namespace GGTeam.SmartMobileCore
         /// Уровень пройден
         /// </summary>
         /// <param name="score">набранные очки</param>
-        public abstract void OnLevelComplete(int score);
+        /// <param name="stars">полученные звезды (0-3 с шагом 0.5)</param>
+        public abstract void OnLevelComplete(int score, float stars);
 
         /// <summary>
         /// Уровень провален
@@ -81,15 +82,18 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Завершить уровень
         /// </summary>
-        /// <param name="score"></param>
-        public void LevelComplete(int score = 0)
+        /// <param name="score">набранные очки</param>
+        /// <param name="stars">полученные звезды (0-3 с шагом 0.5)</param>
+        public void LevelComplete(int score = 0, float stars = 0)
         {
             if (Game == null) return;
             if (Game.UI == null) return;
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelComplete);
-            OnLevelComplete(score);
+if (Data.score < score) Data.score = score;
+if (Data.stars < stars) Data.stars = stars;
+            OnLevelComplete(score, stars);
         }
 
         /// <summary>
@@ -103,6 +107,7 @@ namespace GGTeam.SmartMobileCore
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelFailed);
+if (Data.score < score) Data.score = score;
             OnLevelFailed(score);
         }
 

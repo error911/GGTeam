@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class UnsupportedPlatformAgent : IronSourceIAgent
 {
-	string mes = "ADS> Неподдерживаемая платформа. Выполните Build Settings -> Switch Platform на ANDROID, IPHONE или IOS";    //Unsupported Platform
+	string mes = "ADS> Неподдерживаемая платформа. Перед сборкой, выполните Build Settings -> Switch Platform на ANDROID, IPHONE или IOS";    //Unsupported Platform
 	public UnsupportedPlatformAgent ()
 	{
 		Debug.Log (mes);
