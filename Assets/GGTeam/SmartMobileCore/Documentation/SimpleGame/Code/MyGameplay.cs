@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MyGameplay : Level
 {
-    public override void OnLevelComplete(int score, float stars)
+    public override void OnLevelComplete(int score, float stars) 
     {
         Debug.Log("OnLevelComplete");
     }
@@ -23,7 +23,6 @@ public class MyGameplay : Level
     void Start()
     {
         Debug.Log("Start " + CurrentNumber);
-            
     }
 
 

@@ -1,4 +1,8 @@
-﻿using GGTeam.SmartMobileCore;
+﻿// ====================================
+// Simple UI Window for SmartMobileCore
+// ====================================
+
+using GGTeam.SmartMobileCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;

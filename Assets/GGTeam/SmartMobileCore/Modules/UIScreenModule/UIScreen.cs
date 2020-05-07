@@ -205,6 +205,9 @@ namespace GGTeam.SmartMobileCore
 
         void Awake()
         {
+            // Ожидаем инициализации ядра
+            if (!Game.inited) { Invoke("Awake", 0.25f); return; }
+
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
             //if (anim == null) anim = content.GetComponent<Animator>();
             opened = content.activeSelf;

@@ -43,6 +43,7 @@ namespace GGTeam.SmartMobileCore
         public int MaxNumber => Count - 0;
 
         public Action<int> OnLevelChanged;
+        public Action<int> OnScoreChanged;
 
         private readonly GameManager Game;
         private bool loadingProcess = false;
@@ -107,18 +108,15 @@ namespace GGTeam.SmartMobileCore
             loadingProcess = true;
 
             _HideUI();
-            Debug.Log("=0=");
             Game.ADS.HideBanner();
             Game.UI.GFX.Show(_OnShowComplete);
             void _OnShowComplete()
             {
-                Debug.Log("=1=");
                 ReplaceCurrentLevel(need_num, _AdShow);
 
                 // Реклама - Старт
                 void _AdShow()
                 {
-                    Debug.Log("=2=");
                     Game.ADS.Show(CurrentNumber, _AdsEnd);
                     Game.ADS.ShowBanner();
                 }

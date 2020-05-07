@@ -1,4 +1,8 @@
-﻿using GGTeam.SmartMobileCore;
+﻿// ====================================
+// Simple UI Window for SmartMobileCore
+// ====================================
+
+using GGTeam.SmartMobileCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +11,8 @@ using UnityEngine.UI;
 
 public class GameProcessWindow : UIScreen
 {
-    public Text lvlNumLext;
+    public Text textLvlValue;
+    public Text textScoreValue;
 
     public void OnBtnRestart()
     {
@@ -16,19 +21,24 @@ public class GameProcessWindow : UIScreen
 
     public override void OnOpen()
     {
-        lvlNumLext.text = "LEVEL " + Game.Levels.CurrentNumber;
+        textLvlValue.text = Game.Levels.CurrentNumber.ToString();
+        textScoreValue.text = Game.Levels.Current.Data.score.ToString();
+        Game.Levels.OnScoreChanged += ScoreChange;
     }
 
     public override void OnClose()
     {
-        
+        Game.Levels.OnScoreChanged -= ScoreChange;
     }
 
     public override void OnInit()
     {
-        //Debug.LogError(Game.Levels.CurrentNumber + " OnInit");
-        //if (Game == null) Debug.LogError("1");
-        //if (Game.Levels == null) Debug.LogError("2");
-        //        Game.Levels.OnLevelChanged += OnLevelChange;
+        textLvlValue.text = "-";
+        textScoreValue.text = "-";
+    }
+
+    void ScoreChange(int score)
+    {
+        textScoreValue.text = score.ToString();
     }
 }
