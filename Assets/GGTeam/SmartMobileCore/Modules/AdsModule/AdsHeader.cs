@@ -103,7 +103,7 @@ namespace GGTeam.SmartMobileCore
         {
             if (!IsEnabled) { OnComplete?.Invoke(false); return; }
             if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnComplete?.Invoke(false); return; }
-            if (levelNum >= config.show_video_start_level && Game.ADS != null && Game.ADS.IsEnabled)
+            if (levelNum > config.show_video_start_level && Game.ADS != null && Game.ADS.IsEnabled)
             {
                 if (Game.ADS.Last_show_sec > config.show_time_min_sec)
                 {
