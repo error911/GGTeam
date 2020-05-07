@@ -14,18 +14,18 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Отображать после каждого уровня
         /// </summary>
-        public bool show_each_level = true;
-
+        public bool Show_each_level { get; private set; } = true;
         public bool ADS_ENABLED { get; private set; } = false;
-        public Config config;
-        private GameManager Game;
-        private IAdsProvider adwareProvider;
-        public bool isInited { get; private set; } = false;
-        public bool isEnabled { get; private set; } = false;
-        public bool enabledDebugDraw { get; private set; } = false;
+        public bool IsInited { get; private set; } = false;
+        public bool IsEnabled { get; private set; } = false;
+        public bool EnabledDebugDraw { get; private set; } = false;
+
+        private readonly Config config;
+        private readonly GameManager Game;
+        private readonly IAdsProvider adwareProvider;
 
         // Сколько секунд назад успешно отобразилась реклама (нативная)
-        public int last_show_sec
+        public int Last_show_sec
         {
             get
             {
@@ -59,7 +59,7 @@ namespace GGTeam.SmartMobileCore
             /// <summary>
             /// Начинать показывать рекламу с уровня N
             /// </summary>
-            public int show_video_start_level = 3;
+            public int show_video_start_level = 4;
 
             /// <summary>
             /// Отображать рекламу не чаще этого времени
@@ -77,19 +77,19 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public void Init(string APP_KEY, bool enable_video, bool enable_banner, int show_video_start_level, int show_time_min_sec)
         {
-            if (enable_video || enable_banner) enabledDebugDraw = true;
+            if (enable_video || enable_banner) EnabledDebugDraw = true;
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                if (!enable_video && !enable_banner) { isInited = true; isEnabled = false; } else isEnabled = true;
+                if (!enable_video && !enable_banner) { IsInited = true; IsEnabled = false; } else IsEnabled = true;
                 this.config.enable_video = enable_video;
                 this.config.enable_banner = enable_banner;
                 this.config.show_video_start_level = show_video_start_level;
                 this.config.show_time_min_sec = show_time_min_sec;
-                isInited = false;
-                if (isEnabled)
+                IsInited = false;
+                if (IsEnabled)
                 {
-                    isInited = adwareProvider.Init(APP_KEY, enable_video, enable_banner);
-                    if (!isInited) Game.Log.Warning("Adv", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]");
+                    IsInited = adwareProvider.Init(APP_KEY, enable_video, enable_banner);
+                    if (!IsInited) Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]");
                 }
             }
         }
@@ -101,18 +101,17 @@ namespace GGTeam.SmartMobileCore
         /// <param name="OnComplete">При завершении показа</param>
         public void Show(int levelNum, Action<bool> OnComplete)
         {
-            if (!isEnabled) { OnComplete?.Invoke(false); return; }
-            if (!isInited) { Game.Log.Warning("Adv", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnComplete?.Invoke(false); return; }
-
-            if (levelNum >= config.show_video_start_level && Game.ADS != null && Game.ADS.isEnabled)
+            if (!IsEnabled) { OnComplete?.Invoke(false); return; }
+            if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnComplete?.Invoke(false); return; }
+            if (levelNum >= config.show_video_start_level && Game.ADS != null && Game.ADS.IsEnabled)
             {
-                if (Game.ADS.last_show_sec > config.show_time_min_sec)
+                if (Game.ADS.Last_show_sec > config.show_time_min_sec)
                 {
                     adwareProvider.Show(levelNum, OnEndShow);
                 }
                 else
                 {
-                    if (show_each_level)
+                    if (Show_each_level)
                     {
                         adwareProvider.Show(levelNum, OnEndShow);
                     }
@@ -135,14 +134,14 @@ namespace GGTeam.SmartMobileCore
         /// <param name="OnCansel"></param>
         public void ShowRewarded(Action OnSuccess, Action OnCansel)
         {
-            if (!isEnabled) { OnSuccess?.Invoke(); return; }
-            if (!isInited) { Game.Log.Warning("Adv", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnCansel?.Invoke(); return; }
+            if (!IsEnabled) { OnSuccess?.Invoke(); return; }
+            if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnCansel?.Invoke(); return; }
             adwareProvider.ShowRewarded(OnSuccess, OnCansel);
         }
 
         public void HideBanner()
         {
-            if (!isEnabled) return;
+            if (!IsEnabled) return;
             if (!config.enable_banner) return;
             IronSource.Agent.hideBanner();
         }
@@ -152,9 +151,8 @@ namespace GGTeam.SmartMobileCore
 #if UNITY_EDITOR
             RenderDebugBanner();
 #endif
-
             //IronSource.Agent.displayBanner();// BannerLayout banner = IronSource.createBanner(Activity, new ISBannerSize(320, 50));
-            if (!isEnabled) return;
+            if (!IsEnabled) return;
             if (!config.enable_banner) return;
 
             IronSourceBannerSize _bannerSize = IronSourceBannerSize.BANNER;
@@ -169,7 +167,7 @@ namespace GGTeam.SmartMobileCore
 #if UNITY_EDITOR
         private void RenderDebugBanner()
         {
-            if (!enabledDebugDraw) return;
+            if (!EnabledDebugDraw) return;
             int SW = Screen.width;
             float time = 30.0f;
             float bw = 728;

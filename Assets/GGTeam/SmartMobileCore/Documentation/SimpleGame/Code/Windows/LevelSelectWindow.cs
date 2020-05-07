@@ -7,10 +7,18 @@ using UnityEngine.UI;
 
 public class LevelSelectWindow : UIScreen
 {
-    [SerializeField] GameObject CellPref = null;
-    [SerializeField] Transform CellContainer = null;
-
+    public GameObject CellPref = null;
+    public Transform CellContainer = null;
+    bool initedQ = false;
     public override void OnInit()
+    {
+        
+        
+        
+    }
+
+
+    void _Init()
     {
         CellPref.SetActive(false);
 
@@ -47,7 +55,7 @@ public class LevelSelectWindow : UIScreen
                     star3.fillAmount = 0;
                     continue;
                 }
-                
+
                 if (data.stars > 2)
                 {
                     star1.fillAmount = 1;
@@ -88,8 +96,7 @@ public class LevelSelectWindow : UIScreen
             */
 
         }
-        
-        
+        initedQ = true;
     }
 
     public void StartLevel(int i)
@@ -119,6 +126,7 @@ public class LevelSelectWindow : UIScreen
 
     public override void OnOpen()
     {
+        if (!initedQ) _Init();
         //lvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
     }
 }

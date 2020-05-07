@@ -23,7 +23,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GGTeam/SmartMobileCore/Documentation/SimpleGame/Scenes/Levels/test_5.unity
     guid: 92aa9ae8f28f19549b463f1eab4ca978
-  - enabled: 1
-    path: Assets/GGTeam/SmartMobileCore/Documentation/SimpleGame/Scenes/Levels/test_6.unity
-    guid: 98d621579189afd4d8faf886ba56cbb2
   m_configObjects: {}

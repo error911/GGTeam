@@ -42,7 +42,7 @@ namespace GGTeam.SmartMobileCore
         /// Рекламная площадка
         /// </summary>
         public AdsHeader ADS;
-        IAdsProvider adsProvider = new IronSourceAdsProvider();
+        readonly IAdsProvider adsProvider = new IronSourceAdsProvider();
 
         internal bool inited = false;
 
@@ -58,7 +58,6 @@ namespace GGTeam.SmartMobileCore
             #pragma warning disable CS0618 // Тип или член устарел
             API = this;
             #pragma warning restore CS0618 // Тип или член устарел
-
             Prepare();
             Init();
         }
@@ -75,6 +74,16 @@ namespace GGTeam.SmartMobileCore
 
         void Init()
         {
+
+            // Проверяем есть ли EventSystem
+            var es = GetComponent<EventSystem>();
+            if (es == null)
+            {
+                GameObject go = new GameObject("EventSystem");
+                go.AddComponent<EventSystem>();
+                go.AddComponent<StandaloneInputModule>();
+            }
+
             if (Config.Current.POLICY_ENABLED)
             {
                 var gdrpPref = Resources.Load<GameObject>("Prefabs/[GDRPPolicy]");
@@ -94,13 +103,13 @@ namespace GGTeam.SmartMobileCore
                 }
 
                 // Проверяем есть ли EventSystem
-                var es = GetComponent<EventSystem>();
-                if (es == null)
-                {
-                    GameObject go = new GameObject("EventSystem");
-                    go.AddComponent<EventSystem>();
-                    go.AddComponent<StandaloneInputModule>();
-                }
+                //var es = GetComponent<EventSystem>();
+                //if (es == null)
+                //{
+                //    GameObject go = new GameObject("EventSystem");
+                //    go.AddComponent<EventSystem>();
+                //    go.AddComponent<StandaloneInputModule>();
+                //}
             }
             else
             {
@@ -115,8 +124,14 @@ namespace GGTeam.SmartMobileCore
 
         void Start()
         {
-            if (Config.Current.ADS_APP_KEY.Length > 0) ADS.Init(Config.Current.ADS_APP_KEY, Config.Current.ADS_ENABLE_VIDEO, Config.Current.ADS_ENABLE_BANNER, Config.Current.ADS_START_VIDEO_FROM_LEVEL, Config.Current.ADS_SHOW_TIME_MIN_SEC);
-            else ADS.Init("", false, false, 0, 0);
+            if (Config.Current.ADS_APP_KEY.Length > 0)
+            {
+                ADS.Init(Config.Current.ADS_APP_KEY, Config.Current.ADS_ENABLE_VIDEO, Config.Current.ADS_ENABLE_BANNER, Config.Current.ADS_START_VIDEO_FROM_LEVEL, Config.Current.ADS_SHOW_TIME_MIN_SEC);
+            }
+            else
+            {
+                ADS.Init("", false, false, 0, 0);
+            }
             
             if (Config.Current.HARD_TARGET_FRAMERATE >= 0) Application.targetFrameRate = Config.Current.HARD_TARGET_FRAMERATE;
 
