@@ -34,9 +34,9 @@ namespace GGTeam.SmartMobileCore
             Game.Log.Warning("Создайте класс с логикой уровня и сделайте его наследником от Level");
         }
 
-        public override void OnLevelComplete(int score)
+        public override void OnLevelComplete(int score, float stars)
         {
-            Game.Log.Info("OnLevelComplete", "Simple gameplay Level Complete! You score: " + score);
+            Game.Log.Info("OnLevelComplete", "Simple gameplay Level Complete! You score: " + score + " You stars: " + stars);
         }
 
         public override void OnLevelFailed(int score)
