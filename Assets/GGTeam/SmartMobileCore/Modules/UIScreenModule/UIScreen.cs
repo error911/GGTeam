@@ -212,7 +212,7 @@ namespace GGTeam.SmartMobileCore
             //if (anim == null) anim = content.GetComponent<Animator>();
             opened = content.activeSelf;
             if (showOnStart) Open();
-            else Close();
+            else if (uiType != UITypes.ScreenMainMenu) Close();
         }
     }
 

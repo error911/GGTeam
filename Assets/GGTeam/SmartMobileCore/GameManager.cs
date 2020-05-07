@@ -75,7 +75,8 @@ namespace GGTeam.SmartMobileCore
         void Init()
         {
             // Проверяем есть ли EventSystem
-            var es = GetComponent<EventSystem>();
+            //var es = GetComponent<EventSystem>();
+            var es = FindObjectOfType<EventSystem>();
             if (es == null)
             {
                 GameObject go = new GameObject("EventSystem");
