@@ -12,7 +12,7 @@ namespace GGTeam.SmartMobileCore
 {
     public class MainMenuEditor : Editor
     {
-        [MenuItem("GGTeam/SmartMobileCore/GameManager")]
+        [MenuItem("GGTeam/SmartMobileCore/Insert GameManager")]
         public static void PlaceGameManager()
         {
             var gm = FindObjectOfType<GameManager>();
