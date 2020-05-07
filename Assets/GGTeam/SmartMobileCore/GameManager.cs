@@ -74,7 +74,6 @@ namespace GGTeam.SmartMobileCore
 
         void Init()
         {
-
             // Проверяем есть ли EventSystem
             var es = GetComponent<EventSystem>();
             if (es == null)
@@ -86,10 +85,10 @@ namespace GGTeam.SmartMobileCore
 
             if (Config.Current.POLICY_ENABLED)
             {
-                var gdrpPref = Resources.Load<GameObject>("Prefabs/[GDRPPolicy]");
+                var gdrpPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[GDRPPolicy]");
                 if (gdrpPref == null)
                 {
-                    Log.Error("Prefab 'Resources/Prefabs/[GDRPPolicy]' not found.");
+                    Log.Error("Prefab 'Resources/SmartMobileCore/Prefabs/[GDRPPolicy]' not found.");
                     On_GDRPP_Complete();
                 }
                 else
@@ -101,15 +100,6 @@ namespace GGTeam.SmartMobileCore
                         created_GDRPPolicy.Init(Config.Current.POLICY_GDRP_TEXT_EN, Config.Current.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
                     }
                 }
-
-                // Проверяем есть ли EventSystem
-                //var es = GetComponent<EventSystem>();
-                //if (es == null)
-                //{
-                //    GameObject go = new GameObject("EventSystem");
-                //    go.AddComponent<EventSystem>();
-                //    go.AddComponent<StandaloneInputModule>();
-                //}
             }
             else
             {

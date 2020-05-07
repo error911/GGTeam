@@ -77,7 +77,6 @@ namespace GGTeam.SmartMobileCore
             if (!accepted) background.SetActive(true);
             StartCoroutine(WaitFrame(()=>Started()));
 
-
             void Started()
             {
                 if (accepted)
@@ -91,17 +90,11 @@ namespace GGTeam.SmartMobileCore
                 {
                     GDRPButtonAccept.onClick.AddListener(() => { SwichAccept(); });
                     GDRPButtonOk.onClick.AddListener(() => { OnButtonOk(OnComplete); });
-                    //this.textPolicy_GDRP.text = this.textPolicy_GDRP.text.Replace("{company}", Application.companyName);
-                    //this.textPolicy_GDRP.text = this.textPolicy_GDRP.text.Replace("{age}", Game.Config.Current.POLICY_AGE_MIN.ToString());
-
                     foreach (var item in all_root_go) item.SetActive(true);
-
                     if (animator != null) animator.enabled = true;
                 }
             }
         }
-
-        
 
         IEnumerator WaitFrame(Action OnComplete)
         {
@@ -113,7 +106,6 @@ namespace GGTeam.SmartMobileCore
             }
             OnComplete?.Invoke();
         }
-
 
         void SwichAccept()
         {
