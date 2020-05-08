@@ -94,6 +94,18 @@ namespace GGTeam.SmartMobileCore
             return progressLevelsData.Data.Where(x => x.num == lvlNum).SingleOrDefault();
         }
 
+
+        /// <summary>
+        /// Список пройденных уровней
+        /// </summary>
+        /// <returns>Список пройденных уровней</returns>
+        public List<LevelData> CompletedLevels()
+        {
+            if (!progressLevelsLoaded) progressLevelsData = LevelsProgressLoadAll();
+            return progressLevelsData.Data.Where(x => x.completed == true).ToList();
+        }
+
+
         // TODO ===== Вернуть ссылку на класс логики уровня! =====
         /// <summary>
         /// Загрузить следующий уровень. Если текущий уровень последний, то загрузиться первый.
@@ -238,6 +250,7 @@ namespace GGTeam.SmartMobileCore
             return tmp;
         }
 
+        // TODO: Сделать кеширование результата метода
         private LevelsData LevelsProgressLoadAll()
         {
             string s_data_level_completed_list = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";

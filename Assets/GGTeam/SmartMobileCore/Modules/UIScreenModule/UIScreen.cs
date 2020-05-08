@@ -224,6 +224,7 @@ namespace GGTeam.SmartMobileCore
         ScreenMainMenu = 2,
         ScreenLevelComplete = 3,
         ScreenLevelFailed = 4,
+        ScreenLevelSelect = 5,
     }
 
 }

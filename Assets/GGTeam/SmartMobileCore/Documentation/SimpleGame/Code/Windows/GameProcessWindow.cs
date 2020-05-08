@@ -14,10 +14,10 @@ public class GameProcessWindow : UIScreen
 {
     public Text textLvlValue;
     public Text textScoreValue;
-    float duration = 1.0f;
-
-    int curScore = 0;
-    int tId = -1;
+    
+    private float duration = 1.0f;
+    private int curScore = 0;
+    private int tId = -1;
 
     public void OnBtnRestart()
     {

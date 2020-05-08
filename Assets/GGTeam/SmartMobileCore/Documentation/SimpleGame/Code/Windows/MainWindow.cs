@@ -13,6 +13,8 @@ public class MainWindow : UIScreen
 {
     [SerializeField] Text textGameName = null;
     [SerializeField] Text textCompanyName = null;
+    [SerializeField] Button btnSelectLevel = null;
+
     public void OnBtnPlay()
     {
         Game.Levels.LoadNext(OnLoaded);
@@ -23,6 +25,11 @@ public class MainWindow : UIScreen
         Game.Levels.Load(1, OnLoaded);
     }
 
+    public void OnBtnSelectLevel()
+    {
+        Game.UI.Open(UITypes.ScreenLevelSelect);
+    }
+
     private void OnLoaded()
     {
         //if (text1 != null) text1.text = "Level " + Game.Levels.CurrentNumber.ToString();
@@ -30,7 +37,10 @@ public class MainWindow : UIScreen
 
     public override void OnInit()
     {
-        
+        var complLvls = Game.Levels.CompletedLevels();
+        if (complLvls != null)
+            if (complLvls.Count > 0)
+                btnSelectLevel.gameObject.SetActive(true);
     }
 
     public override void OnOpen()

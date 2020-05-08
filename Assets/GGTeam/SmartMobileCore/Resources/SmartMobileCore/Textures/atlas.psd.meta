@@ -52,13 +52,22 @@ TextureImporter:
     second: atlas_btn_yellow
   - first:
       213: 5322189942926452683
-    second: atlas_lock
+    second: atlas_lock_small
   - first:
       213: 7938717270156758097
     second: atlas_btn_gray
   - first:
       213: -541725902600630333
-    second: atlas_star
+    second: atlas_star_on
+  - first:
+      213: -1239301179608088789
+    second: atlas_lock_210
+  - first:
+      213: 6404850427099398389
+    second: atlas_lock_170
+  - first:
+      213: 7988248909576399308
+    second: atlas_star_off
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -461,7 +470,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlas_lock
+      name: atlas_lock_small
       rect:
         serializedVersion: 2
         x: 512
@@ -503,7 +512,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlas_star
+      name: atlas_star_on
       rect:
         serializedVersion: 2
         x: 0
@@ -519,6 +528,69 @@ TextureImporter:
       bones: []
       spriteID: 81b911cbf2d9ac145aa9c8cd1e2b7d2b
       internalID: -541725902600630333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_lock_210
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 210
+        height: 210
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e97a1e7901474a418658c51296c1bb9
+      internalID: -1239301179608088789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_lock_170
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 854
+        width: 170
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 495d5e174d0346d4a8b97f3f2c0b74ad
+      internalID: 6404850427099398389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_star_off
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204467eee5b9dda44be45024a196b539
+      internalID: 7988248909576399308
       vertices: []
       indices: 
       edges: []
