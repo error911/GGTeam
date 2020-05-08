@@ -14,13 +14,11 @@ public class LevelSelectWindow : UIScreen
     public GameObject CellPref = null;
     public Transform CellContainer = null;
     bool initedQ = false;
+    
     public override void OnInit()
     {
         
-        
-        
     }
-
 
     void _Init()
     {
@@ -44,7 +42,8 @@ public class LevelSelectWindow : UIScreen
             if (data.completed || data.played)
             {
                 textLevel.text = i.ToString();
-                btn.onClick.AddListener(() => StartLevel(i));
+                int m = i;
+                btn.onClick.AddListener(() => StartLevel(m));
                 normalTr.gameObject.SetActive(true);
                 lockTr.gameObject.SetActive(false);
 
@@ -105,7 +104,12 @@ public class LevelSelectWindow : UIScreen
 
     public void StartLevel(int i)
     {
-
+        Game.Levels.Load(i, ComplLoaded);
+        void ComplLoaded()
+        {
+            Close();
+        }
+        
     }
 
 
