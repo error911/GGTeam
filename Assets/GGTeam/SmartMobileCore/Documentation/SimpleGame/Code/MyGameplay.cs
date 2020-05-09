@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class MyGameplay : Level
 {
-    public override void OnLevelComplete(int score, float stars) 
+    public override void OnLevelComplete(LevelData levelData) 
     {
-        Debug.Log("OnLevelComplete");
+        //Debug.Log("OnLevelComplete");
     }
 
-    public override void OnLevelFailed(int score)
+    public override void OnLevelFailed(LevelData levelData)
     {
-        Debug.Log("OnLevelFailed");
+        //Debug.Log("OnLevelFailed");
     }
 
     public override void OnLevelStart()
     {
-        Debug.Log("Level started " + CurrentNumber);
+        //Debug.Log("Level started " + Data.number); //!  CurrentNumber
     }
 
     void Start()
     {
-        Debug.Log("Start " + CurrentNumber);
+        //Debug.Log("Start " + Data.number);    //!  CurrentNumber
     }
 
 

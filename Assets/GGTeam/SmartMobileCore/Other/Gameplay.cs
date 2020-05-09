@@ -30,24 +30,24 @@ namespace GGTeam.SmartMobileCore
 
         public override void OnLevelStart()
         {
-            Game.Log.Info("OnLevelStart " + CurrentNumber, "Simple gameplay works!");
+            Game.Log.Info("OnLevelStart " + Data.number, "Simple gameplay works!");   //!  CurrentNumber
             Game.Log.Warning("Создайте класс с логикой уровня и сделайте его наследником от Level");
         }
 
-        public override void OnLevelComplete(int score, float stars)
+        public override void OnLevelComplete(LevelData levelData)
         {
-            Game.Log.Info("OnLevelComplete", "Simple gameplay Level Complete! You score: " + score + " You stars: " + stars);
+            Game.Log.Info("OnLevelComplete", "Simple gameplay Level Complete! You score: " + levelData.score + " You stars: " + levelData.stars);
         }
 
-        public override void OnLevelFailed(int score)
+        public override void OnLevelFailed(LevelData levelData)
         {
-            Game.Log.Info("OnLevelFailed", "Simple gameplay Level Failed! You score: " + score);
+            Game.Log.Info("OnLevelFailed", "Simple gameplay Level Failed! You score: " + levelData.score);
         }
 
         void OnGUI()
         {
             GUIStyle guiStyle = new GUIStyle();
-            GUI.Label(new Rect(10, 10, 150, 20), "LEVEL: " + CurrentNumber);
+            GUI.Label(new Rect(10, 10, 150, 20), "LEVEL: " + Data.number);    //!  CurrentNumber
             GUI.Label(new Rect(10, 30, 200, 20), "Press key: 'C' to Complete level");
             GUI.Label(new Rect(78, 45, 150, 20), "'F' to Failed level");
             GUI.Label(new Rect(78, 60, 150, 20), "'R' to Restart level");

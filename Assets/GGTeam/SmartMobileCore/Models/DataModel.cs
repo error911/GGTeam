@@ -12,7 +12,7 @@ namespace GGTeam.SmartMobileCore
     [Serializable]
     public abstract class DataModel
     {
-        private readonly string filename = "";
+        private readonly string filename_default = "";
         const string filePrefix = "GGTeam.SmartMobileCore.DataModel.";
 
         /// <summary>
@@ -20,7 +20,8 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public void Save()
         {
-            _Save(filename);
+//Debug.Log("====File " + filename);
+            _Save(filename_default);
         }
 
         /// <summary>
@@ -29,8 +30,9 @@ namespace GGTeam.SmartMobileCore
         /// <param name="filename"></param>
         public void Save(string filename)
         {
+            string s = this.filename_default + "." + filename;
             object data = base.MemberwiseClone();
-            PlayerPrefs.SetString(filename, JsonUtility.ToJson(data));
+            PlayerPrefs.SetString(s, JsonUtility.ToJson(data));
             PlayerPrefs.Save();
         }
 
@@ -48,7 +50,7 @@ namespace GGTeam.SmartMobileCore
         /// <returns>успешно (true) или нет (false)</returns>
         public bool Load()
         {
-            return _Load(filename);
+            return _Load(filename_default);
         }
 
         /// <summary>
@@ -58,7 +60,8 @@ namespace GGTeam.SmartMobileCore
         /// <returns></returns>
         public bool Load(string filename)
         {
-            return _Load(filename);
+            string s = this.filename_default + "." + filename;
+            return _Load(s);
         }
 
         private bool _Load(string _filename)
@@ -75,7 +78,7 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public void Clear()
         {
-            PlayerPrefs.DeleteKey(filename);
+            PlayerPrefs.DeleteKey(filename_default);
             PlayerPrefs.Save();
         }
 
@@ -85,7 +88,7 @@ namespace GGTeam.SmartMobileCore
 
         protected DataModel()
         {
-            filename = filePrefix + base.GetType().Name;
+            filename_default = filePrefix + base.GetType().Name;
         }
 
         /*

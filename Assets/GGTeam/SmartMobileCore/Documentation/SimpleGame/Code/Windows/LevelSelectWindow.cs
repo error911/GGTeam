@@ -13,6 +13,8 @@ public class LevelSelectWindow : UIScreen
 {
     public GameObject CellPref = null;
     public Transform CellContainer = null;
+    public Sprite ImageCompleted;
+    public Sprite ImagePlayed;
     bool initedQ = false;
     
     public override void OnInit()
@@ -28,25 +30,68 @@ public class LevelSelectWindow : UIScreen
         //for (int i = Game.Levels.Count; i >= 1; i--)
         {
             var data = Game.Levels.LevelData(i);
+//data.Load();
+            
             GameObject go = Instantiate(CellPref, CellContainer);
             go.SetActive(true);
             Transform normalTr = go.transform.Find("Normal");
             Transform lockTr = go.transform.Find("Lock");
             Text textLevel = normalTr.Find("TextLevel").GetComponent<Text>();
             Button btn = normalTr.Find("Button").GetComponent<Button>();
-
-            Image star1 = normalTr.Find("Star1").GetComponent<Image>();
-            Image star2 = normalTr.Find("Star2").GetComponent<Image>();
-            Image star3 = normalTr.Find("Star3").GetComponent<Image>();
+            Image btnImg = btn.gameObject.GetComponent<Image>();
+            Transform imageBottomTr = normalTr.Find("ImageBottom");
+            Image star1 = imageBottomTr.Find("Star1").GetComponent<Image>();
+            Image star2 = imageBottomTr.Find("Star2").GetComponent<Image>();
+            Image star3 = imageBottomTr.Find("Star3").GetComponent<Image>();
 
             if (data.completed || data.played)
             {
+                if (data.completed && data.played)
+                {
+                    imageBottomTr.gameObject.SetActive(true);
+                    btnImg.sprite = ImageCompleted;
+                }
+                else
+                {
+                    imageBottomTr.gameObject.SetActive(false);
+                    btnImg.sprite = ImagePlayed;
+                }
+
                 textLevel.text = i.ToString();
                 int m = i;
                 btn.onClick.AddListener(() => StartLevel(m));
                 normalTr.gameObject.SetActive(true);
                 lockTr.gameObject.SetActive(false);
 
+                if (data.stars > 0 && data.stars <= 1)
+                {
+                    star1.fillAmount = data.stars;
+                    star2.fillAmount = 0;
+                    star3.fillAmount = 0;
+                }
+                else
+                if (data.stars > 1 && data.stars <= 2)
+                {
+                    star1.fillAmount = 1;
+                    star2.fillAmount = data.stars - 1;
+                    star3.fillAmount = 0;
+                }
+                else
+                if (data.stars > 2 && data.stars <= 3)
+                {
+                    star1.fillAmount = 1;
+                    star2.fillAmount = 1;
+                    star3.fillAmount = data.stars - 2;
+                }
+                else
+                {
+                    star1.fillAmount = 1;
+                    star2.fillAmount = 1;
+                    star3.fillAmount = 1;
+                }
+
+
+                /*
                 if (data.stars > 1)
                 {
                     star1.fillAmount = 1;
@@ -82,6 +127,7 @@ public class LevelSelectWindow : UIScreen
                     star3.fillAmount = data.stars - 2;
                     continue;
                 }
+                */
             }
             else
             {

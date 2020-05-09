@@ -63,15 +63,10 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public ScoreHeader Score;
 
-        /// <summary>
-        /// Событие обновления очков
-        /// </summary>
-        //public Action<int> OnScoreUpdate;
-
-        /// <summary>
-        /// Текущий номер уровеня
-        /// </summary>
-        public int CurrentNumber { get; private set; } = 0;
+        // <summary>
+        // Текущий номер уровеня
+        // </summary>
+//1        public int CurrentNumber { get; private set; } = 0;
         public LevelData Data { get { return _Data; } set { _Data = value; } }
         [HideInInspector] [SerializeField] LevelData _Data;
 
@@ -89,16 +84,17 @@ namespace GGTeam.SmartMobileCore
 
         public void Init(GameManager gameManager, int levelNumber)
         {
-            CurrentNumber = levelNumber;
+//1            CurrentNumber = levelNumber;
             _Game = gameManager;
-
             _Data = new LevelData(levelNumber);
             Score = new ScoreHeader(this, gameManager);
+
+_Data.played = true; _Data.Save();
 
             StartCoroutine(SkipFrame(OnOk));
             void OnOk()
             {
-                CurrentNumber = gameManager.Levels.CurrentNumber;
+//1                CurrentNumber = gameManager.Levels.CurrentNumber;
                 OnLevelStart();
             }
         }
@@ -123,18 +119,29 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public abstract void OnLevelStart();    //TODO НЕ СРАБАТЫВАЕТ ПРИ ОТЛАДКЕ УРОВНЯ
 
+        // <param name="score">набранные очки</param>
+        // <param name="stars">полученные звезды (0-3 с шагом 0.5)</param>
+        //public abstract void OnLevelComplete(int score, float stars);
         /// <summary>
         /// Уровень пройден
         /// </summary>
-        /// <param name="score">набранные очки</param>
-        /// <param name="stars">полученные звезды (0-3 с шагом 0.5)</param>
-        public abstract void OnLevelComplete(int score, float stars);
+        /// <param name="levelData">прогресс</param>
+        public abstract void OnLevelComplete(LevelData levelData);
 
+        // <param name="score">набранные очки</param>
+        //public abstract void OnLevelFailed(int score);
         /// <summary>
         /// Уровень провален
         /// </summary>
-        /// <param name="score">набранные очки</param>
-        public abstract void OnLevelFailed(int score);
+        /// <param name="levelData"></param>
+        public abstract void OnLevelFailed(LevelData levelData);
+
+        //void SaveProgress()
+        //{
+            //string s_name = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+            //GGTeam.SmartMobileCore.DataModel.LevelData
+        //    Game.Levels.Current.Data.Save(Data.number.ToString());
+        //}
 
         /// <summary>
         /// Завершить уровень
@@ -145,14 +152,39 @@ namespace GGTeam.SmartMobileCore
         {
             if (Game == null) return;
             if (Game.UI == null) return;
+
+            // Сохраняем прогресс
+            Data.stars = stars;
+            //if (Data.stars < stars) { Data.stars = stars; }
+            Data.played = true;
+            Data.completed = true;
+            Data.Save();
+
+            var nextData = Game.Levels.LevelData(Data.number + 1);
+            if (nextData != null) { nextData.played = true; nextData.Save(); } 
+
+
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelComplete);
 
 //!            _ScoreUpdate(score);
 //!if (Data.score < score) Data.score = score;
-            if (Data.stars < stars) Data.stars = stars;
-            OnLevelComplete(Data.score, stars); //score, 
+            
+
+            //Debug.Log("num " + Data.number);
+            //Debug.Log("played " + Data.played);
+            //Debug.Log("completed " + Data.completed);
+            //Debug.Log("score " + Data.score);
+            //Debug.Log("stars " + Data.stars);
+
+
+            // ТУТ СОХРАНИТЬ ПРОГРЕСС
+            //            Game.Levels.Current.Data.Save();
+            //=======================
+            //            SaveProgress();
+
+            OnLevelComplete(Data); // Data.score, stars
         }
 
         /// <summary>
@@ -167,7 +199,7 @@ namespace GGTeam.SmartMobileCore
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelFailed);
 //! if (Data.score < score) Data.score = score;
-            OnLevelFailed(Data.score);
+            OnLevelFailed(Data);
         }
 
         /// <summary>

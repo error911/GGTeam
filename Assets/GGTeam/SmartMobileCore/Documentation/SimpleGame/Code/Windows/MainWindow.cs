@@ -37,10 +37,7 @@ public class MainWindow : UIScreen
 
     public override void OnInit()
     {
-        var complLvls = Game.Levels.CompletedLevels();
-        if (complLvls != null)
-            if (complLvls.Count > 0)
-                btnSelectLevel.gameObject.SetActive(true);
+        
     }
 
     public override void OnOpen()
@@ -50,6 +47,11 @@ public class MainWindow : UIScreen
 
         if (textGameName != null) textGameName.text = productName;
         if (textCompanyName != null) textCompanyName.text = companyName;
+
+        var complLvls = Game.Levels.CompletedLevels();
+        if (complLvls != null)
+            if (complLvls.Count > 0)
+                btnSelectLevel.gameObject.SetActive(true);
     }
 
     public override void OnClose()

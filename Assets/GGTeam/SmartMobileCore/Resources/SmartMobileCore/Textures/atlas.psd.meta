@@ -68,6 +68,12 @@ TextureImporter:
   - first:
       213: 7988248909576399308
     second: atlas_star_off
+  - first:
+      213: 2854798323384356823
+    second: atlas_star_m_on
+  - first:
+      213: 5227567687361937960
+    second: atlas_star_m_off
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -591,6 +597,48 @@ TextureImporter:
       bones: []
       spriteID: 204467eee5b9dda44be45024a196b539
       internalID: 7988248909576399308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_star_m_on
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676a80c0f1ba41348b31697be85114e9
+      internalID: 2854798323384356823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_star_m_off
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 512
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dec158bf82f06b04a88e658348fc5acc
+      internalID: 5227567687361937960
       vertices: []
       indices: 
       edges: []

@@ -16,8 +16,9 @@ namespace GGTeam.SmartMobileCore
         public GameConfigSO Current { get; private set; }
 
         private GameManager Game;
-        string s_data_level_current = "";
-        string s_data_level_completed_list = "";
+        string s_data_level_lastplayed = "";
+        //string s_data_level_maxplayed = "";
+//!        string s_data_level_completed_list = "";
 
         public ConfigHeader(GameManager gameManager, GameConfigSO gameConfig)
         {
@@ -25,24 +26,47 @@ namespace GGTeam.SmartMobileCore
             this.Current = gameConfig;
             if (this.Current == null) this.Current = ScriptableObject.CreateInstance<GameConfigSO>();
 
-            s_data_level_current = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.current";
-            s_data_level_completed_list = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
+            s_data_level_lastplayed = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.lastplayed";
+            //s_data_level_maxplayed = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.maxplayed";
+//!            s_data_level_completed_list = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
         }
 
         // ========== SAVED CORE DATA ==========
-        public int SAVED_LEVEL_CURRENT
+        
+        /// <summary>
+        /// Номер уровня, в который играли последний раз
+        /// </summary>
+        public int SAVED_LEVEL_LASTPLAYED
         {
             get
             {
-                return PlayerPrefs.GetInt(s_data_level_current, 0);
+                return PlayerPrefs.GetInt(s_data_level_lastplayed, 0);
             }
 
             set
             {
-                PlayerPrefs.SetInt(s_data_level_current, value);
+                PlayerPrefs.SetInt(s_data_level_lastplayed, value);
             }
         }
 
+        
+        /*
+        /// <summary>
+        /// Максимальный номер уровня, в который играли
+        /// </summary>
+        public int SAVED_LEVEL_MAXPLAYED
+        {
+            get
+            {
+                return PlayerPrefs.GetInt(s_data_level_maxplayed, 0);
+            }
+
+            set
+            {
+                PlayerPrefs.SetInt(s_data_level_maxplayed, value);
+            }
+        }
+        */
 
 
         /*
@@ -67,7 +91,7 @@ Debug.Log("!!!Save> " + s);
         */
 
 
-        
+
 
 
     }

@@ -14,7 +14,7 @@ public class LevelData : DataModel
     /// <summary>
     /// Номер
     /// </summary>
-    [SerializeField] public int num = 0;
+    [SerializeField] public int number = 0;
     
     /// <summary>
     /// Максимально набранные очки
@@ -38,6 +38,17 @@ public class LevelData : DataModel
 
     public LevelData(int number)
     {
-        this.num = number;
+        this.number = number;
+        Load(number.ToString());
+        //Debug.Log("***2#" + number + " " + completed + " " + played + " " + score + " " + stars);
     }
+
+    /// <summary>
+    /// Сохранить прогресс уровеня
+    /// </summary>
+    public new void Save()
+    {
+        Save(number.ToString());
+    }
+
 }

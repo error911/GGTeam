@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class EventsSphere : MonoBehaviour
 {
-    //public UnityEvent act;
     public bool Complete = false;
     MyGameplay level;
 
@@ -16,13 +15,12 @@ public class EventsSphere : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //act?.Invoke();
-
-        if (Complete) level.LevelComplete();
+        if (Complete)
+        {
+            level.Score.ScoreAdd(150);
+            level.LevelComplete(1.8f);
+        }
         else level.LevelFailed();
-
-
-
     }
 
 }
