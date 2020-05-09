@@ -3,6 +3,7 @@
 // ====================================
 
 using GGTeam.SmartMobileCore;
+using GGTeam.Tools.Tween;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,15 +16,23 @@ public class LevelSelectWindow : UIScreen
     public Transform CellContainer = null;
     public Sprite ImageCompleted;
     public Sprite ImagePlayed;
-    bool initedQ = false;
+    List<GameObject> rowListGo = new List<GameObject>();
+    //bool inited = false;
     
     public override void OnInit()
     {
         
     }
 
-    void _Init()
+
+    //void AnimateRowShow(Transform tr, float )
+    //{
+
+    //}
+
+    void RenderRows()
     {
+        ClearAllRows();
         CellPref.SetActive(false);
 
         for (int i = 1; i <= Game.Levels.Count; i++)
@@ -33,6 +42,7 @@ public class LevelSelectWindow : UIScreen
 //data.Load();
             
             GameObject go = Instantiate(CellPref, CellContainer);
+            rowListGo.Add(go);
             go.SetActive(true);
             Transform normalTr = go.transform.Find("Normal");
             Transform lockTr = go.transform.Find("Lock");
@@ -43,6 +53,10 @@ public class LevelSelectWindow : UIScreen
             Image star1 = imageBottomTr.Find("Star1").GetComponent<Image>();
             Image star2 = imageBottomTr.Find("Star2").GetComponent<Image>();
             Image star3 = imageBottomTr.Find("Star3").GetComponent<Image>();
+
+            normalTr.localScale = new Vector3(0, 0, 1);
+            Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i-1) * 0.05f);
+
 
             if (data.completed || data.played)
             {
@@ -89,45 +103,6 @@ public class LevelSelectWindow : UIScreen
                     star2.fillAmount = 1;
                     star3.fillAmount = 1;
                 }
-
-
-                /*
-                if (data.stars > 1)
-                {
-                    star1.fillAmount = 1;
-                }
-                else
-                {
-                    star1.fillAmount = data.stars;
-                    star2.fillAmount = 0;
-                    star3.fillAmount = 0;
-                    continue;
-                }
-
-                if (data.stars > 2)
-                {
-                    star1.fillAmount = 1;
-                    star2.fillAmount = 1;
-                }
-                else
-                {
-                    star2.fillAmount = data.stars - 1;
-                    star3.fillAmount = 0;
-                    continue;
-                }
-
-                if (data.stars >= 3)
-                {
-                    star1.fillAmount = 1;
-                    star2.fillAmount = 1;
-                    star3.fillAmount = 1;
-                }
-                else
-                {
-                    star3.fillAmount = data.stars - 2;
-                    continue;
-                }
-                */
             }
             else
             {
@@ -145,7 +120,7 @@ public class LevelSelectWindow : UIScreen
             */
 
         }
-        initedQ = true;
+        //inited = true;
     }
 
     public void StartLevel(int i)
@@ -158,7 +133,18 @@ public class LevelSelectWindow : UIScreen
         
     }
 
+    void ClearAllRows()
+    {
+        List<GameObject> tmp = new List<GameObject>(rowListGo);
+        int i = 0;
+        foreach (var item in tmp)
+        {
+            if (tmp[i] != null) Destroy(tmp[i]);
+            i++;
+        }
+        rowListGo.Clear();
 
+    }
 
 
     public void OnBtnContinue()
@@ -176,11 +162,18 @@ public class LevelSelectWindow : UIScreen
 
     }
 
-    
-
     public override void OnOpen()
     {
-        if (!initedQ) _Init();
-        //lvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
+        RenderRows();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
+    }
+
+
 }
