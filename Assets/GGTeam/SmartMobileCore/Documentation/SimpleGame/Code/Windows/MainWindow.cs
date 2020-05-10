@@ -3,9 +3,6 @@
 // ====================================
 
 using GGTeam.SmartMobileCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,12 +14,12 @@ public class MainWindow : UIScreen
 
     public void OnBtnPlay()
     {
-        Game.Levels.LoadNext(OnLoaded);
+        Game.Levels.LoadNext(OnLoadedCallback);
     }
 
     public void OnBtnNewGame()
     {
-        Game.Levels.Load(1, OnLoaded);
+        Game.Levels.Load(1, OnLoadedCallback);
     }
 
     public void OnBtnSelectLevel()
@@ -30,9 +27,9 @@ public class MainWindow : UIScreen
         Game.UI.Open(UITypes.ScreenLevelSelect);
     }
 
-    private void OnLoaded()
+    private void OnLoadedCallback()
     {
-        //if (text1 != null) text1.text = "Level " + Game.Levels.CurrentNumber.ToString();
+
     }
 
     public override void OnInit()

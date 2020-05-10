@@ -337,6 +337,7 @@ else Debug.Log("SAVE #" + test.number + " sc:" + test.score + ", st:" + test.sta
             Game.UI.Close(UITypes.ScreenLevelComplete, true);
             Game.UI.Close(UITypes.ScreenLevelFailed, true);
             Game.UI.Close(UITypes.InterfaceInGame, true);
+            Game.UI.Close(UITypes.ScreenLevelSelect, true);
         }
 
         // Загрузить уровень (по номеру 1..MaxNumber)

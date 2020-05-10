@@ -16,6 +16,7 @@ namespace GGTeam.SmartMobileCore
     public abstract class UIScreen : MonoBehaviour
     {
         [SerializeField] UITypes uiType = UITypes.Custom;
+        //[SerializeField] UIOrientation uIOrientation = UIOrientation.Portrait;
         public bool showOnStart = false;
         public bool animate = false;
         public TweenType animateTypeOpen = TweenType.SoftEaseOutQuint;// Bounce;
@@ -63,12 +64,14 @@ namespace GGTeam.SmartMobileCore
 #if UNITY_EDITOR
         private void Reset()
         {
-            var c = transform.Find("content");
+            string contName = "content";
+
+            var c = transform.Find(contName);
             if (c == null)
             {
                 CanvasRenderer cr = GetComponent<CanvasRenderer>();
                 if (cr == null) gameObject.AddComponent<CanvasRenderer>();
-                var go = new GameObject("content", typeof(RectTransform));
+                var go = new GameObject(contName, typeof(RectTransform));
                 go.transform.SetParent(transform);
                 RectTransform rt = go.GetComponent<RectTransform>();
                 RectTransform p_rt = transform.GetComponent<RectTransform>();
@@ -78,7 +81,7 @@ namespace GGTeam.SmartMobileCore
                 rt.anchorMax = p_rt.anchorMax;
                 rt.anchorMin = p_rt.anchorMin;
                 go.AddComponent<CanvasRenderer>();
-                go.name = "content";
+                go.name = contName;
                 content = go;
             }
             else content = c.gameObject;
@@ -225,6 +228,14 @@ namespace GGTeam.SmartMobileCore
         ScreenLevelComplete = 3,
         ScreenLevelFailed = 4,
         ScreenLevelSelect = 5,
+    }
+
+    [Serializable]
+    public enum UIOrientation
+    {
+        Auto = 0,
+        Portrait = 1,
+        Landscape = 2,
     }
 
 }

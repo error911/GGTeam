@@ -4,9 +4,6 @@
 
 using GGTeam.SmartMobileCore;
 using GGTeam.Tools.Tween;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,6 +46,5 @@ public class GameProcessWindow : UIScreen
         Tween.StopTween(tId);
         tId = Tween.TweenInt((x) => { textScoreValue.text = x.ToString(); }, ssc, score, duration);
         curScore = score;
-        //textScoreValue.text = score.ToString();
     }
 }

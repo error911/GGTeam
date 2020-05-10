@@ -4,14 +4,14 @@
 
 using GGTeam.SmartMobileCore;
 using GGTeam.Tools.Tween;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSelectWindow : UIScreen
 {
+    public bool showScore = true;
+    [Space(16)]
     public GameObject CellPref = null;
     public Transform CellContainer = null;
     public Sprite ImageCompleted;
@@ -24,29 +24,20 @@ public class LevelSelectWindow : UIScreen
         
     }
 
-
-    //void AnimateRowShow(Transform tr, float )
-    //{
-
-    //}
-
     void RenderRows()
     {
         ClearAllRows();
         CellPref.SetActive(false);
 
         for (int i = 1; i <= Game.Levels.Count; i++)
-        //for (int i = Game.Levels.Count; i >= 1; i--)
         {
-            var data = Game.Levels.LevelData(i);
-//data.Load();
-            
             GameObject go = Instantiate(CellPref, CellContainer);
             rowListGo.Add(go);
             go.SetActive(true);
             Transform normalTr = go.transform.Find("Normal");
             Transform lockTr = go.transform.Find("Lock");
             Text textLevel = normalTr.Find("TextLevel").GetComponent<Text>();
+            Text textScore = normalTr.Find("TextScore").GetComponent<Text>();
             Button btn = normalTr.Find("Button").GetComponent<Button>();
             Image btnImg = btn.gameObject.GetComponent<Image>();
             Transform imageBottomTr = normalTr.Find("ImageBottom");
@@ -54,12 +45,13 @@ public class LevelSelectWindow : UIScreen
             Image star2 = imageBottomTr.Find("Star2").GetComponent<Image>();
             Image star3 = imageBottomTr.Find("Star3").GetComponent<Image>();
 
-            normalTr.localScale = new Vector3(0, 0, 1);
-            Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i-1) * 0.05f);
-
-
+            var data = Game.Levels.LevelData(i);
             if (data.completed || data.played)
             {
+
+                normalTr.localScale = new Vector3(0, 0, 1);
+                Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i - 1) * 0.05f);
+
                 if (data.completed && data.played)
                 {
                     imageBottomTr.gameObject.SetActive(true);
@@ -72,6 +64,7 @@ public class LevelSelectWindow : UIScreen
                 }
 
                 textLevel.text = i.ToString();
+                if (showScore && data.score > 0) textScore.text = data.score.ToString(); else textScore.text = "";
                 int m = i;
                 btn.onClick.AddListener(() => StartLevel(m));
                 normalTr.gameObject.SetActive(true);
@@ -106,21 +99,13 @@ public class LevelSelectWindow : UIScreen
             }
             else
             {
+                lockTr.localScale = new Vector3(0, 0, 1);
+                Tween.TweenVector3((v) => { lockTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.15f, (i - 1) * 0.05f);
+
                 normalTr.gameObject.SetActive(false);
                 lockTr.gameObject.SetActive(true);
             }
-            /*
-            if (data.played)
-            {
-                textLevel.text = i.ToString();
-                normalTr.gameObject.SetActive(true);
-                lockTr.gameObject.SetActive(false);
-                btn.onClick.AddListener(() => StartLevel(i));
-            }
-            */
-
         }
-        //inited = true;
     }
 
     public void StartLevel(int i)
@@ -149,12 +134,12 @@ public class LevelSelectWindow : UIScreen
 
     public void OnBtnContinue()
     {
-        Game.Levels.LoadNext(); //OnLoaded
+        Game.Levels.LoadNext();
     }
 
     public void OnBtnRestart()
     {
-        Game.Levels.LoadCurrent();  //OnLoaded
+        Game.Levels.LoadCurrent();
     }
 
     public override void OnClose()
