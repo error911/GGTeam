@@ -13,7 +13,7 @@ namespace GGTeam.SmartMobileCore
     [CanEditMultipleObjects]
     public class GameManagerEditor : Editor
     {
-        SerializedProperty Levels;
+        //SerializedProperty Levels;
 
 
 #if UNITY_EDITOR

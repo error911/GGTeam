@@ -33,8 +33,8 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Состояние
         /// </summary>
-        public bool IsOpen => opened;
-        bool opened = false;
+        public bool IsOpen => uiscreen_opened;
+        bool uiscreen_opened = false;
 
         public Action OnOpenAction;
         public Action OnCloseAction;
@@ -45,7 +45,7 @@ namespace GGTeam.SmartMobileCore
             {
                 if (_Game != null) return _Game;
                 _Game = FindObjectOfType<GameManager>();
-                if (_Game == null) { if (!inited) Debug.LogError("Не найден главный компонент GameManager."); return null; }
+                if (_Game == null) { if (!ui_screen_inited) Debug.LogError("Не найден главный компонент GameManager."); return null; }
                 return _Game;
             }
         }
@@ -56,7 +56,7 @@ namespace GGTeam.SmartMobileCore
         #region === Приватные ===
         private float _anim_open_duration = 0.25f;
         private float _anim_close_duration = 0.15f;
-        private bool inited = false;
+        private bool ui_screen_inited = false;
         //private Animator anim;
         #endregion
 
@@ -91,8 +91,8 @@ namespace GGTeam.SmartMobileCore
         public void ButtonShowHide()
         {
             if (content == null) return;
-            opened = content.activeSelf;
-            opened = !opened;
+            uiscreen_opened = content.activeSelf;
+            uiscreen_opened = !uiscreen_opened;
             content.SetActive(IsOpen);
         }
 
@@ -120,7 +120,7 @@ namespace GGTeam.SmartMobileCore
         public virtual void Open(bool use_animate = true)
         {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
-            opened = !opened;
+            uiscreen_opened = !uiscreen_opened;
 
             Vector3 s_sc = new Vector3(1, 1, 1);
 
@@ -151,7 +151,7 @@ namespace GGTeam.SmartMobileCore
         {
             //if (!opened) return;
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
-            opened = !opened;
+            uiscreen_opened = !uiscreen_opened;
 
             Vector3 s_sc = new Vector3(1, 1, 1);
 
@@ -184,7 +184,7 @@ namespace GGTeam.SmartMobileCore
                     return;
                 }
             });
-            inited = true;
+            ui_screen_inited = true;
             OnInit();
         }
 
@@ -213,7 +213,7 @@ namespace GGTeam.SmartMobileCore
 
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
             //if (anim == null) anim = content.GetComponent<Animator>();
-            opened = content.activeSelf;
+            uiscreen_opened = content.activeSelf;
             if (showOnStart) Open();
             else if (uiType != UITypes.ScreenMainMenu) Close();
         }

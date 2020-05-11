@@ -3,12 +3,13 @@
 // ====================================
 
 using GGTeam.SmartMobileCore;
+using GGTeam.Tools.Tween;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelCompleteWindow : UIScreen
 {
-    [SerializeField] Text lvlNum = null;
+    [SerializeField] Text textLvlNum = null;
     [SerializeField] Text textScores = null;
     [SerializeField] Image imgStar1 = null;
     [SerializeField] Image imgStar2 = null;
@@ -36,36 +37,54 @@ public class LevelCompleteWindow : UIScreen
 
     public override void OnOpen()
     {
-        lvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
-        textScores.text = Game.Levels.Current.Data.score.ToString();
+        textLvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
+        if (Game.Levels.Current.Data.score > 0)
+        {
+            textScores.text = Game.Levels.Current.Data.score.ToString();
+            Tween.TweenInt((n) => { textScores.text = n.ToString(); }, 0, Game.Levels.Current.Data.score, 0.8f);
+        }
 
         float stars = Game.Levels.Current.Data.stars;
+        float anSpeed = 0.5f;
+
+        imgStar1.fillAmount = 0;
+        imgStar2.fillAmount = 0;
+        imgStar3.fillAmount = 0;
 
         if (stars > 0 && stars <= 1)
         {
             imgStar1.fillAmount = stars;
-            imgStar2.fillAmount = 0;
-            imgStar3.fillAmount = 0;
+            Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, stars - 1, anSpeed);
+            //imgStar2.fillAmount = 0;
+            //imgStar3.fillAmount = 0;
         }
         else
         if (stars > 1 && stars <= 2)
         {
-            imgStar1.fillAmount = 1;
-            imgStar2.fillAmount = stars - 1;
-            imgStar3.fillAmount = 0;
+            //imgStar1.fillAmount = 1;
+            Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
+            //imgStar2.fillAmount = stars - 1;
+            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, stars - 1, anSpeed, anSpeed-0.1f);
+            //imgStar3.fillAmount = 0;
         }
         else
         if (stars > 2 && stars <= 3)
         {
-            imgStar1.fillAmount = 1;
-            imgStar2.fillAmount = 1;
-            imgStar3.fillAmount = stars - 2;
+            //imgStar1.fillAmount = 1;
+            Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
+            //imgStar2.fillAmount = 1;
+            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, 1, anSpeed, anSpeed - 0.1f);
+            //imgStar3.fillAmount = stars - 2;
+            Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, stars - 2, anSpeed, anSpeed * 2 - 0.1f);
         }
         else
         {
-            imgStar1.fillAmount = 1;
-            imgStar2.fillAmount = 1;
-            imgStar3.fillAmount = 1;
+            //imgStar1.fillAmount = 1;
+            Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
+            //imgStar2.fillAmount = 1;
+            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, 1, anSpeed, anSpeed - 0.1f);
+            //imgStar3.fillAmount = 1;
+            Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, 1, anSpeed, anSpeed * 2 - 0.1f);
         }
 
 

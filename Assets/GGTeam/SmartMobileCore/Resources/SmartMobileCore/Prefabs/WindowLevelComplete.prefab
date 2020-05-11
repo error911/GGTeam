@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 1062939870436425754}
   - component: {fileID: 1062939870436425755}
   m_Layer: 0
-  m_Name: TextLev
+  m_Name: TextLvlNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +577,7 @@ MonoBehaviour:
   animateTypeOpen: 14
   animateTypeClose: 14
   content: {fileID: 1062939870941781112}
-  lvlNum: {fileID: 1062939870436425757}
+  textLvlNum: {fileID: 1062939870436425757}
   textScores: {fileID: 911514586849338802}
   imgStar1: {fileID: 622543832192113142}
   imgStar2: {fileID: 2204558974535471154}
@@ -1244,7 +1244,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 3
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1630,7 +1630,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 3
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -2199,7 +2199,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 3
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

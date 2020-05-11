@@ -28,6 +28,16 @@ public class GameConfigSO : ScriptableObject
     [Tooltip("Ожидание после выгрузки/загрузки сцены (мс)")]
     public int LEVEL_WAIT_AFTER_LOADING = 50;
 
+    /*
+    // ========== Game setup ==========
+    [Space(8)]
+    [Header("- Game setup -----------------------------------------------------------------")]
+    //[Tooltip("Публикация")]
+    public bool GAME_SOUND_ENABLE = true;
+    public bool GAME_VIBRO_ENABLE = true;
+    public string MARKET_URL_IOS = "";
+    */
+    
     // ========== LOG ==========
     [Space(8)]
     [Header("- LOG -----------------------------------------------------------------")]
