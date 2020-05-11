@@ -37,7 +37,8 @@ public class GameProcessWindow : UIScreen
 
         if (!opened)
         {
-            Time.timeScale = 0;
+            SetPause(true);
+            //Time.timeScale = 0;
             // Открываем игровое меню
             opened = true;
             pauseProcess = true;
@@ -61,7 +62,8 @@ public class GameProcessWindow : UIScreen
         else
         {
             // Закрываем игровое меню
-            Time.timeScale = 1;
+            SetPause(false);
+            //Time.timeScale = 1;
             opened = false;
             pauseProcess = true;
             Tween.TweenFloat((a) => {
@@ -107,6 +109,25 @@ public class GameProcessWindow : UIScreen
     {
         Application.OpenURL(rateUrl);
     }
+
+    public void OnBtnLevelSelect()
+    {
+        OnBtnOpen();
+        Game.UI.Close(UITypes.InterfaceInGame);
+        Game.UI.Open(UITypes.ScreenLevelSelect, OnLevelSelectCallback);
+    }
+
+    void OnLevelSelectCallback()
+    {
+        Game.UI.Open(UITypes.InterfaceInGame);
+    }
+
+    void SetPause(bool pause)
+    {
+        if (pause) Time.timeScale = 0;
+        else Time.timeScale = 1;
+    }
+
 
 
     void RenderButtonsImage()

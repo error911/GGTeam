@@ -79,21 +79,21 @@ namespace GGTeam.SmartMobileCore
         /// Отобразить интерфейс
         /// </summary>
         /// <param name="screen"></param>
-        public void Open(UIScreen screen, bool use_animate = true)
+        public void Open(UIScreen screen, Action OnClose = null, bool use_animate = true)
         {
-            screen.Open(use_animate);
+            screen.Open(OnClose, use_animate);
         }
 
         /// <summary>
         /// Отобразить все интерфейсы типа
         /// </summary>
         /// <param name="uiType"></param>
-        public void Open(UITypes uiType, bool use_animate = true)
+        public void Open(UITypes uiType, Action OnClose = null, bool use_animate = true)
         {
             foreach (var item in screenList)
             {
                 if (item == null) { continue; }
-                if (item.UIType == uiType) { item.Open(use_animate); }
+                if (item.UIType == uiType) { item.Open(OnClose, use_animate); }
             }
         }
 

@@ -23,6 +23,6 @@ public class Window2 : UIScreen
     public void OnBtnClose()
     {
         Close(true);
-        Game.UI.Open(FindObjectOfType<Window1>(), true);
+        Game.UI.Open(FindObjectOfType<Window1>());
     }
 }

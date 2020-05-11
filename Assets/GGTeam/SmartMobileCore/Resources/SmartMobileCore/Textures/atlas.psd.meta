@@ -89,6 +89,9 @@ TextureImporter:
   - first:
       213: 1350813984978796796
     second: atlas_star_cont
+  - first:
+      213: 2284049985449833782
+    second: atlas_level_select
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -759,6 +762,27 @@ TextureImporter:
       bones: []
       spriteID: ef0612e6a49a89445bf1d0d7faccd057
       internalID: 1350813984978796796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_level_select
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7644b3949d60244aa143cccbfa9fb37
+      internalID: 2284049985449833782
       vertices: []
       indices: 
       edges: []

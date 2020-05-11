@@ -322,10 +322,10 @@ else Debug.Log("SAVE #" + test.number + " sc:" + test.score + ", st:" + test.sta
         private void _ShowUI(int levelNumber)
         {
             // Отображаем главный интерфейс
-            if (levelNumber == 0) Game.UI.Open(UITypes.ScreenMainMenu, true);
+            if (levelNumber == 0) Game.UI.Open(UITypes.ScreenMainMenu);
 
             // Отображаем интерфейс в игре
-            if (levelNumber != 0) Game.UI.Open(UITypes.InterfaceInGame, true);
+            if (levelNumber != 0) Game.UI.Open(UITypes.InterfaceInGame);
         }
 
         private void _HideUI()

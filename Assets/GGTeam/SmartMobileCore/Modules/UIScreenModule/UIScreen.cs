@@ -22,7 +22,9 @@ namespace GGTeam.SmartMobileCore
         public TweenType animateTypeOpen = TweenType.SoftEaseOutQuint;// Bounce;
         public TweenType animateTypeClose = TweenType.SoftEaseOutQuint; // Bounce;
         public GameObject content;
-        
+
+        //private Action OnCloseAction = null;
+
         #region === Публичные ===
 
         /// <summary>
@@ -36,8 +38,8 @@ namespace GGTeam.SmartMobileCore
         public bool IsOpen => uiscreen_opened;
         bool uiscreen_opened = false;
 
-        public Action OnOpenAction;
-        public Action OnCloseAction;
+        private Action OnOpenAction;
+        private Action OnCloseAction;
 
         public GameManager Game
         {
@@ -117,10 +119,11 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Отобразить интерфейс
         /// </summary>
-        public virtual void Open(bool use_animate = true)
+        public virtual void Open(Action OnClose = null, bool use_animate = true)
         {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             uiscreen_opened = !uiscreen_opened;
+OnCloseAction = OnClose;
 
             Vector3 s_sc = new Vector3(1, 1, 1);
 
