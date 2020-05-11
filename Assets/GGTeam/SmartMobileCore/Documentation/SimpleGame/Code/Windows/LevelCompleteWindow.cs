@@ -45,7 +45,8 @@ public class LevelCompleteWindow : UIScreen
         }
 
         float stars = Game.Levels.Current.Data.stars;
-        float anSpeed = 0.5f;
+        float anSpeed = 0.3f;
+        float anDel = anSpeed - 0.1f;
 
         imgStar1.fillAmount = 0;
         imgStar2.fillAmount = 0;
@@ -64,7 +65,7 @@ public class LevelCompleteWindow : UIScreen
             //imgStar1.fillAmount = 1;
             Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
             //imgStar2.fillAmount = stars - 1;
-            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, stars - 1, anSpeed, anSpeed-0.1f);
+            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, stars - 1, anSpeed, anDel);
             //imgStar3.fillAmount = 0;
         }
         else
@@ -73,9 +74,9 @@ public class LevelCompleteWindow : UIScreen
             //imgStar1.fillAmount = 1;
             Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
             //imgStar2.fillAmount = 1;
-            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, 1, anSpeed, anSpeed - 0.1f);
+            Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, 1, anSpeed, anDel);
             //imgStar3.fillAmount = stars - 2;
-            Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, stars - 2, anSpeed, anSpeed * 2 - 0.1f);
+            Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, stars - 2, anSpeed, anDel * 2);
         }
         else
         {
