@@ -26,6 +26,6 @@ public class LevelFailedWindow : UIScreen
 
     public override void OnOpen()
     {
-        lvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
+        lvlNum.text = "LEVEL " + Game.Levels.Current.Data.number;
     }
 }

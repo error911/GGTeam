@@ -16,7 +16,7 @@ public class LevelSelectWindow : UIScreen
     public Transform CellContainer = null;
     public Sprite ImageCompleted;
     public Sprite ImagePlayed;
-    List<GameObject> rowListGo = new List<GameObject>();
+    readonly List<GameObject> rowListGo = new List<GameObject>();
     //bool inited = false;
     
     public override void OnInit()
@@ -46,9 +46,9 @@ public class LevelSelectWindow : UIScreen
             Image star3 = imageBottomTr.Find("Star3").GetComponent<Image>();
 
             var data = Game.Levels.LevelData(i);
+
             if (data.completed || data.played)
             {
-
                 normalTr.localScale = new Vector3(0, 0, 1);
                 Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i - 1) * 0.05f);
 

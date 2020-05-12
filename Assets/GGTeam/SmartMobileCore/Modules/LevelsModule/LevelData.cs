@@ -40,7 +40,6 @@ public class LevelData : DataModel
     {
         this.number = number;
         Load(number.ToString());
-        //Debug.Log("***2#" + number + " " + completed + " " + played + " " + score + " " + stars);
     }
 
     /// <summary>

@@ -64,10 +64,9 @@ namespace GGTeam.SmartMobileCore
         public ScoreHeader Score;
 
         // <summary>
-        // Текущий номер уровеня
+        // Прогресс уровня
         // </summary>
-//1        public int CurrentNumber { get; private set; } = 0;
-        public LevelData Data { get { return _Data; } set { _Data = value; } }
+        public LevelData Data { get { return _Data; } private set { _Data = value; } }
         [HideInInspector] [SerializeField] LevelData _Data;
 
         public GameManager Game
@@ -84,17 +83,18 @@ namespace GGTeam.SmartMobileCore
 
         public void Init(GameManager gameManager, int levelNumber)
         {
-//1            CurrentNumber = levelNumber;
             _Game = gameManager;
-            _Data = new LevelData(levelNumber);
-            Score = new ScoreHeader(this, gameManager);
 
-_Data.played = true; _Data.Save();
+            _Data = _Game.Levels.LevelData(levelNumber);
+//2_Data = new LevelData(levelNumber);
+
+            Score = new ScoreHeader(this, gameManager);
+            _Data.played = true;
+            _Data.Save();
 
             StartCoroutine(SkipFrame(OnOk));
             void OnOk()
             {
-//1                CurrentNumber = gameManager.Levels.CurrentNumber;
                 OnLevelStart();
             }
         }
@@ -136,13 +136,6 @@ _Data.played = true; _Data.Save();
         /// <param name="levelData"></param>
         public abstract void OnLevelFailed(LevelData levelData);
 
-        //void SaveProgress()
-        //{
-            //string s_name = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
-            //GGTeam.SmartMobileCore.DataModel.LevelData
-        //    Game.Levels.Current.Data.Save(Data.number.ToString());
-        //}
-
         /// <summary>
         /// Завершить уровень
         /// </summary>
@@ -154,23 +147,15 @@ _Data.played = true; _Data.Save();
             if (Game.UI == null) return;
 
             // Сохраняем прогресс
-            Data.stars = stars;
+            _Data.stars = stars;
             //if (Data.stars < stars) { Data.stars = stars; }
-            Data.played = true;
-            Data.completed = true;
-            Data.Save();
-
-            var nextData = Game.Levels.LevelData(Data.number + 1);
-            if (nextData != null) { nextData.played = true; nextData.Save(); } 
-
+            _Data.played = true;
+            _Data.completed = true;
+            _Data.Save();
 
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);
-            Game.UI.Open(UITypes.ScreenLevelComplete);
-
-//!            _ScoreUpdate(score);
-//!if (Data.score < score) Data.score = score;
-            
+            Game.UI.Open(UITypes.ScreenLevelComplete);            
 
             //Debug.Log("num " + Data.number);
             //Debug.Log("played " + Data.played);
@@ -184,7 +169,7 @@ _Data.played = true; _Data.Save();
             //=======================
             //            SaveProgress();
 
-            OnLevelComplete(Data); // Data.score, stars
+            OnLevelComplete(_Data); // Data.score, stars
         }
 
         /// <summary>
@@ -199,7 +184,7 @@ _Data.played = true; _Data.Save();
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelFailed);
 //! if (Data.score < score) Data.score = score;
-            OnLevelFailed(Data);
+            OnLevelFailed(_Data);
         }
 
         /// <summary>

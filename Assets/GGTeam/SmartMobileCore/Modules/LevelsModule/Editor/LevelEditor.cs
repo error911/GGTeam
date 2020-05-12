@@ -29,7 +29,7 @@ namespace GGTeam.SmartMobileCore
             serializedObject.Update();
             //EditorGUILayout.PropertyField(_Data, true);
 
-            var d_num = _Data.FindPropertyRelative("num").intValue;
+            var d_num = _Data.FindPropertyRelative("number").intValue;
             var d_score = _Data.FindPropertyRelative("score").intValue;
             var d_stars = _Data.FindPropertyRelative("stars").floatValue;
 

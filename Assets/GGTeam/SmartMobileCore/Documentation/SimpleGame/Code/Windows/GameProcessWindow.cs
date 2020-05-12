@@ -144,7 +144,7 @@ public class GameProcessWindow : UIScreen
     public override void OnOpen()
     {
         curScore = Game.Levels.Current.Data.score;
-        textLvlValue.text = Game.Levels.CurrentNumber.ToString();
+        textLvlValue.text = Game.Levels.Current.Data.number.ToString();
         textScoreValue.text = Game.Levels.Current.Data.score.ToString();
         Game.Levels.OnScoreChanged += ScoreChange;
     }

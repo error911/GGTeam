@@ -37,7 +37,7 @@ public class LevelCompleteWindow : UIScreen
 
     public override void OnOpen()
     {
-        textLvlNum.text = "LEVEL " + Game.Levels.CurrentNumber;
+        textLvlNum.text = "LEVEL " + Game.Levels.Current.Data.number;
         if (Game.Levels.Current.Data.score > 0)
         {
             textScores.text = Game.Levels.Current.Data.score.ToString();

@@ -38,7 +38,7 @@ namespace GGTeam.SmartMobileCore
         public bool IsOpen => uiscreen_opened;
         bool uiscreen_opened = false;
 
-        private Action OnOpenAction;
+        //private Action OnOpenAction;
         private Action OnCloseAction;
 
         public GameManager Game
@@ -142,7 +142,7 @@ OnCloseAction = OnClose;
             void EndAnim1()
             {
                 OnOpen();
-                OnOpenAction?.Invoke();
+//                OnOpenAction?.Invoke();
             }
         }
         int twId = -1;
