@@ -86,10 +86,8 @@ namespace GGTeam.SmartMobileCore
             _Game = gameManager;
 
             _Data = _Game.Levels.LevelData(levelNumber);
-//2_Data = new LevelData(levelNumber);
-
+            _Data.opened = true;
             Score = new ScoreHeader(this, gameManager);
-            _Data.played = true;
             _Data.Save();
 
             StartCoroutine(SkipFrame(OnOk));
@@ -149,9 +147,19 @@ namespace GGTeam.SmartMobileCore
             // Сохраняем прогресс
             _Data.stars = stars;
             //if (Data.stars < stars) { Data.stars = stars; }
-            _Data.played = true;
+            _Data.opened = true;
             _Data.completed = true;
             _Data.Save();
+
+            // Пометим следующий уровень - как открытый
+            int lastLvlNum = _Data.number;
+            var nextLvl = Game.Levels.LevelData(_Data.number + 1);
+            if (nextLvl != null)
+            {
+                if (!nextLvl.opened) { /*lastLvlNum = nextLvl.number;*/ nextLvl.opened = true; nextLvl.Save(); }
+            }
+
+            Game.Config.SAVED_LEVEL_LASTPLAYED = lastLvlNum;
 
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);

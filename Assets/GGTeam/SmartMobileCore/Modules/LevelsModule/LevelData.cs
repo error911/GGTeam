@@ -32,9 +32,9 @@ public class LevelData : DataModel
     [SerializeField] public bool completed = false;
     
     /// <summary>
-    /// Игрался
+    /// Открыт
     /// </summary>
-    [SerializeField] public bool played = false;
+    [SerializeField] public bool opened = false;
 
     public LevelData(int number)
     {

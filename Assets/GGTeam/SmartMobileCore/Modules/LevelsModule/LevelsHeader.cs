@@ -72,16 +72,15 @@ namespace GGTeam.SmartMobileCore
             CurrentNumber = gameManager.Config.SAVED_LEVEL_LASTPLAYED;
             _Levels = LevelsProgressLoadAll(allLevelsNumList);
 
-if (_Levels.Count == 0 && allLevelsNumList.Count > 0)
-            if (allLevelsNumList.Count > 0)
-            {
-                foreach (var item in allLevelsNumList)
+            if (_Levels.Count == 0 && allLevelsNumList.Count > 0)
+                if (allLevelsNumList.Count > 0)
                 {
-                    LevelData d = new LevelData(item);
-                    //1LevelsData.Data.Add(d);
-_Levels.Add(d);
+                    foreach (var item in allLevelsNumList)
+                    {
+                        LevelData d = new LevelData(item);
+                        _Levels.Add(d);
+                    }
                 }
-            }
 
             int predloaded_level = GetLevelPreloaded();
             if (predloaded_level != 0)
@@ -101,6 +100,8 @@ _Levels.Add(d);
         public LevelData LevelData(int lvlNum)
         {
             if (!progressLevelsLoaded) _Levels = LevelsProgressLoadAll(allLevelsNumList);
+            if (lvlNum > MaxNumber) lvlNum = 1;
+
             var lvl = _Levels.Where(x => x.number == lvlNum).SingleOrDefault();
             if (lvl == null) { lvl = new LevelData(lvlNum); _Levels.Add(lvl); }
 
@@ -126,11 +127,11 @@ _Levels.Add(d);
         public void LoadNext(Action OnLoaded = null)
         {
             if (loadingProcess) return;
+            loadingProcess = true;
 
             int need_num = CurrentNumber + 1;
             if (need_num > MaxNumber) need_num = 1;
             if (need_num == 0) need_num = 1;
-            loadingProcess = true;
 
             _HideUI();
             Game.ADS.HideBanner();
@@ -154,7 +155,7 @@ _Levels.Add(d);
                     void _OnHided()
                     {
                         if (LevelData(need_num) != null)
-                        { LevelData(need_num).played = true; /*Debug.Log("SAVE! #NULL " + need_num);*/ LevelsProgressSave(); }
+                        { LevelData(need_num).opened = true; /*Debug.Log("SAVE! #NULL " + need_num);*/ LevelsProgressSave(); }
 
                         loadingProcess = false;
                         OnLoaded?.Invoke();
@@ -236,7 +237,6 @@ _Levels.Add(d);
 
             if (lvlNum > 0)
             {
-                //1var findingLvl = LevelsData.Data.Where(x => x.number == lvlNum).SingleOrDefault();
                 var findingLvl = _Levels.Where(x => x.number == lvlNum).SingleOrDefault();
                 if (findingLvl == null)
                 {
@@ -244,7 +244,7 @@ _Levels.Add(d);
                     d.completed = completeState;
                     d.score = newScore;
                     d.stars = newStars;
-                    //1LevelsData.Data.Add(d);
+                    d.opened = true;
                     _Levels.Add(d);
                 }
                 else
@@ -255,9 +255,9 @@ _Levels.Add(d);
                 }
             }
             /*
-var test = LevelsData.Data.Where(x => x.number == lvlNum).SingleOrDefault();
-if (test == null) Debug.Log("SAVE #NULL " + lvlNum);
-else Debug.Log("SAVE #" + test.number + " sc:" + test.score + ", st:" + test.stars);
+            var test = LevelsData.Data.Where(x => x.number == lvlNum).SingleOrDefault();
+            if (test == null) Debug.Log("SAVE #NULL " + lvlNum);
+            else Debug.Log("SAVE #" + test.number + " sc:" + test.score + ", st:" + test.stars);
 
             string s = JsonUtility.ToJson(LevelsData);
             if (s != null && s.Length > 0) PlayerPrefs.SetString(s_data_level_completed_list, s);
@@ -274,19 +274,14 @@ else Debug.Log("SAVE #" + test.number + " sc:" + test.score + ", st:" + test.sta
         }
 
         // TODO: Сделать кеширование результата метода
-        //1private LevelsDataHeader LevelsProgressLoadAll(List<int> levelsNums)
         private List<LevelData> LevelsProgressLoadAll(List<int> levelsNums)
         {
-List<LevelData> _LevelsTmp = new List<LevelData>();
-            //1LevelsData.Data.Clear();
-//1_Levels.Clear();
+            List<LevelData> _LevelsTmp = new List<LevelData>();
             foreach (var num in levelsNums)
             {
-                //1LevelsData.Data.Add(new LevelData(num));
-_LevelsTmp.Add(new LevelData(num));
+                _LevelsTmp.Add(new LevelData(num));
             }
             progressLevelsLoaded = true;
-            //1return LevelsData;
             return _LevelsTmp;
 
             /*

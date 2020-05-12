@@ -45,7 +45,7 @@ public class LevelCompleteWindow : UIScreen
         }
 
         float stars = Game.Levels.Current.Data.stars;
-        float anSpeed = 0.3f;
+        float anSpeed = 0.25f;
         float anDel = anSpeed - 0.1f;
 
         imgStar1.fillAmount = 0;

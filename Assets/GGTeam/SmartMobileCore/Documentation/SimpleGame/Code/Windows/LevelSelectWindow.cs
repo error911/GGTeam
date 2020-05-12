@@ -47,12 +47,12 @@ public class LevelSelectWindow : UIScreen
 
             var data = Game.Levels.LevelData(i);
 
-            if (data.completed || data.played)
+            if (data.completed || data.opened)
             {
                 normalTr.localScale = new Vector3(0, 0, 1);
                 Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i - 1) * 0.05f);
 
-                if (data.completed && data.played)
+                if (data.completed && data.opened)
                 {
                     imageBottomTr.gameObject.SetActive(true);
                     btnImg.sprite = ImageCompleted;
