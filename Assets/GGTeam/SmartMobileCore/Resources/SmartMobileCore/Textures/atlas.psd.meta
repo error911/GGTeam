@@ -92,6 +92,9 @@ TextureImporter:
   - first:
       213: 2284049985449833782
     second: atlas_level_select
+  - first:
+      213: -597751371322666270
+    second: atlas_hand_t
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -248,7 +251,7 @@ TextureImporter:
         x: 256
         y: 0
         width: 128
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,7 +272,7 @@ TextureImporter:
         x: 384
         y: 0
         width: 128
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -392,10 +395,10 @@ TextureImporter:
       name: atlas_hand
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
+        x: 258
+        y: 258
+        width: 252
+        height: 252
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -500,7 +503,7 @@ TextureImporter:
         x: 512
         y: 0
         width: 128
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -689,7 +692,7 @@ TextureImporter:
         x: 640
         y: 0
         width: 128
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -710,7 +713,7 @@ TextureImporter:
         x: 768
         y: 0
         width: 128
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -773,7 +776,7 @@ TextureImporter:
         x: 896
         y: 0
         width: 128
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -783,6 +786,27 @@ TextureImporter:
       bones: []
       spriteID: b7644b3949d60244aa143cccbfa9fb37
       internalID: 2284049985449833782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_hand_t
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 258
+        width: 252
+        height: 252
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dde9f59e8bd53044a8960f7ce51466f
+      internalID: -597751371322666270
       vertices: []
       indices: 
       edges: []
