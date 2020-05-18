@@ -9,9 +9,14 @@ using UnityEngine.UI;
 
 public class GameProcessWindow : UIScreen
 {
+    public bool EnableBtn_NoAds = true;
+    [Space (16)]
+
     public Text textLvlValue;
     public Text textScoreValue;
     public Transform rtBtnPause;
+    public Transform rtBtnNoAds;
+    public Transform rtBtnRate;
     public Transform trIngameMenu;
     public Image imgPause;
     public Image imgPlay;
@@ -137,6 +142,11 @@ public class GameProcessWindow : UIScreen
 
         if (Game.Config.SETUP_VIBRO_ENABLED) { menuSetupVibroOn.enabled = true; menuSetupVibroOff.enabled = false; }
         else { menuSetupVibroOn.enabled = false; menuSetupVibroOff.enabled = true; }
+
+
+
+
+
     }
 
 
@@ -162,6 +172,16 @@ public class GameProcessWindow : UIScreen
 
         if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
         else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+
+
+        rtBtnNoAds.gameObject.SetActive(false);
+#if UNITY_PURCHASING
+        rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+#endif
+
+        if (rateUrl.Length <= 1) rtBtnRate.gameObject.SetActive(false);
+
+
 
         RenderButtonsImage();
 

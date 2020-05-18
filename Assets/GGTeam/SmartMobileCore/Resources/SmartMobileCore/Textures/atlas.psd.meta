@@ -98,6 +98,9 @@ TextureImporter:
   - first:
       213: -5777596581081317982
     second: atlas_coin
+  - first:
+      213: -997972493423046422
+    second: atlas_noads
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -831,6 +834,27 @@ TextureImporter:
       bones: []
       spriteID: acfdc82269d144645bd465a8f30c2c8a
       internalID: -5777596581081317982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_noads
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7b9cefa3c642ae4ca4348d2fb195d31
+      internalID: -997972493423046422
       vertices: []
       indices: 
       edges: []
