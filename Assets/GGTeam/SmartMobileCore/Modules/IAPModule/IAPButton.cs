@@ -1,4 +1,9 @@
-﻿#if UNITY_PURCHASING
+﻿// ================================
+// Free license: CC BY Murnik Roman
+// Component Module
+// ================================
+
+#if UNITY_PURCHASING
 
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +19,11 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
     public class IAPButton : MonoBehaviour
     {
+        bool aded = false;
+        bool debugMode = true;
+        
+        string MES_PURCHASED = "purchased";
+
         public enum ButtonType
         {
             Purchase,
@@ -38,8 +48,10 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         public ButtonType buttonType = ButtonType.Purchase;
 
         //Consume the product immediately after a successful purchase
-        [Tooltip("Израсходовать продукт сразу после успешной покупки")]
-        public bool consumePurchase = true;
+//        [Tooltip("Израсходовать продукт сразу после успешной покупки")]
+
+//        [Tooltip("Да: Расходуемый. Нет: Продукт можно купить один раз и навсегда (например NoAds)")]
+//        public bool consumePurchase = true;
 
         // Event fired after a successful purchase of this product
         [Tooltip("Событие, срабатываемое после успешной покупки данного товара")]
@@ -61,9 +73,23 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         [Tooltip("[Необязательно] Отображает локализованное описание из магазина приложений.")]
         public Text descriptionText;
 
+        Button button;
+        
+//        public Text debugText;
+
+//        void Deb(string te)
+//        {
+//            if (debugText != null) debugText.text += te + "\r\n";
+//        }
+
+
         void Start()
         {
-            Button button = GetComponent<Button>();
+            button = GetComponent<Button>();
+
+            if (titleText != null) titleText.text = "Loading..";
+            if (priceText != null) priceText.text = "";
+            if (descriptionText != null) descriptionText.text = "";
 
             if (buttonType == ButtonType.Purchase)
             {
@@ -76,12 +102,18 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 {
                     // IAPButton productId is empty
                     Debug.LogError("ID продукта IAPButton пуст");
+                    if (titleText != null) titleText.text = "Empty";
+                    if (button) button.interactable = false;
+                    return;
                 }
 
-                if (!CodelessIAPStoreListener.Instance.HasProductInCatalog(productId))
+                if (!IAPModule.Instance.HasProductInCatalog(productId))
                 {
                     // The product catalog has no product with the ID
                     Debug.LogWarning("В каталоге товаров нет товара с ID \"" + productId + "\"");
+                    if (titleText != null) titleText.text = "Unknown";
+                    if (button) button.interactable = false;
+                    return;
                 }
             }
             else if (buttonType == ButtonType.Restore)
@@ -91,18 +123,28 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                     button.onClick.AddListener(Restore);
                 }
             }
+
+            if (!aded) AddToList();
         }
 
-        void OnEnable()
+        void AddToList()
         {
             if (buttonType == ButtonType.Purchase)
             {
+                if (IAPModule.Instance == null) { aded = false; return; }
+
                 IAPModule.Instance.AddButton(this);
                 if (IAPModule.initializationComplete)
                 {
                     UpdateText();
                 }
             }
+            aded = true;
+        }
+
+        void OnEnable()
+        {
+            AddToList();
         }
 
         void OnDisable()
@@ -111,15 +153,17 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             {
                 IAPModule.Instance.RemoveButton(this);
             }
+            aded = false;
         }
 
         void PurchaseProduct()
         {
             if (buttonType == ButtonType.Purchase)
             {
-                Debug.Log("IAPButton.PurchaseProduct() with product ID: " + productId);
+                if (debugMode) Debug.Log("IAPButton.BuyProductID() with product ID: " + productId); //PurchaseProduct
 
-                IAPModule.Instance.InitiatePurchase(productId);
+//Deb("PurchaseProduct");
+                IAPModule.Instance.BuyProductID(productId); // InitiatePurchase
             }
         }
 
@@ -131,26 +175,26 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                     Application.platform == RuntimePlatform.WSAPlayerX64 ||
                     Application.platform == RuntimePlatform.WSAPlayerARM)
                 {
-                    CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<IMicrosoftExtensions>()
+                    IAPModule.Instance.ExtensionProvider.GetExtension<IMicrosoftExtensions>()   //CodelessIAPStoreListener
                         .RestoreTransactions();
                 }
                 else if (Application.platform == RuntimePlatform.IPhonePlayer ||
                          Application.platform == RuntimePlatform.OSXPlayer ||
                          Application.platform == RuntimePlatform.tvOS)
                 {
-                    CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<IAppleExtensions>()
+                    IAPModule.Instance.ExtensionProvider.GetExtension<IAppleExtensions>()    //CodelessIAPStoreListener
                         .RestoreTransactions(OnTransactionsRestored);
                 }
                 else if (Application.platform == RuntimePlatform.Android &&
                          StandardPurchasingModule.Instance().appStore == AppStore.SamsungApps)
                 {
-                    CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<ISamsungAppsExtensions>()
+                    IAPModule.Instance.ExtensionProvider.GetExtension<ISamsungAppsExtensions>() //CodelessIAPStoreListener
                         .RestoreTransactions(OnTransactionsRestored);
                 }
                 else if (Application.platform == RuntimePlatform.Android &&
                          StandardPurchasingModule.Instance().appStore == AppStore.CloudMoolah)
                 {
-                    CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<IMoolahExtension>()
+                    IAPModule.Instance.ExtensionProvider.GetExtension<IMoolahExtension>()    //CodelessIAPStoreListener
                         .RestoreTransactionID((restoreTransactionIDState) =>
                         {
                             OnTransactionsRestored(
@@ -161,28 +205,29 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 else
                 {
                     // is not a supported platform for the Codeless IAP restore button
-                    Debug.LogWarning(Application.platform.ToString() +
-                                     " is not a supported platform for the Codeless IAP restore button");
+                    Debug.LogWarning(Application.platform.ToString() + " is not a supported platform for the Codeless IAP restore button");
                 }
             }
         }
 
         void OnTransactionsRestored(bool success)
         {
-            Debug.Log("Transactions restored: " + success);
+            if (debugMode) Debug.Log("Transactions restored: " + success);
         }
+
 
         /**
          *  Invoked to process a purchase of the product associated with this button
          *  Вызывается для обработки покупки продукта, связанного с этой кнопкой
          */
-        public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
+        public PurchaseProcessingResult OnProcessPurchaseCallback(PurchaseEventArgs e, bool consumePurchase)    //, bool consumePurchase
         {
-            Debug.Log(string.Format("IAPButton.ProcessPurchase(PurchaseEventArgs {0} - {1})", e,
-                e.purchasedProduct.definition.id));
+//Deb("Купили!! " + e.purchasedProduct.definition.id);
+//if (onPurchaseComplete == null) Deb("onPurchaseComplete == null");
 
+            if (debugMode) Debug.Log(string.Format("IAPButton.ProcessPurchase(PurchaseEventArgs {0} - {1})", e, e.purchasedProduct.definition.id));
             onPurchaseComplete.Invoke(e.purchasedProduct);
-
+            UpdateText();
             return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
         }
 
@@ -190,22 +235,27 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
          *  Invoked on a failed purchase of the product associated with this button
          *  Вызывается при неудачной покупке продукта, связанного с этой кнопкой
          */
-        public void OnPurchaseFailed(Product product, PurchaseFailureReason reason)
+        public void OnPurchaseFailedCallback(Product product, PurchaseFailureReason reason)
         {
-            Debug.Log(string.Format("IAPButton.OnPurchaseFailed(Product {0}, PurchaseFailureReason {1})", product,
-                reason));
-
+//Deb("НЕ КУПИЛИ!! " + product.definition.id + ", " + reason.ToString());
+            if (debugMode) Debug.Log(string.Format("IAPButton.OnPurchaseFailed(Product {0}, PurchaseFailureReason {1})", product, reason));
             onPurchaseFailed.Invoke(product, reason);
         }
 
         internal void UpdateText()
         {
-            var product = CodelessIAPStoreListener.Instance.GetProduct(productId);
+            if (button == null) button = GetComponent<Button>();
+
+            var product = IAPModule.Instance.GetProduct(productId);  // CodelessIAPStoreListener
             if (product != null)
             {
+                //product.hasReceipt - куплен purchased
                 if (titleText != null)
                 {
-                    titleText.text = product.metadata.localizedTitle;
+                    string str = product.metadata.localizedTitle;
+                    str = str.Replace(IAPModule.Instance.removeAppCaption, "");
+                    str = str.Trim();
+                    titleText.text = str;
                 }
 
                 if (descriptionText != null)
@@ -217,6 +267,16 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 {
                     priceText.text = product.metadata.localizedPriceString;
                 }
+
+                if (product.hasReceipt)
+                {
+                    if (product.definition.type == ProductType.NonConsumable)
+                    {
+                        priceText.text = MES_PURCHASED;
+                        button.interactable = false;
+                    }
+                }
+
             }
         }
     }

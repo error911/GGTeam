@@ -8,16 +8,23 @@ using System.Collections.Generic;
 
 namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasing
 {
+#if UNITY_EDITOR
 	public static class IAPButtonMenu
 	{
-		[MenuItem("GameObject/GGTeam/Modules/IAP/IAP Button", false, 9)]	//10
+		[MenuItem("GameObject/GGTeam/Modules/IAP/IAP Button (Пустая)", false, 9)]	//10
 		public static void GameObjectCreateUnityIAPButton()
 		{
 			CreateUnityIAPButton();
 		}
 
+		[MenuItem("GameObject/GGTeam/Modules/IAP/IAP Button (Графическая)", false, 9)]  //10
+		public static void GameObjectCreateDemoIAPButton()
+		{
+			CreateDemoIAPButton();
+		}
+
 		//[MenuItem("Window/Unity IAP/Create IAP Button", false, 5)]
-		[MenuItem("GGTeam/SmartMobileCore/Modules/IAP/Создать IAP-Button", false, 4)]	//5
+		[MenuItem("GGTeam/SmartMobileCore/Modules/IAP/IAP-Button (Пустая)", false, 4)]	//5
 		public static void CreateUnityIAPButton()
 		{
 			// Create Button
@@ -25,7 +32,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasi
 
 			// Get GameObject of Button
 			GameObject gO = Selection.activeGameObject;
-			gO.name = "IAP_Button";
+			gO.name = "IAP_Button (Empty)";
 
 			IAPButton iapButton = null;
 			if (gO) iapButton = gO.AddComponent<IAPButton>();
@@ -37,7 +44,24 @@ namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasi
 				UnityEditorInternal.ComponentUtility.MoveComponentUp(iapButton);
 			}
 		}
+
+		[MenuItem("GGTeam/SmartMobileCore/Modules/IAP/IAP-Button (Графическая)", false, 4)]
+		public static void CreateDemoIAPButton()
+		{
+			var canvas = GameObject.FindObjectOfType<Canvas>();
+			if (canvas != null)
+			{
+				GameObject gO = GameObject.Instantiate(Resources.Load<GameObject>("SmartMobileCore/Modules/IAPModule/IAP_Button"), canvas.transform);
+				gO.name = "IAP_Button";
+				Selection.activeGameObject = gO;
+			}
+			else Debug.Log("На сцене не найден Canvas");
+		}
+
+
 	}
+#endif
+
 
 	/*
 	public static class IAPListenerMenu
@@ -67,6 +91,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasi
 	}
 	*/
 
+#if UNITY_EDITOR
 	[CustomEditor(typeof(IAPButton))]
 	[CanEditMultipleObjects]
 	public class IAPButtonEditor : Editor
@@ -132,5 +157,8 @@ namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasi
 			serializedObject.ApplyModifiedProperties();
 		}
 	}
+#endif
+
+
 }
 #endif

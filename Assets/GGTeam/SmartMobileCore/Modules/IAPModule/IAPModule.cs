@@ -8,8 +8,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
 
 namespace GGTeam.SmartMobileCore.Modules.IAP
 {
@@ -18,27 +21,40 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
     {
         [Tooltip("ID продукта как в магазине GooglePlay и AppStore")]
         [SerializeField] public string id;
-        [Tooltip("При покупке, продукт сразу расходуется (Например NoAds)")]
-        [SerializeField] public bool consume;
+        [Tooltip("Consumable: Расходуемый. NonConsumable: Продукт можно купить один раз и навсегда (например NoAds, Skin...)")]
+        //[SerializeField] public bool consume;
+        [SerializeField] public ProductType productType;
     }
 
 
     public class IAPModule : MonoBehaviour, IStoreListener
     {
+        bool debugMode = false;
+
+        [Tooltip("Название приложения в магазине GooglePlay и AppStore. Необходимое, для правильного отображения названия продукта.")]
+        [SerializeField] public string removeAppCaption = "Game Name";
+        [SerializeField] public List<ProductItem> allProducts = new List<ProductItem>();
+
+        /// <summary>
+        /// Событие, срабатываемое после успешной покупки данного товара
+        /// </summary>
+        public Action<PurchaseEventArgs> OnPurchaseCompleteListener;    //Product
+
+        /// <summary>
+        /// Событие, срабатываемое после НЕ успешной покупки данного товара
+        /// </summary>
+        public Action<Product, PurchaseFailureReason> OnPurchaseFailedListener;
 
         private List<IAPButton> activeButtons = new List<IAPButton>();
 
         // Allows outside sources to know whether the full initialization has taken place.
         public static bool initializationComplete;
-
-        [SerializeField] public List<ProductItem> allProducts = new List<ProductItem>();
-
+        
         private static IAPModule instance;
         public static IAPModule Instance
         {
             get
             {
-                
                 if (instance == null)
                 {
                     //instance = this;
@@ -53,10 +69,55 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                         instance = go.AddComponent<IAPModule>();
                     }
                 }
-                
                 return instance;
             }
 
+        }
+        
+
+//        void Deb(string te)
+//        {
+//            if (debugText != null) debugText.text += ">" + te + "\r\n";
+//        }
+
+
+        public IStoreController StoreController
+        {
+            get { return storeController; }
+        }
+
+        public IExtensionProvider ExtensionProvider
+        {
+            get { return storeExtensionProvider; }
+        }
+
+        /// <summary>
+        /// Тнформация о продукте
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public Product GetProduct(string productID)
+        {
+            if (storeController != null && storeController.products != null && !string.IsNullOrEmpty(productID))
+            {
+                return storeController.products.WithID(productID);
+            }
+
+            if (string.IsNullOrEmpty(productID)) Debug.LogError("IAPModule попытался получить продукт с пустым ID");
+            else Debug.LogError("IAPModule попытался получить неизвестный продукт " + productID);  //IAPModule attempted to get unknown product
+            return null;
+        }
+
+        public bool HasProductInCatalog(string productID)
+        {
+            foreach (var product in allProducts)
+            {
+                if (product.id == productID)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void AddButton(IAPButton button)
@@ -69,36 +130,11 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             activeButtons.Remove(button);
         }
 
-        public void InitiatePurchase(string productID)
-        {
-            if (IsInitialized())
-            {
-                //controller.InitiatePurchase(productID);
-                BuyProductID(productID);
-            }
-            else
-            {
-                Debug.LogError("Purchase failed because Purchasing was not initialized correctly");
-
-                foreach (var button in activeButtons)
-                {
-                    if (button.productId == productID)
-                    {
-                        button.OnPurchaseFailed(null, UnityEngine.Purchasing.PurchaseFailureReason.PurchasingUnavailable);
-                    }
-                }
-                return;
-            }
-
-            
-        }
-
-
         // ===========================
 
 
-        private static IStoreController m_StoreController;          // The Unity Purchasing system.
-        private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
+        private static IStoreController storeController;          // The Unity Purchasing system.
+        private static IExtensionProvider storeExtensionProvider; // The store-specific Purchasing subsystems.
 
         // Product identifiers for all products capable of being purchased: 
         // "convenience" general identifiers for use with Purchasing, and their store-specific identifier 
@@ -110,30 +146,46 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         // when defining the Product Identifiers on the store. Except, for illustration purposes, the 
         // kProductIDSubscription - it has custom Apple and Google identifiers. We declare their store-
         // specific mapping to Unity Purchasing's AddProduct, below.
-        public static string kProductIDConsumable = "consumable";
-        public static string kProductIDNonConsumable = "nonconsumable";
-        public static string kProductIDSubscription = "subscription";
+//        public static string kProductIDConsumable = "consumable";
+//        public static string kProductIDNonConsumable = "nonconsumable";
+//        public static string kProductIDSubscription = "subscription";
 
         // Apple App Store-specific product identifier for the subscription product.
-        private static string kProductNameAppleSubscription = "com.unity3d.subscription.new";
+//        private static string kProductNameAppleSubscription = "com.unity3d.subscription.new";
 
         // Google Play Store-specific product identifier subscription product.
-        private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
+//        private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
 
         void Awake()
         {
-            instance = this;
+            //  instance = this;
+            //if (instance == null)
+            //{ // Экземпляр менеджера был найден
+            instance = this; // Задаем ссылку на экземпляр объекта
+            //}
+            //else if (instance == this)
+            //{ // Экземпляр объекта уже существует на сцене
+            //    Destroy(gameObject); // Удаляем объект
+            //}
+
+
+            if (removeAppCaption == "Game Name") removeAppCaption = Application.productName;
+            removeAppCaption = "(" + removeAppCaption + ")";
+
+            DontDestroyOnLoad(gameObject);
         }
 
         void Start()
         {
             // If we haven't set up the Unity Purchasing reference
-            if (m_StoreController == null)
+            if (storeController == null)
             {
                 // Begin to configure our connection to Purchasing
+                // Начинаем настраивать наше подключение к покупкам
                 InitializePurchasing();
             }
         }
+
 
         public void InitializePurchasing()
         {
@@ -144,9 +196,29 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 return;
             }
 
-            // Create a builder, first passing in a suite of Unity provided stores.
-            var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+            StandardPurchasingModule module = StandardPurchasingModule.Instance();
+            module.useFakeStoreUIMode = FakeStoreUIMode.StandardUser;
 
+            // Create a builder, first passing in a suite of Unity provided stores.
+            ConfigurationBuilder builder = ConfigurationBuilder.Instance(module);
+
+            foreach (var prod in allProducts)
+            {
+                builder.AddProduct(prod.id, prod.productType);
+
+                /*
+                if (prod.productType != ProductType.Subscription)
+                    builder.AddProduct(prod.id, prod.productType);
+                else
+                    builder.AddProduct(prod.id, ProductType.Subscription, new IDs(){
+                    { kProductNameAppleSubscription, AppleAppStore.Name },
+                    { kProductNameGooglePlaySubscription, GooglePlay.Name },
+                });
+                */
+            }
+
+
+            /*
             // Add a product to sell / restore by way of its identifier, associating the general identifier
             // with its store-specific identifiers.
             builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
@@ -161,67 +233,44 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 { kProductNameGooglePlaySubscription, GooglePlay.Name },
             });
 
+            */
+            
             // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
             // and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
             UnityPurchasing.Initialize(this, builder);
         }
 
-
         private bool IsInitialized()
         {
             // Only say we are initialized if both the Purchasing references are set.
-            return m_StoreController != null && m_StoreExtensionProvider != null;
+            return storeController != null && storeExtensionProvider != null;
         }
 
-
-        public void BuyConsumable()
-        {
-            // Buy the consumable product using its general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            BuyProductID(kProductIDConsumable);
-        }
-
-
-        public void BuyNonConsumable()
-        {
-            // Buy the non-consumable product using its general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            BuyProductID(kProductIDNonConsumable);
-        }
-
-
-        public void BuySubscription()
-        {
-            // Buy the subscription product using its the general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            // Notice how we use the general product identifier in spite of this ID being mapped to
-            // custom store-specific identifiers above.
-            BuyProductID(kProductIDSubscription);
-        }
-
-
-        void BuyProductID(string productId)
+        public void BuyProductID(string productId)
         {
             // If Purchasing has been initialized ...
             if (IsInitialized())
             {
                 // ... look up the Product reference with the general product identifier and the Purchasing 
                 // system's products collection.
-                Product product = m_StoreController.products.WithID(productId);
+                Product product = storeController.products.WithID(productId);
 
                 // If the look up found a product for this device's store and that product is ready to be sold ... 
                 if (product != null && product.availableToPurchase)
                 {
-                    Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
+//Deb("BuyProductID " + string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
+                    if (debugMode) Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
                     // ... buy the product. Expect a response either through ProcessPurchase or OnPurchaseFailed 
                     // asynchronously.
-                    m_StoreController.InitiatePurchase(product);
+                    storeController.InitiatePurchase(product);
                 }
                 // Otherwise ...
                 else
                 {
                     // ... report the product look-up failure situation  
-                    Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
+//Deb("BuyProductID #" + productId + " FAIL. Not purchasing product, either is not found");
+                    //if (debugMode) Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
+                    if (debugMode) Debug.Log("BuyProductID: НЕУДАЧА. Не покупаемый товар, либо не найден, либо недоступен для покупки");
                 }
             }
             // Otherwise ...
@@ -229,7 +278,17 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             {
                 // ... report the fact Purchasing has not succeeded initializing yet. Consider waiting longer or 
                 // retrying initiailization.
-                Debug.Log("BuyProductID FAIL. Not initialized.");
+//Deb("Purchase failed because Purchasing was not initialized correctly");
+                //Debug.LogError("Purchase failed because Purchasing was not initialized correctly");
+                Debug.LogError("Покупка не удалась, потому что Покупка не была правильно инициализирована");
+
+                foreach (var button in activeButtons)
+                {
+                    if (button.productId == productId)
+                    {
+                        button.OnPurchaseFailedCallback(null, UnityEngine.Purchasing.PurchaseFailureReason.PurchasingUnavailable);
+                    }
+                }
             }
         }
 
@@ -242,7 +301,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             if (!IsInitialized())
             {
                 // ... report the situation and stop restoring. Consider either waiting longer, or retrying initialization.
-                Debug.Log("RestorePurchases FAIL. Not initialized.");
+                if (debugMode) Debug.Log("RestorePurchases FAIL. Not initialized.");
                 return;
             }
 
@@ -251,44 +310,44 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 Application.platform == RuntimePlatform.OSXPlayer)
             {
                 // ... begin restoring purchases
-                Debug.Log("RestorePurchases started ...");
+                if (debugMode) Debug.Log("RestorePurchases started ...");
 
                 // Fetch the Apple store-specific subsystem.
-                var apple = m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
+                var apple = storeExtensionProvider.GetExtension<IAppleExtensions>();
                 // Begin the asynchronous process of restoring purchases. Expect a confirmation response in 
                 // the Action<bool> below, and ProcessPurchase if there are previously purchased products to restore.
                 apple.RestoreTransactions((result) =>
                 {
                     // The first phase of restoration. If no more responses are received on ProcessPurchase then 
                     // no purchases are available to be restored.
-                    Debug.Log("RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
+                    if (debugMode) Debug.Log("RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
                 });
             }
             // Otherwise ...
             else
             {
                 // We are not running on an Apple device. No work is necessary to restore purchases.
-                Debug.Log("RestorePurchases FAIL. Not supported on this platform. Current = " + Application.platform);
+                if (debugMode) Debug.Log("RestorePurchases FAIL. Not supported on this platform. Current = " + Application.platform);
             }
         }
 
 
-        //  
-        // --- IStoreListener
-        //
-
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
             // Purchasing has succeeded initializing. Collect our Purchasing references.
-            Debug.Log("OnInitialized: PASS");
+//Deb("OnInitialized: PASS");
+            if (debugMode)Debug.Log("OnInitialized: PASS");
 
             // Overall Purchasing system, configured with products for this application.
-            m_StoreController = controller;
+            // Общая система закупок, настроенная с продуктами для этого приложения.
+            storeController = controller;
+            
             // Store specific subsystem, for accessing device-specific store features.
-            m_StoreExtensionProvider = extensions;
+            // Отдельная подсистема хранилища для доступа к функциям хранилища для конкретного устройства.
+            storeExtensionProvider = extensions;
 
             initializationComplete = true;
-
+            
             // == для IAP Buttons ===
             foreach (var button in activeButtons)
             {
@@ -300,11 +359,14 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
         public void OnInitializeFailed(InitializationFailureReason error)
         {
+//Deb("OnInitialized: FAILED");
             // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
-            Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
+            // Настройка покупки не удалась. Проверьте причину ошибки. Рассмотрите эту причину для пользователя.
+            if (debugMode) Debug.Log("OnInitializeFailed Причина ошибки инициализации:" + error);  //InitializationFailureReason
         }
 
 
+        // Вызывается интерфейсом
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
             // == для IAP Buttons ===
@@ -312,54 +374,78 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             PurchaseProcessingResult result;
 
             // if any receiver consumed this purchase we return the status
-            //bool consumePurchase = false;
-            //bool resultProcessed = false;
+            bool consumePurchase = false;
+            bool resultProcessed = false;
 
             foreach (IAPButton button in activeButtons)
             {
                 if (button.productId == args.purchasedProduct.definition.id)
                 {
-                    result = button.ProcessPurchase(args);
+                    var pr = allProducts.Where((x) => x.id == button.productId).SingleOrDefault();
+                    bool consumable = false;
+                    if (pr != null) if (pr.productType == ProductType.Consumable) consumable = true; else consumable = false;
+
+                    result = button.OnProcessPurchaseCallback(args, consumable);  //, consumable
 
                     if (result == PurchaseProcessingResult.Complete)
                     {
-                        //consumePurchase = true;
+                        consumePurchase = true;
                     }
-                    //resultProcessed = true;
+                    resultProcessed = true;
                 }
             }
+
+            if (!resultProcessed)
+            {
+
+                //Debug.LogError("Purchase not correctly processed for product \"" +
+                //                 args.purchasedProduct.definition.id +
+                //                 "\". Add an active IAPButton to process this purchase, or add an IAPListener to receive any unhandled purchase events.");
+
+                Debug.LogError("Покупка не правильно обработана для продукта \"" +
+                                     args.purchasedProduct.definition.id +
+                                     "\". Добавьте активную кнопку IAP для обработки этой покупки, или подпишитесь на события IAPModule для получения любых необработанные событий покупки.");
+            }
+
+            var r = (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
+
+            OnPurchaseCompleteListener?.Invoke(args);
+
+            return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
+
             // === end ===
 
-
-            // A consumable product has been purchased by this user.
-            if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
-            {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-                // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-                //1            ScoreManager.score += 100;
-            }
-            // Or ... a non-consumable product has been purchased by this user.
-            else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
-            {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-                // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
-            }
-            // Or ... a subscription product has been purchased by this user.
-            else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
-            {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-                // TODO: The subscription item has been successfully purchased, grant this to the player.
-            }
-            // Or ... an unknown product has been purchased by this user. Fill in additional products here....
-            else
-            {
-                Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
-            }
+            /*
+                        // A consumable product has been purchased by this user.
+                        if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
+                        {
+                            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+                            //1            ScoreManager.score += 100;
+                        }
+                        // Or ... a non-consumable product has been purchased by this user.
+                        else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
+                        {
+                            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                            // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
+                        }
+                        // Or ... a subscription product has been purchased by this user.
+                        else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
+                        {
+                            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                            // TODO: The subscription item has been successfully purchased, grant this to the player.
+                        }
+                        // Or ... an unknown product has been purchased by this user. Fill in additional products here....
+                        else
+                        {
+                            Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+                        }
 
             // Return a flag indicating whether this product has completely been received, or if the application needs 
             // to be reminded of this purchase at next app launch. Use PurchaseProcessingResult.Pending when still 
             // saving purchased products to the cloud, and when that save is delayed. 
             return PurchaseProcessingResult.Complete;
+            */
         }
 
 
@@ -372,7 +458,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             {
                 if (button.productId == product.definition.id)
                 {
-                    button.OnPurchaseFailed(product, failureReason);
+                    button.OnPurchaseFailedCallback(product, failureReason);
                     //resultProcessed = true;
                 }
             }
@@ -380,7 +466,9 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
             // A product purchase attempt did not succeed. Check failureReason for more detail. Consider sharing 
             // this reason with the user to guide their troubleshooting actions.
-            Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
+            if (debugMode) Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
+
+            OnPurchaseFailedListener?.Invoke(product, failureReason);
         }
     }
 }

@@ -38,6 +38,18 @@ TextureImporter:
   - first:
       213: -2555529952086110113
     second: atlas_btn_01_5_2
+  - first:
+      213: -8475211183855884013
+    second: atlas_btn_01_6_1
+  - first:
+      213: 6888802208111106901
+    second: atlas_btn_01_6_2
+  - first:
+      213: -8643693014289202302
+    second: atlas_btn_01_7_1
+  - first:
+      213: -8333592965534612335
+    second: atlas_btn_01_7_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -77,7 +89,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -393,6 +405,90 @@ TextureImporter:
       bones: []
       spriteID: 6ff364ab0cf013a4fbac66b29a6a8a6e
       internalID: -2555529952086110113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_btn_01_6_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 159, y: 172, z: 159, w: 146}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbbf0eddf77d5884787c76c110348836
+      internalID: -8475211183855884013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_btn_01_6_2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 159, y: 172, z: 159, w: 146}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3480ffb164f7c9b4fbcd6b0fa4543eb3
+      internalID: 6888802208111106901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_btn_01_7_1
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 960
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 159, y: 172, z: 159, w: 146}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96cc21ddfc0433148bd273b2e609934c
+      internalID: -8643693014289202302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_btn_01_7_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 960
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 159, y: 172, z: 159, w: 146}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52bf04b017666de47aeb5fd855550003
+      internalID: -8333592965534612335
       vertices: []
       indices: 
       edges: []

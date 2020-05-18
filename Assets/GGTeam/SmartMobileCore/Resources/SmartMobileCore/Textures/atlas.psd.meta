@@ -95,6 +95,9 @@ TextureImporter:
   - first:
       213: -597751371322666270
     second: atlas_hand_t
+  - first:
+      213: -5777596581081317982
+    second: atlas_coin
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -807,6 +810,27 @@ TextureImporter:
       bones: []
       spriteID: 4dde9f59e8bd53044a8960f7ce51466f
       internalID: -597751371322666270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_coin
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acfdc82269d144645bd465a8f30c2c8a
+      internalID: -5777596581081317982
       vertices: []
       indices: 
       edges: []
