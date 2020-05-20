@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Purchasing;
@@ -21,7 +22,13 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
     {
         bool aded = false;
         bool debugMode = true;
-        
+
+        string localizedTitle = "";
+        string localizedDescription = "";
+        string localizedPrice = "";
+        bool localizedInter = true;
+
+
         string MES_PURCHASED = "purchased";
 
         public enum ButtonType
@@ -48,10 +55,10 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         public ButtonType buttonType = ButtonType.Purchase;
 
         //Consume the product immediately after a successful purchase
-//        [Tooltip("Израсходовать продукт сразу после успешной покупки")]
+        //        [Tooltip("Израсходовать продукт сразу после успешной покупки")]
 
-//        [Tooltip("Да: Расходуемый. Нет: Продукт можно купить один раз и навсегда (например NoAds)")]
-//        public bool consumePurchase = true;
+        //        [Tooltip("Да: Расходуемый. Нет: Продукт можно купить один раз и навсегда (например NoAds)")]
+        //        public bool consumePurchase = true;
 
         // Event fired after a successful purchase of this product
         [Tooltip("Событие, срабатываемое после успешной покупки данного товара")]
@@ -74,19 +81,18 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         public Text descriptionText;
 
         Button button;
-        
-//        public Text debugText;
 
-//        void Deb(string te)
-//        {
-//            if (debugText != null) debugText.text += te + "\r\n";
-//        }
+        //        public Text debugText;
+
+        //        void Deb(string te)
+        //        {
+        //            if (debugText != null) debugText.text += te + "\r\n";
+        //        }
 
 
         void Start()
         {
             button = GetComponent<Button>();
-
             if (titleText != null) titleText.text = "Loading..";
             if (priceText != null) priceText.text = "";
             if (descriptionText != null) descriptionText.text = "";
@@ -107,6 +113,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                     return;
                 }
 
+
                 if (!IAPModule.Instance.HasProductInCatalog(productId))
                 {
                     // The product catalog has no product with the ID
@@ -115,6 +122,26 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                     if (button) button.interactable = false;
                     return;
                 }
+
+
+                // Проверка на купленность (если кнопка была скрыта при инициализации)
+                if (IAPModule.Instance != null)
+                {
+                    StartCoroutine(WaitAndDo());
+                    /*
+                    if (IAPModule.initializationComplete)
+                    {
+                        if (IAPModule.Instance.CheckPurchasedProduct(productId))
+                        {
+                            if (button) { button.interactable = false; }
+                            //UpdateText();
+                            return;
+                        }
+                    }
+                    */
+                }
+
+
             }
             else if (buttonType == ButtonType.Restore)
             {
@@ -126,6 +153,25 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
             if (!aded) AddToList();
         }
+
+
+        IEnumerator WaitAndDo()
+        {
+            //yield return new WaitForSeconds(waitTime);
+            yield return new WaitForEndOfFrame();
+            if (IAPModule.initializationComplete)
+            {
+                if (IAPModule.Instance.CheckPurchasedProduct(productId))
+                {
+                    if (button) { button.interactable = false; }
+                    //UpdateText();
+                    //return;
+                }
+
+            }
+        }
+
+
 
         void AddToList()
         {
@@ -149,6 +195,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
         void OnDisable()
         {
+            if (IAPModule.Instance == null) return;
             if (buttonType == ButtonType.Purchase)
             {
                 IAPModule.Instance.RemoveButton(this);
@@ -161,8 +208,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             if (buttonType == ButtonType.Purchase)
             {
                 if (debugMode) Debug.Log("IAPButton.BuyProductID() with product ID: " + productId); //PurchaseProduct
-
-//Deb("PurchaseProduct");
                 IAPModule.Instance.BuyProductID(productId); // InitiatePurchase
             }
         }
@@ -222,8 +267,8 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
          */
         public PurchaseProcessingResult OnProcessPurchaseCallback(PurchaseEventArgs e, bool consumePurchase)    //, bool consumePurchase
         {
-//Deb("Купили!! " + e.purchasedProduct.definition.id);
-//if (onPurchaseComplete == null) Deb("onPurchaseComplete == null");
+            //Deb("Купили!! " + e.purchasedProduct.definition.id);
+            //if (onPurchaseComplete == null) Deb("onPurchaseComplete == null");
 
             if (debugMode) Debug.Log(string.Format("IAPButton.ProcessPurchase(PurchaseEventArgs {0} - {1})", e, e.purchasedProduct.definition.id));
             onPurchaseComplete.Invoke(e.purchasedProduct);
@@ -237,15 +282,16 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
          */
         public void OnPurchaseFailedCallback(Product product, PurchaseFailureReason reason)
         {
-//Deb("НЕ КУПИЛИ!! " + product.definition.id + ", " + reason.ToString());
+            //Deb("НЕ КУПИЛИ!! " + product.definition.id + ", " + reason.ToString());
             if (debugMode) Debug.Log(string.Format("IAPButton.OnPurchaseFailed(Product {0}, PurchaseFailureReason {1})", product, reason));
             onPurchaseFailed.Invoke(product, reason);
         }
 
-        internal void UpdateText()
+        /*
+        IEnumerator WaitUpdateText()
         {
-            if (button == null) button = GetComponent<Button>();
-
+            //yield return new WaitForSeconds(waitTime);
+            yield return new WaitForEndOfFrame();
             var product = IAPModule.Instance.GetProduct(productId);  // CodelessIAPStoreListener
             if (product != null)
             {
@@ -276,8 +322,93 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                         button.interactable = false;
                     }
                 }
-
             }
+        }
+        */
+
+
+        private async void WaitForUpdateText()
+        {
+            UnityEngine.Purchasing.Product product;
+            await Task.Run(() =>
+            {
+                product = IAPModule.Instance.GetProduct(productId);
+
+                if (product != null)
+                {
+                    string str = product.metadata.localizedTitle;
+                    str = str.Replace(IAPModule.Instance.removeAppCaption, "");
+                    str = str.Trim();
+                    localizedTitle = str;
+                    localizedDescription = product.metadata.localizedDescription;
+                    localizedPrice = product.metadata.localizedPriceString;
+                    if (product.hasReceipt)
+                    {
+                        if (product.definition.type == ProductType.NonConsumable)
+                        {
+                            localizedPrice = MES_PURCHASED;
+                            localizedInter = false;
+                        }
+                    }
+                }
+                return;
+            });
+
+            WaitForUpdateTextEnd();
+        }
+
+        void WaitForUpdateTextEnd()
+        {
+            if (titleText != null) titleText.text = localizedTitle;
+            if (descriptionText != null) descriptionText.text = localizedDescription;
+            if (priceText != null) priceText.text = localizedPrice;
+            button.interactable = localizedInter;
+        }
+
+
+        internal void UpdateText()
+        {
+            //return;
+            if (button == null) button = GetComponent<Button>();
+            if (IAPModule.Instance == null) return;
+            if (!IAPModule.initializationComplete) return;
+
+            //StartCoroutine(WaitUpdateText());
+            WaitForUpdateText();
+
+            /*
+            var product = IAPModule.Instance.GetProduct(productId);  // CodelessIAPStoreListener
+            if (product != null)
+            {
+                //product.hasReceipt - куплен purchased
+                if (titleText != null)
+                {
+                    string str = product.metadata.localizedTitle;
+                    str = str.Replace(IAPModule.Instance.removeAppCaption, "");
+                    str = str.Trim();
+                    titleText.text = str;
+                }
+
+                if (descriptionText != null)
+                {
+                    descriptionText.text = product.metadata.localizedDescription;
+                }
+
+                if (priceText != null)
+                {
+                    priceText.text = product.metadata.localizedPriceString;
+                }
+
+                if (product.hasReceipt)
+                {
+                    if (product.definition.type == ProductType.NonConsumable)
+                    {
+                        priceText.text = MES_PURCHASED;
+                        button.interactable = false;
+                    }
+                }
+            }
+            */
         }
     }
 }

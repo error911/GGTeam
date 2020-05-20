@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class GameProcessWindow : UIScreen
 {
     public bool EnableBtn_NoAds = true;
-    [Space (16)]
+    [Space(16)]
 
     public Text textLvlValue;
     public Text textScoreValue;
@@ -21,7 +21,7 @@ public class GameProcessWindow : UIScreen
     public Image imgPause;
     public Image imgPlay;
     public Image menuBackgroundImg;
-    
+
     public Image menuSetupSoundOn;
     public Image menuSetupSoundOff;
     public Image menuSetupVibroOn;
@@ -73,7 +73,7 @@ public class GameProcessWindow : UIScreen
             pauseProcess = true;
             Tween.TweenFloat((a) => {
                 imgPause.color = new Color(imgPause.color.r, imgPause.color.g, imgPause.color.b, a);
-                imgPlay.color = new Color(imgPlay.color.r, imgPlay.color.g, imgPlay.color.b, 1-a);
+                imgPlay.color = new Color(imgPlay.color.r, imgPlay.color.g, imgPlay.color.b, 1 - a);
             }, 0, 1, speed * 2);
 
             // Фон
@@ -113,6 +113,12 @@ public class GameProcessWindow : UIScreen
     public void OnBtnRate()
     {
         Application.OpenURL(rateUrl);
+    }
+
+    public void OnBtnAdsUserOff()
+    {
+        Game.Config.SETUP_ADS_USEROFF = true;
+        //RenderButtonsImage();
     }
 
     public void OnBtnLevelSelect()
@@ -157,6 +163,25 @@ public class GameProcessWindow : UIScreen
         textLvlValue.text = Game.Levels.Current.Data.number.ToString();
         textScoreValue.text = Game.Levels.Current.Data.score.ToString();
         Game.Levels.OnScoreChanged += ScoreChange;
+
+        /*
+        if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
+        else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        else
+        {
+            rateUrl = "http://greatgalaxy.ru/";
+            if (Game.Config.Current.MARKET_URL_ANDROID.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
+            else if (Game.Config.Current.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        }
+
+
+        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(false);
+#if UNITY_PURCHASING
+        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+#endif
+
+        if (rateUrl.Length <= 1) if (rtBtnRate) rtBtnRate.gameObject.SetActive(false);
+        */
     }
 
     public override void OnClose()
@@ -170,17 +195,41 @@ public class GameProcessWindow : UIScreen
         textScoreValue.text = "-";
         trIngameMenu.gameObject.SetActive(false);
 
+        //        if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
+        //        else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        //        else
+        //        {
+        //            rateUrl = "http://greatgalaxy.ru/";
+        //            if (Game.Config.Current.MARKET_URL_ANDROID.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
+        //            else if (Game.Config.Current.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        //        }
+
+
+        //        rtBtnNoAds.gameObject.SetActive(false);
+        //#if UNITY_PURCHASING
+        //        rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+        //#endif
+
+        //        if (rateUrl.Length <= 1) rtBtnRate.gameObject.SetActive(false);
+
+
+
         if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
         else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        else
+        {
+            rateUrl = "http://greatgalaxy.ru/";
+            if (Game.Config.Current.MARKET_URL_ANDROID.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
+            else if (Game.Config.Current.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        }
 
 
-        rtBtnNoAds.gameObject.SetActive(false);
+        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(false);
 #if UNITY_PURCHASING
-        rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
 #endif
 
-        if (rateUrl.Length <= 1) rtBtnRate.gameObject.SetActive(false);
-
+        if (rateUrl.Length <= 1) if (rtBtnRate) rtBtnRate.gameObject.SetActive(false);
 
 
         RenderButtonsImage();

@@ -34,5 +34,5 @@ MonoBehaviour:
   ADS_ENABLE_BANNER: 1
   ADS_START_VIDEO_FROM_LEVEL: 4
   ADS_SHOW_TIME_MIN_SEC: 20
-  MARKET_URL_ANDROID: 
-  MARKET_URL_IOS: 
+  MARKET_URL_ANDROID: https://play.google.com/store/apps/details?id=com.ggteam.sortpuzzle
+  MARKET_URL_IOS: https://play.google.com/store/apps/details?id=com.ggteam.sortpuzzle

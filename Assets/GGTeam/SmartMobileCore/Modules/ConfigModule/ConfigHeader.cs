@@ -16,12 +16,11 @@ namespace GGTeam.SmartMobileCore
         public GameConfigSO Current { get; private set; }
 
         private GameManager Game;
+
         string s_data_level_lastplayed = "";
-        
         string s_data_sound_enabled = "";
         string s_data_vibro_enabled = "";
-        //string s_data_level_maxplayed = "";
-//!        string s_data_level_completed_list = "";
+        string s_data_ads_disabled_by_user = "";
 
         public ConfigHeader(GameManager gameManager, GameConfigSO gameConfig)
         {
@@ -30,10 +29,9 @@ namespace GGTeam.SmartMobileCore
             if (this.Current == null) this.Current = ScriptableObject.CreateInstance<GameConfigSO>();
 
             s_data_level_lastplayed = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.lastplayed";
-
             s_data_sound_enabled = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Setup.Sound.enabled";
             s_data_vibro_enabled = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Setup.Vibro.enabled";
-
+            s_data_ads_disabled_by_user = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Setup.Ads.useroff";
 
         }
 
@@ -97,7 +95,25 @@ namespace GGTeam.SmartMobileCore
             }
         }
 
+        /// <summary>
+        /// Ads: true-отключен пользователем (например куплен)
+        /// </summary>
+        public bool SETUP_ADS_USEROFF
+        {
+            get
+            {
+                int i = PlayerPrefs.GetInt(s_data_ads_disabled_by_user, 0);
+                if (i <= 0) return false;
+                return true;
+            }
 
+            set
+            {
+                int i = 0;
+                if (value == true) i = 1;
+                PlayerPrefs.SetInt(s_data_ads_disabled_by_user, i);
+            }
+        }
 
 
 

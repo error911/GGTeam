@@ -123,7 +123,7 @@ namespace GGTeam.SmartMobileCore
         {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             uiscreen_opened = !uiscreen_opened;
-OnCloseAction = OnClose;
+            OnCloseAction = OnClose;
 
             Vector3 s_sc = new Vector3(1, 1, 1);
 
@@ -142,7 +142,7 @@ OnCloseAction = OnClose;
             void EndAnim1()
             {
                 OnOpen();
-//                OnOpenAction?.Invoke();
+                //                OnOpenAction?.Invoke();
             }
         }
         int twId = -1;
@@ -176,7 +176,7 @@ OnCloseAction = OnClose;
             }
         }
 
-
+        /*
         private async void WaitForInit()
         {
             await Task.Run(() =>
@@ -190,13 +190,28 @@ OnCloseAction = OnClose;
             ui_screen_inited = true;
             OnInit();
         }
-
+        */
         protected void OnEnable()
         {
             if (Game == null) return;
             StartCoroutine(SkipFrameAndReg());
-            WaitForInit();
+
+            StartCoroutine(SkipFrameAndInit());
+            //            WaitForInit();
         }
+
+        private IEnumerator SkipFrameAndInit()
+        {
+            yield return new WaitForEndOfFrame();
+            while (!Game.inited)
+            {
+                yield return new WaitForEndOfFrame();
+
+            }
+            ui_screen_inited = true;
+            OnInit();
+        }
+
 
         private IEnumerator SkipFrameAndReg()
         {
