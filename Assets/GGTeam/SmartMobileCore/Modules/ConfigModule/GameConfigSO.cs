@@ -58,10 +58,25 @@ public class GameConfigSO : ScriptableObject
     public string DATA_SAVE_PREFIX = "GGTeam";
     public string DATA_SAVE_SUFFIX = "MobileCore";
 
+    // ========== Analytics ==========
+    [Space(8)]
+    [Header("- Analytics. Support default Yandex.Metrica api -----------------------------------------------------------------")]
+    [Tooltip("Уникальный идентификатор приложения, который выдается при добавлении приложения в веб-интерфейсе AppMetrica. (https://appmetrika.yandex.ru/application/new)")]
+    public string ANALYTICS_APP_KEY = "1ebc6e45-a6de-4acc-bfc3-c340ea9d8235";
+
+    [Tooltip("включить/отключить передачу данных о местоположении")]
+    public bool ANALYTICS_LOCATION_TRACKING = true;
+
+    [Tooltip("включить/отключить логирование работы библиотеки")]
+    public bool ANALYTICS_LOGS = false;
+
+    [Tooltip("включить/отключить отправку ошибок")]
+    public bool ANALYTICS_EXCEPTIONS_REPORTING = true;
+
     // ========== ADS ==========
     [Space(8)]
-    [Header("- Support only IronSource api -----------------------------------------------------------------")]
-    [Tooltip("Support only IronSource")]
+    [Header("- ADS. Support default IronSource api -----------------------------------------------------------------")]
+    [Tooltip("Support default IronSource")]
     public string ADS_APP_KEY = "b4fa68fd";
     public bool ADS_ENABLE_VIDEO = true;
     public bool ADS_ENABLE_BANNER = false;

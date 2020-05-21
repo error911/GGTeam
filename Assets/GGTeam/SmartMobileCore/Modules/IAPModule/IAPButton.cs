@@ -208,6 +208,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             if (buttonType == ButtonType.Purchase)
             {
                 if (debugMode) Debug.Log("IAPButton.BuyProductID() with product ID: " + productId); //PurchaseProduct
+
                 IAPModule.Instance.BuyProductID(productId); // InitiatePurchase
             }
         }

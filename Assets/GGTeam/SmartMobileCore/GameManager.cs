@@ -44,6 +44,12 @@ namespace GGTeam.SmartMobileCore
         public AdsHeader ADS;
         readonly IAdsProvider adsProvider = new IronSourceAdsProvider();
 
+        /// <summary>
+        /// Аналитика
+        /// </summary>
+        //public IYandexAppMetrica Metrica;
+        [HideInInspector] public Analytics Metrica;
+
         internal bool inited = false;
 
         /// <summary>
@@ -139,9 +145,24 @@ namespace GGTeam.SmartMobileCore
         void Loading()
         {
             var loadingPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[Loading]");
+            if (loadingPref == null) Debug.LogError("Не найден префаб SmartMobileCore/Prefabs/[Loading]");
             var loadingGo = Instantiate(loadingPref);
             ld = loadingGo.GetComponent<Loading>();
             ld.StartProcess(this);
+
+            #region Аналитика
+            var metrPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[Analytics]");
+            if (metrPref == null) Debug.LogError("Не найден префаб SmartMobileCore/Prefabs/[Analytics]");
+            var metrGo = Instantiate(metrPref);
+            metrGo.name = "[Analytics]";
+            //Metrica = Analytics.Instance;
+            //Metrica.OnActivation += dfsdfsd;
+            //Metrica.ResumeSession();
+            Metrica = metrGo.GetComponent<Analytics>();
+            
+            #endregion
+
+
 
             Invoke("Loading2", 0.25f);
         }
@@ -156,6 +177,7 @@ namespace GGTeam.SmartMobileCore
             InitAds();
             UI.Init();
             if (ld != null) ld.Complete();
+            Metrica.Report_Loading();
         }
 
     }

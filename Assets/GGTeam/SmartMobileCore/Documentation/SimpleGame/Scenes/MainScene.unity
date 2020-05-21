@@ -405,6 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfig: {fileID: 11400000, guid: c4e88af4f64646c428ccd2c33322c1d5, type: 2}
+  Metrica: {fileID: 0}
 --- !u!1 &1287721968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,11 +1425,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718033878340837010, guid: 523c36cf1b66f0d40b177f7984a90e6e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -53.999878
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 523c36cf1b66f0d40b177f7984a90e6e, type: 3}

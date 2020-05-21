@@ -42,6 +42,7 @@ public class GameProcessWindow : UIScreen
 
         if (!opened)
         {
+Game.Metrica.Report_MenuOpen();
             SetPause(true);
             //Time.timeScale = 0;
             // Открываем игровое меню
@@ -101,17 +102,21 @@ public class GameProcessWindow : UIScreen
     public void OnBtnSound()
     {
         Game.Config.SETUP_SOUND_ENABLED = !Game.Config.SETUP_SOUND_ENABLED;
+Game.Metrica.Report_MenuSound(Game.Config.SETUP_SOUND_ENABLED);
+
         RenderButtonsImage();
     }
 
     public void OnBtnVibro()
     {
         Game.Config.SETUP_VIBRO_ENABLED = !Game.Config.SETUP_VIBRO_ENABLED;
+Game.Metrica.Report_MenuVibro(Game.Config.SETUP_VIBRO_ENABLED);
         RenderButtonsImage();
     }
 
     public void OnBtnRate()
     {
+Game.Metrica.Report_MenuRate();
         Application.OpenURL(rateUrl);
     }
 
@@ -123,6 +128,7 @@ public class GameProcessWindow : UIScreen
 
     public void OnBtnLevelSelect()
     {
+Game.Metrica.Report_MenuSelectLevel();
         OnBtnOpen();
         Game.UI.Close(UITypes.InterfaceInGame);
         Game.UI.Open(UITypes.ScreenLevelSelect, OnLevelSelectCallback);
@@ -148,11 +154,6 @@ public class GameProcessWindow : UIScreen
 
         if (Game.Config.SETUP_VIBRO_ENABLED) { menuSetupVibroOn.enabled = true; menuSetupVibroOff.enabled = false; }
         else { menuSetupVibroOn.enabled = false; menuSetupVibroOff.enabled = true; }
-
-
-
-
-
     }
 
 

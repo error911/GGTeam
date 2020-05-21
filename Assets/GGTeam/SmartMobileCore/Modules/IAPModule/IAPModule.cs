@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Purchasing;
@@ -29,7 +30,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
     public class IAPModule : MonoBehaviour, IStoreListener
     {
-
         [HideInInspector]
         public string noAdsProductId;
 
@@ -337,6 +337,17 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 // system's products collection.
                 Product product = storeController.products.WithID(productId);
 
+                #region === Статистика ===
+                double p_price = 0;
+                string p_currency = "";
+                if (product != null)
+                {
+                    p_price = Convert.ToDouble(product.metadata.localizedPrice);
+                    p_currency = product.metadata.isoCurrencyCode;
+                }
+                Game.Metrica.Report_PurchaseStart(productId, p_price, p_currency);
+                #endregion
+
                 // If the look up found a product for this device's store and that product is ready to be sold ... 
                 if (product != null && product.availableToPurchase)
                 {
@@ -501,6 +512,18 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                                      args.purchasedProduct.definition.id +
                                      "\". Добавьте активную кнопку IAP для обработки этой покупки, или подпишитесь на события IAPModule для получения любых необработанные событий покупки.");
             }
+            else
+            {
+
+                #region === Статистика ===
+                double p_price = Convert.ToDouble(args.purchasedProduct.metadata.localizedPrice);
+                string p_currency = args.purchasedProduct.metadata.isoCurrencyCode;
+
+                string receipt = "";
+                if (args.purchasedProduct.hasReceipt) receipt = args.purchasedProduct.receipt;
+                Game.Metrica.Report_PurchaseComplete(args.purchasedProduct.definition.id, true, p_price, p_currency, receipt);
+                #endregion
+            }
 
             //var r = (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
             return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
@@ -555,6 +578,16 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 }
             }
             // === end ===
+
+            #region === Статистика ===
+            double p_price = Convert.ToDouble(product.metadata.localizedPrice);
+            string p_currency = product.metadata.isoCurrencyCode;
+
+            string receipt = "";
+            if (product.hasReceipt) receipt = product.receipt;
+            Game.Metrica.Report_PurchaseComplete(product.definition.id, false, p_price, p_currency, receipt);
+            #endregion
+
 
             // A product purchase attempt did not succeed. Check failureReason for more detail. Consider sharing 
             // this reason with the user to guide their troubleshooting actions.
