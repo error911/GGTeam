@@ -67,10 +67,10 @@ namespace GGTeam.SmartMobileCore
         {
             Config = new ConfigHeader(this, gameConfig);
             Log = new LogHeader(this);
-#pragma warning disable CS0618 // Тип или член устарел
-            Scenes = new ScenesHeader(this);
-#pragma warning restore CS0618 // Тип или член устарел
-            Levels = new LevelsHeader(this);
+//#pragma warning disable CS0618 // Тип или член устарел
+//            Scenes = new ScenesHeader(this);
+//#pragma warning restore CS0618 // Тип или член устарел
+//            Levels = new LevelsHeader(this);
             UI = new UIHeader(this);
             ADS = new AdsHeader(this, adsProvider);
         }
@@ -148,6 +148,11 @@ namespace GGTeam.SmartMobileCore
 
         void Loading2()
         {
+#pragma warning disable CS0618 // Тип или член устарел
+            Scenes = new ScenesHeader(this);
+#pragma warning restore CS0618 // Тип или член устарел
+            Levels = new LevelsHeader(this);
+
             InitAds();
             UI.Init();
             if (ld != null) ld.Complete();

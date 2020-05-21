@@ -481,11 +481,12 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             if (!args.purchasedProduct.availableToPurchase) resultProcessed = true;
             if (!args.purchasedProduct.definition.enabled) resultProcessed = true;
 
-            if (args.purchasedProduct.definition.id == noAdsProductId)
-            {
-                resultProcessed = true;
-                Game.Config.SETUP_ADS_USEROFF = true;
-            }
+            if (!string.IsNullOrEmpty(noAdsProductId))
+                if (args.purchasedProduct.definition.id == noAdsProductId)
+                {
+                    resultProcessed = true;
+                    Game.Config.SETUP_ADS_USEROFF = true;
+                }
 
             if (OnPurchaseCompleteListener != null) resultProcessed = true;
             OnPurchaseCompleteListener?.Invoke(args);
