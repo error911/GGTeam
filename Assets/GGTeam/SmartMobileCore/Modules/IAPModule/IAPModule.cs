@@ -29,17 +29,20 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
     public class IAPModule : MonoBehaviour, IStoreListener
     {
-        //public Text debText;
+
+        [HideInInspector]
+        public string noAdsProductId;
+
         bool debugMode = false;
 
-        [Tooltip("Название приложения в магазине GooglePlay и AppStore. Необходимое, для правильного отображения названия продукта.")]
-        [SerializeField] public string removeAppCaption = "Game Name";
+        //[Tooltip("Название приложения в магазине GooglePlay и AppStore. Необходимое, для правильного отображения названия продукта.")]
+        [HideInInspector] [SerializeField] public string removeAppCaption = "Game Name";
         [SerializeField] public List<ProductItem> allProducts = new List<ProductItem>();
 
         /// <summary>
-        /// Событие, срабатываемое после успешной покупки данного товара
+        /// Событие, срабатываемое после успешной покупки любого товара
         /// </summary>
-        public Action<PurchaseEventArgs> OnPurchaseCompleteListener;    //Product
+        public Action<PurchaseEventArgs> OnPurchaseCompleteListener;
 
         /// <summary>
         /// Событие, срабатываемое после НЕ успешной покупки данного товара
@@ -50,6 +53,19 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
         // Allows outside sources to know whether the full initialization has taken place.
         public static bool initializationComplete;
+
+
+        private GameManager Game
+        {
+            get
+            {
+                if (_Game != null) return _Game;
+                _Game = FindObjectOfType<GameManager>();
+                if (_Game == null) { Debug.LogError("[GameManager] not found in root scene."); }
+                return _Game;
+            }
+        }
+        private GameManager _Game;
 
         private static IAPModule instance;
         public static IAPModule Instance
@@ -464,6 +480,12 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             //Debug.Log("===" + args.purchasedProduct.availableToPurchase + " / " + args.purchasedProduct.definition.enabled);
             if (!args.purchasedProduct.availableToPurchase) resultProcessed = true;
             if (!args.purchasedProduct.definition.enabled) resultProcessed = true;
+
+            if (args.purchasedProduct.definition.id == noAdsProductId)
+            {
+                resultProcessed = true;
+                Game.Config.SETUP_ADS_USEROFF = true;
+            }
 
             if (OnPurchaseCompleteListener != null) resultProcessed = true;
             OnPurchaseCompleteListener?.Invoke(args);

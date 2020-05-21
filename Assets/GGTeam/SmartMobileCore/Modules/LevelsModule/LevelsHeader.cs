@@ -12,15 +12,6 @@ using UnityEngine.SceneManagement;
 
 namespace GGTeam.SmartMobileCore
 {
-    /*
-    [Serializable]
-    public class LevelsDataHeader
-    {
-        [SerializeField] 
-        public List<LevelData> Data = new List<LevelData>();
-    }
-    */
-
     public sealed class LevelsHeader
     {
         /// <summary>
@@ -40,10 +31,10 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public Level Current { get; private set; }
 
-        /// <summary>
-        /// Максимальный уровень
-        /// </summary>
-        public int MaxNumber => Count;
+        // <summary>
+        // Максимальный уровень
+        // </summary>
+        //public int MaxNumber => Count;
 
         public Action<int> OnLevelChanged;
         public Action<int> OnScoreChanged;
@@ -54,9 +45,7 @@ namespace GGTeam.SmartMobileCore
 
         private List<int> allLevelsNumList = new List<int>();  // Список номеров уровней
 
-        //1private LevelsDataHeader LevelsData = new LevelsDataHeader();   // Список уровней
         private List<LevelData> _Levels = new List<LevelData>();   // Список уровней
-        
         
         private bool progressLevelsLoaded = false;
 
@@ -100,7 +89,7 @@ namespace GGTeam.SmartMobileCore
         public LevelData LevelData(int lvlNum)
         {
             if (!progressLevelsLoaded) _Levels = LevelsProgressLoadAll(allLevelsNumList);
-            if (lvlNum > MaxNumber) lvlNum = 1;
+            if (lvlNum > Count) lvlNum = 1;
 
             var lvl = _Levels.Where(x => x.number == lvlNum).SingleOrDefault();
             if (lvl == null) { lvl = new LevelData(lvlNum); _Levels.Add(lvl); }
@@ -130,7 +119,7 @@ namespace GGTeam.SmartMobileCore
             loadingProcess = true;
 
             int need_num = CurrentNumber + 1;
-            if (need_num > MaxNumber) need_num = 1;
+            if (need_num > Count) need_num = 1;
             if (need_num == 0) need_num = 1;
 
             _HideUI();
@@ -144,7 +133,8 @@ namespace GGTeam.SmartMobileCore
                 void _AdShow()
                 {
                     Game.ADS.Show(Current.Data.number, _AdsEnd);
-                    Game.ADS.ShowBanner();
+
+                    Game.ADS.ReloadBanner();    // ShowBanner();
                 }
 
                 // Реклама - Завершена
@@ -358,7 +348,9 @@ namespace GGTeam.SmartMobileCore
         // Загрузить уровень (по номеру 1..MaxNumber)
         private void OnlyLoad(int levelNumber, Action OnLoaded = null)
         {
+#pragma warning disable CS0618 // Тип или член устарел
             Game.Scenes.LoadScene(levelNumber, _OnLoadComplete);
+#pragma warning restore CS0618 // Тип или член устарел
             void _OnLoadComplete()
             {
                 Game.Log.Debug("Level", "Уровень #" + levelNumber + " загружен.");
@@ -438,8 +430,9 @@ namespace GGTeam.SmartMobileCore
         {
             if (!allLevelsNumList.Contains(levelNumber) || levelNumber < 1) { Game.Log.Error("Level", "Уровень #" + levelNumber + " не найден."); return; }
             int scene_current = levelNumber;    // allList[levelNumber];
-
+#pragma warning disable CS0618 // Тип или член устарел
             Game.Scenes.UnloadScene(levelNumber, _OnUnloadComplete);
+#pragma warning restore CS0618 // Тип или член устарел
 
             void _OnUnloadComplete(bool ok)
             {

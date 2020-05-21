@@ -146,7 +146,6 @@ namespace GGTeam.SmartMobileCore
 
             // Сохраняем прогресс
             _Data.stars = stars;
-            //if (Data.stars < stars) { Data.stars = stars; }
             _Data.opened = true;
             _Data.completed = true;
             _Data.Save();

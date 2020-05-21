@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc6bee03d284ba4e8fd9e66b78413e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noAdsProductId: 
   removeAppCaption: Game Name
   allProducts: []
 --- !u!4 &1287721970
@@ -486,7 +487,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.24705884, g: 0.24313727, b: 0.24313727, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1547,6 +1548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970396637133730835, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3, type: 3}

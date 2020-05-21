@@ -20,6 +20,8 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
     public class IAPButton : MonoBehaviour
     {
+        readonly string MES_PURCHASED = "purchased";
+
         bool aded = false;
         bool debugMode = true;
 
@@ -27,9 +29,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         string localizedDescription = "";
         string localizedPrice = "";
         bool localizedInter = true;
-
-
-        string MES_PURCHASED = "purchased";
+        
 
         public enum ButtonType
         {

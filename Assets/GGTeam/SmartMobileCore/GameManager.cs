@@ -25,7 +25,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Сцены
         /// </summary>
-        //[Obsolete("Будет исключено в будующем")]
+        [Obsolete("Будет исключено в будующем")]
         public ScenesHeader Scenes;
 
         /// <summary>
@@ -52,13 +52,14 @@ namespace GGTeam.SmartMobileCore
         [Obsolete("Будет исключено в будующем (Используйте Level->Game)")]
         public static GameManager API;
 
-
         void Awake()
         {
             #pragma warning disable CS0618 // Тип или член устарел
             API = this;
             #pragma warning restore CS0618 // Тип или член устарел
             Prepare();
+
+            //Invoke("Init", 8);
             Init();
         }
 
@@ -66,7 +67,9 @@ namespace GGTeam.SmartMobileCore
         {
             Config = new ConfigHeader(this, gameConfig);
             Log = new LogHeader(this);
+#pragma warning disable CS0618 // Тип или член устарел
             Scenes = new ScenesHeader(this);
+#pragma warning restore CS0618 // Тип или член устарел
             Levels = new LevelsHeader(this);
             UI = new UIHeader(this);
             ADS = new AdsHeader(this, adsProvider);
@@ -109,11 +112,13 @@ namespace GGTeam.SmartMobileCore
 
             void On_GDRPP_Complete()
             {
-                UI.Init();
+                //UI.Init();
+                Loading();
             }
         }
 
-        void Start()
+        //void Start()
+        void InitAds()
         {
             if (Config.Current.ADS_APP_KEY.Length > 0)
             {
@@ -129,6 +134,25 @@ namespace GGTeam.SmartMobileCore
             inited = true;
             Log.Info("GameManager", "Started");
         }
+
+        Loading ld;
+        void Loading()
+        {
+            var loadingPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[Loading]");
+            var loadingGo = Instantiate(loadingPref);
+            ld = loadingGo.GetComponent<Loading>();
+            ld.StartProcess(this);
+
+            Invoke("Loading2", 0.25f);
+        }
+
+        void Loading2()
+        {
+            InitAds();
+            UI.Init();
+            if (ld != null) ld.Complete();
+        }
+
     }
 }
 

@@ -101,6 +101,7 @@ namespace GGTeam.SmartMobileCore
         /// <param name="OnComplete">При завершении показа</param>
         public void Show(int levelNum, Action<bool> OnComplete)
         {
+            if (Game.Config.SETUP_ADS_USEROFF) { OnComplete?.Invoke(false); return; }
             if (!IsEnabled) { OnComplete?.Invoke(false); return; }
             if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnComplete?.Invoke(false); return; }
             if (levelNum > config.show_video_start_level && Game.ADS != null && Game.ADS.IsEnabled)
@@ -131,12 +132,12 @@ namespace GGTeam.SmartMobileCore
         /// Показ рекламы за вознаграждение
         /// </summary>
         /// <param name="OnSuccess"></param>
-        /// <param name="OnCansel"></param>
-        public void ShowRewarded(Action OnSuccess, Action OnCansel)
+        /// <param name="OnCancel"></param>
+        public void ShowRewarded(Action OnSuccess, Action OnCancel)
         {
             if (!IsEnabled) { OnSuccess?.Invoke(); return; }
-            if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnCansel?.Invoke(); return; }
-            adwareProvider.ShowRewarded(OnSuccess, OnCansel);
+            if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnCancel?.Invoke(); return; }
+            adwareProvider.ShowRewarded(OnSuccess, OnCancel);
         }
 
         public void HideBanner()
@@ -146,12 +147,25 @@ namespace GGTeam.SmartMobileCore
             IronSource.Agent.hideBanner();
         }
 
+
+        public void ReloadBanner()
+        {
+            if (!IsEnabled) return;
+            if (!config.enable_banner) return;
+            IronSource.Agent.destroyBanner();
+            ShowBanner(predBannerPosition);
+        }
+
+        BannerPosition predBannerPosition = BannerPosition.BOTTOM;
         public void ShowBanner(BannerPosition bannerPosition = BannerPosition.BOTTOM)
         {
 #if UNITY_EDITOR
             RenderDebugBanner();
 #endif
+
+            predBannerPosition = bannerPosition;
             //IronSource.Agent.displayBanner();// BannerLayout banner = IronSource.createBanner(Activity, new ISBannerSize(320, 50));
+            if (Game.Config.SETUP_ADS_USEROFF) return;
             if (!IsEnabled) return;
             if (!config.enable_banner) return;
 

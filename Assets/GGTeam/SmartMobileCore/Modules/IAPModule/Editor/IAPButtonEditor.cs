@@ -6,7 +6,7 @@ using UnityEngine.Purchasing;
 using System.IO;
 using System.Collections.Generic;
 
-namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasing
+namespace GGTeam.SmartMobileCore.Modules.IAP
 {
 #if UNITY_EDITOR
 	public static class IAPButtonMenu
@@ -120,14 +120,10 @@ namespace GGTeam.SmartMobileCore.Modules.IAP    //namespace UnityEditor.Purchasi
 
 				//var catalog = ProductCatalog.LoadDefaultCatalog();
 				if (IAPModule.Instance == null) { Debug.LogError("Не найден [IAPModule]"); return; }
-				var catalog = IAPModule.Instance.allProducts;// ProductCatalog.LoadDefaultCatalog();
+				var catalog = IAPModule.Instance.allProducts;
 
 				m_ValidIDs.Clear();
 				m_ValidIDs.Add(kNoProduct);
-				//foreach (var product in catalog.allProducts)
-				//{
-				//	m_ValidIDs.Add(product.id);
-				//}
 
 				foreach (var product in catalog)
 				{
