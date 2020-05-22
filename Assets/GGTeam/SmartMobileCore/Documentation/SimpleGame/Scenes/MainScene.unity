@@ -437,7 +437,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noAdsProductId: 
   removeAppCaption: Game Name
-  allProducts: []
+  allProducts:
+  - id: 
+    productType: 0
+  - id: 
+    productType: 0
+  - id: 
+    productType: 0
 --- !u!4 &1287721970
 Transform:
   m_ObjectHideFlags: 0

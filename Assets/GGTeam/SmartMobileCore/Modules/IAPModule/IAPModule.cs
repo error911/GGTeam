@@ -521,7 +521,8 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
                 string receipt = "";
                 if (args.purchasedProduct.hasReceipt) receipt = args.purchasedProduct.receipt;
-                Game.Metrica.Report_PurchaseComplete(args.purchasedProduct.definition.id, true, p_price, p_currency, receipt);
+
+                Game.Metrica.Report_PurchaseComplete(args.purchasedProduct.definition.id, true, p_price, p_currency, args.purchasedProduct.transactionID, receipt);
                 #endregion
             }
 
@@ -582,10 +583,12 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             #region === Статистика ===
             double p_price = Convert.ToDouble(product.metadata.localizedPrice);
             string p_currency = product.metadata.isoCurrencyCode;
+            string p_transaction = "";
+            if (!string.IsNullOrEmpty(product.transactionID)) p_transaction = product.transactionID;
 
             string receipt = "";
             if (product.hasReceipt) receipt = product.receipt;
-            Game.Metrica.Report_PurchaseComplete(product.definition.id, false, p_price, p_currency, receipt);
+            Game.Metrica.Report_PurchaseComplete(product.definition.id, false, p_price, p_currency, p_transaction, receipt, failureReason.ToString());
             #endregion
 
 

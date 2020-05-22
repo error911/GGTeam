@@ -90,7 +90,7 @@ namespace GGTeam.SmartMobileCore
             Score = new ScoreHeader(this, gameManager);
             _Data.Save();
 
-_Game.Metrica.Report_LevelStart(levelNumber);
+_Game.Metrica.Report_LevelStart(levelNumber, _Data.score);
 
             StartCoroutine(SkipFrame(OnOk));
             void OnOk()
@@ -181,7 +181,7 @@ _Game.Metrica.Report_LevelStart(levelNumber);
             //            SaveProgress();
 
             OnLevelComplete(_Data); // Data.score, stars
-_Game.Metrica.Report_LevelComplete(lastLvlNum, stars, _Data.score);
+_Game.Metrica.Report_LevelComplete(lastLvlNum, _Data.score, _Data.stars);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ _Game.Metrica.Report_LevelComplete(lastLvlNum, stars, _Data.score);
 //! if (Data.score < score) Data.score = score;
             OnLevelFailed(_Data);
 
-_Game.Metrica.Report_LevelFailed(_Data.number, 0, _Data.score);
+_Game.Metrica.Report_LevelFailed(_Data.number, _Data.score, _Data.stars);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ _Game.Metrica.Report_LevelFailed(_Data.number, 0, _Data.score);
             if (Game == null) return;
             if (Game.UI == null) return;
 
-_Game.Metrica.Report_LevelRestart(_Data.number);
+_Game.Metrica.Report_LevelRestart(_Data.number, _Data.score, _Data.stars);
 
             Game.Levels.LoadCurrent();
         }

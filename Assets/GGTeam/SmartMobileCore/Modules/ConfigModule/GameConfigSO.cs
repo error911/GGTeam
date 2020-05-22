@@ -64,8 +64,8 @@ public class GameConfigSO : ScriptableObject
     [Tooltip("Уникальный идентификатор приложения, который выдается при добавлении приложения в веб-интерфейсе AppMetrica. (https://appmetrika.yandex.ru/application/new)")]
     public string ANALYTICS_APP_KEY = "1ebc6e45-a6de-4acc-bfc3-c340ea9d8235";
 
-    [Tooltip("включить/отключить передачу данных о местоположении")]
-    public bool ANALYTICS_LOCATION_TRACKING = true;
+    [Tooltip("включить/отключить передачу данных о местоположении. Для включения закоментируйте строку #define APP_METRICA_TRACK_LOCATION_DISABLED в Analytics.cs")]
+    public bool ANALYTICS_LOCATION_TRACKING = false;
 
     [Tooltip("включить/отключить логирование работы библиотеки")]
     public bool ANALYTICS_LOGS = false;
