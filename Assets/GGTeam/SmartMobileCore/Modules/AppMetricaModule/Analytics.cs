@@ -408,9 +408,10 @@ namespace GGTeam.SmartMobileCore
             if (!use_anilytics) return;
             if (string.IsNullOrEmpty(id)) return;
             string report = e_Purchase;
-            var par3 = new Dictionary<string, object>(3) { { e_Level_DevId, deviceId }, { e_Purchase_Price, price }, { e_Purchase_Currency, currency } };
+            var par3 = new Dictionary<string, object>(5) { { e_Level_DevId, deviceId }, { e_Purchase_TransactionId, "" }, { e_Purchase_Price, price }, { e_Purchase_Currency, currency }, { e_Purchase_Error, "" } };
             var par2 = new Dictionary<string, object>(1) { { id, par3 } };
             var par1 = new Dictionary<string, object>(1) { { e_Purchase_Start, par2 } };
+
             //var par1 = new Dictionary<string, object>(1) { { e_Level_Number + "_" + lvlNum, par2 } };
 
             //string report = e_PurchaseStart + "_" + id;
@@ -458,14 +459,14 @@ namespace GGTeam.SmartMobileCore
             string report = e_Purchase;
             if (complete)
             {
-                var par3 = new Dictionary<string, object>(3) { { e_Purchase_TransactionId, transactionId }, { e_Purchase_Price, price }, { e_Purchase_Currency, currency } };
+                var par3 = new Dictionary<string, object>(5) { { e_Level_DevId, deviceId }, { e_Purchase_TransactionId, transactionId }, { e_Purchase_Price, price }, { e_Purchase_Currency, currency }, { e_Purchase_Error, "" } };
                 var par2 = new Dictionary<string, object>(1) { { id, par3 } };
                 var par1 = new Dictionary<string, object>(1) { { e_Purchase_Complete, par2 } };
                 Instance.ReportEvent(report, par1);
             }
             else
             {
-                var par3 = new Dictionary<string, object>(4) { { e_Purchase_TransactionId, transactionId }, { e_Purchase_Price, price }, { e_Purchase_Currency, currency }, { e_Purchase_Error, errmes } };
+                var par3 = new Dictionary<string, object>(5) { { e_Level_DevId, deviceId }, { e_Purchase_TransactionId, transactionId }, { e_Purchase_Price, price }, { e_Purchase_Currency, currency }, { e_Purchase_Error, errmes } };
                 var par2 = new Dictionary<string, object>(1) { { id, par3 } };
                 var par1 = new Dictionary<string, object>(1) { { e_Purchase_Failed, par2 } };
                 Instance.ReportEvent(report, par1);
@@ -539,15 +540,16 @@ namespace GGTeam.SmartMobileCore
             string e_GameMenu_SelectLevel = "Click_SelectLevel";
 
         string e_Purchase = "Purchase";
-            string e_Purchase_Start = "Purchase_Start";
-                string e_Purchase_Id = "ProductId";
+            string e_Purchase_Id = "Product_";
+                string e_Purchase_Start = "Purchase_Start";
+                string e_Purchase_Complete = "Purchase_Complete";
+                string e_Purchase_Failed = "Purchase_Failed";
                 string e_Purchase_Price = "Price";
-                string e_Purchase_Currency = "Currency";
-                string e_Purchase_Receipt = "Receipt";
-                string e_Purchase_TransactionId = "TransactionId";
-                string e_Purchase_Error = "Error";
-            string e_Purchase_Complete = "Purchase_Complete";
-            string e_Purchase_Failed = "Purchase_Failed";
+                    string e_Purchase_Currency = "Currency";
+                    //string e_Purchase_Receipt = "Receipt";
+                    string e_Purchase_TransactionId = "TransactionId";
+                    string e_Purchase_Error = "Error";
+            
 
 
     }

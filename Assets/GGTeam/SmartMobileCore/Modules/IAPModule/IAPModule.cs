@@ -240,7 +240,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
         void Awake()
         {
-            //  instance = this;
             //if (instance == null)
             //{ // Экземпляр менеджера был найден
             instance = this; // Задаем ссылку на экземпляр объекта
@@ -249,7 +248,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             //{ // Экземпляр объекта уже существует на сцене
             //    Destroy(gameObject); // Удаляем объект
             //}
-
 
             if (removeAppCaption == "Game Name") removeAppCaption = Application.productName;
             removeAppCaption = "(" + removeAppCaption + ")";
