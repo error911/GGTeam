@@ -20,7 +20,6 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public void Save()
         {
-//Debug.Log("====File " + filename);
             _Save(filename_default);
         }
 
@@ -72,7 +71,6 @@ namespace GGTeam.SmartMobileCore
             return true;
         }
 
-
         /// <summary>
         /// Очистить
         /// </summary>
@@ -81,7 +79,6 @@ namespace GGTeam.SmartMobileCore
             PlayerPrefs.DeleteKey(filename_default);
             PlayerPrefs.Save();
         }
-
 
         //[NonSerialized]
         //public int  LastCompletedLevel = -1;
@@ -147,6 +144,7 @@ namespace GGTeam.SmartMobileCore
 //                        System.AttributeTargets.Field)
 //]
 
+/* Не сделано
 [System.AttributeUsage(System.AttributeTargets.Property | System.AttributeTargets.Field)]
 public class DataToFile : System.Attribute
 {
@@ -159,8 +157,10 @@ public class DataToFile : System.Attribute
         version = 1.0;
     }
 }
+*/
 
 
+/*
 [System.AttributeUsage(System.AttributeTargets.Class)]
 public class UniqueId : System.Attribute
 {
@@ -171,3 +171,4 @@ public class UniqueId : System.Attribute
         this.id = id;
     }
 }
+*/

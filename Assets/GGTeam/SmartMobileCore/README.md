@@ -9,25 +9,6 @@ Tested in Unity 2019.2.X +
 *Assets/GGTeam/SmartMobileCore*    
 ____
 
- ## В ПЛАНАХ    
- - Сохранять список номеров всех пройденных уровней
-
-
-
-
- ## Структура проекта (ИДЕТ ПРОЦЕСС ФОРМИРОВАНИЯ)    
-
-- GameManager
-	- Config
-	- UI
-	    - UIScreen
-			- UserUI : UIScreen
-	- Levels
-    - Scenes
-- DataModel
-	- UserDataModel : DataModel
-
-
  ## Структура BuildSettings scenes
   - 0 Главная сцена
   - 1 Level_1
@@ -69,4 +50,22 @@ ____
   API:
   - Open(), Close() Отобразить или скрыть окно интерфейса
   - IsOpen Проверить состояние
+
+
+  ## Работа с сохраняемыми данными
+  - Создать класс, и унаследовать его от DataModel, например PlayerInfo:DataNodel
+  - Переменные и поля в нем автоматически будут сериализованы и
+  - И будут сохранены при вызове метода PlayerInfo.Save() или загружены PlayerInfo.Load() во внешнюю память (для мобильных устройств) или в реестр (для ПК)
+  имя файла по умолчанию будет 'GGTeam.SmartMobileCore.DataModel.PlayerInfo'
+  - Для автоматической загрузки данных удобно в конструкторе класса PlayerInfo вызвать метод Load()
+  - Внимание! Сериализуются только публичные переменные. Поля сохраняться не будут.
+        Например:
+            public int work;
+            [SerializeField] public int work2;
+            public bool[] work3 = new bool[5];
+            [NonSerialized] public int not_work;
+            public int not_work2 { get; set; };
+            [SerializeField] public int not_work3 { get; set; };
+
+  
   
