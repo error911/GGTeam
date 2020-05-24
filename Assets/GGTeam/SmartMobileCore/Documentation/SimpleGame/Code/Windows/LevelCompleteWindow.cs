@@ -15,6 +15,8 @@ public class LevelCompleteWindow : UIScreen
     [SerializeField] Image imgStar2 = null;
     [SerializeField] Image imgStar3 = null;
 
+    [SerializeField] GameObject fxStarShow = null;
+
     public void OnBtnContinue()
     {
         Game.Levels.LoadNext();
@@ -54,40 +56,45 @@ public class LevelCompleteWindow : UIScreen
 
         if (stars > 0 && stars <= 1)
         {
+            FXStar(imgStar1.transform);
             imgStar1.fillAmount = stars;
             Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, stars - 1, anSpeed);
-            //imgStar2.fillAmount = 0;
-            //imgStar3.fillAmount = 0;
         }
         else
         if (stars > 1 && stars <= 2)
         {
-            //imgStar1.fillAmount = 1;
+            FXStar(imgStar1.transform);
+            FXStar(imgStar2.transform);
             Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
-            //imgStar2.fillAmount = stars - 1;
             Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, stars - 1, anSpeed, anDel);
-            //imgStar3.fillAmount = 0;
         }
         else
         if (stars > 2 && stars <= 3)
         {
-            //imgStar1.fillAmount = 1;
+            FXStar(imgStar1.transform);
+            FXStar(imgStar2.transform);
+            FXStar(imgStar3.transform);
             Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
-            //imgStar2.fillAmount = 1;
             Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, 1, anSpeed, anDel);
-            //imgStar3.fillAmount = stars - 2;
             Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, stars - 2, anSpeed, anDel * 2);
         }
         else
         {
-            //imgStar1.fillAmount = 1;
+            FXStar(imgStar1.transform);
+            FXStar(imgStar2.transform);
+            FXStar(imgStar3.transform);
             Tween.TweenFloat((f) => { imgStar1.fillAmount = f; }, 0, 1, anSpeed);
-            //imgStar2.fillAmount = 1;
             Tween.TweenFloat((f) => { imgStar2.fillAmount = f; }, 0, 1, anSpeed, anSpeed - 0.1f);
-            //imgStar3.fillAmount = 1;
             Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, 1, anSpeed, anSpeed * 2 - 0.1f);
         }
 
 
+    }
+
+    void FXStar(Transform pos)
+    {
+        if (fxStarShow == null) return;
+        Vector3 newPos = new Vector3(pos.position.x, pos.position.y, 300);
+        Instantiate(fxStarShow, newPos, Quaternion.identity);
     }
 }

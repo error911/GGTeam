@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6296204533230762292}
   - component: {fileID: 6296204533230762314}
   - component: {fileID: 6296204533230762293}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 6296204533305521480}
   - component: {fileID: 6296204533305521483}
   - component: {fileID: 6296204533305521482}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonContinue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 6296204533786364202}
   - component: {fileID: 6296204533786364181}
   - component: {fileID: 6296204533786364180}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextLev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,8 +399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6296204533999338162}
   - component: {fileID: 6296204533999338163}
-  - component: {fileID: 6296204533999338160}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,25 +435,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6296204533999338173}
   m_CullTransparentMesh: 0
---- !u!95 &6296204533999338160
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6296204533999338173}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dff3238e2736a584087ac63aede45905, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6296204534353539709
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +446,7 @@ GameObject:
   - component: {fileID: 6296204534353539698}
   - component: {fileID: 6296204534353539696}
   - component: {fileID: 6296204534353539699}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +524,7 @@ GameObject:
   - component: {fileID: 6296204534880641690}
   - component: {fileID: 6296204534880641669}
   - component: {fileID: 6296204534880641668}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -655,7 +635,7 @@ GameObject:
   - component: {fileID: 6296204534958615535}
   - component: {fileID: 6296204534958615534}
   - component: {fileID: 6296204534958615529}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextCaption
   m_TagString: Untagged
   m_Icon: {fileID: 0}

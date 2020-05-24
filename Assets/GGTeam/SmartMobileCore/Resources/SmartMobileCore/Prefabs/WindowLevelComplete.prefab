@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1062939869736799122}
   - component: {fileID: 1062939869736799123}
   - component: {fileID: 1062939869736799124}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonRetry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1062939870280241845}
   - component: {fileID: 1062939870280241843}
   - component: {fileID: 1062939870280241844}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 1062939870376865227}
   - component: {fileID: 1062939870376865228}
   - component: {fileID: 1062939870376865229}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 1062939870436425757}
   - component: {fileID: 1062939870436425754}
   - component: {fileID: 1062939870436425755}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextLvlNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 1062939870667121252}
   - component: {fileID: 1062939870667121250}
   - component: {fileID: 1062939870667121251}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,6 +582,8 @@ MonoBehaviour:
   imgStar1: {fileID: 622543832192113142}
   imgStar2: {fileID: 2204558974535471154}
   imgStar3: {fileID: 4297130845271867344}
+  fxStarShow: {fileID: 579806994615734261, guid: 23161589231e6a34ca913cd8a2e7a815,
+    type: 3}
 --- !u!1 &1062939870941781112
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,8 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062939870941781111}
   - component: {fileID: 1062939870941781110}
-  - component: {fileID: 1062939870941781109}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,25 +630,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062939870941781112}
   m_CullTransparentMesh: 0
---- !u!95 &1062939870941781109
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062939870941781112}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dff3238e2736a584087ac63aede45905, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1062939871384602198
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +642,7 @@ GameObject:
   - component: {fileID: 1062939871384602194}
   - component: {fileID: 1062939871384602195}
   - component: {fileID: 1062939871384602196}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonContinue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +775,7 @@ GameObject:
   - component: {fileID: 1062939871562522856}
   - component: {fileID: 1062939871562522854}
   - component: {fileID: 1062939871562522855}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +856,7 @@ GameObject:
   - component: {fileID: 1062939871596560275}
   - component: {fileID: 1062939871596560276}
   - component: {fileID: 1062939871596560277}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextCaption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -983,7 +965,7 @@ GameObject:
   - component: {fileID: 8757926549193911293}
   - component: {fileID: 8089160429505687954}
   - component: {fileID: 4705055569145809227}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1062,7 +1044,7 @@ GameObject:
   - component: {fileID: 4115965658439762506}
   - component: {fileID: 627072539969616562}
   - component: {fileID: 6259106412750559389}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star2_shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,7 +1119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6272212444906506549}
   - component: {fileID: 6283783265514352719}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PanelProgress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,7 +1167,7 @@ GameObject:
   - component: {fileID: 2129721420540933260}
   - component: {fileID: 3880314427904441829}
   - component: {fileID: 4297130845271867344}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star3_on
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1261,7 +1243,7 @@ GameObject:
   - component: {fileID: 8698003263807369061}
   - component: {fileID: 2913938574233833034}
   - component: {fileID: 1943917776451091670}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star2_off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1337,7 +1319,7 @@ GameObject:
   - component: {fileID: 3978912053321146321}
   - component: {fileID: 2778719948174558520}
   - component: {fileID: 1835310232075928711}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1416,7 +1398,7 @@ GameObject:
   - component: {fileID: 2643636461940669118}
   - component: {fileID: 6004262827889628550}
   - component: {fileID: 5102400663620564915}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1495,7 +1477,7 @@ GameObject:
   - component: {fileID: 3648478092078520380}
   - component: {fileID: 4233550249439417111}
   - component: {fileID: 4178521271405091470}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star3_off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1571,7 +1553,7 @@ GameObject:
   - component: {fileID: 8864150236927416958}
   - component: {fileID: 2205544716633889503}
   - component: {fileID: 2204558974535471154}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star2_on
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1649,7 +1631,7 @@ GameObject:
   - component: {fileID: 911514586849338802}
   - component: {fileID: 8641265523735511772}
   - component: {fileID: 8249152962814798742}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextScores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1740,7 @@ GameObject:
   - component: {fileID: 4117271051703965750}
   - component: {fileID: 3979949301771840035}
   - component: {fileID: 453922687850336592}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star1_off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1834,7 +1816,7 @@ GameObject:
   - component: {fileID: 3067390335849250153}
   - component: {fileID: 6036570794223629419}
   - component: {fileID: 6773149752561817843}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PanelStars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1912,7 +1894,7 @@ GameObject:
   - component: {fileID: 1970509380667979228}
   - component: {fileID: 4604063709117212054}
   - component: {fileID: 1083826513307149968}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImageBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1988,7 +1970,7 @@ GameObject:
   - component: {fileID: 3060487388171775877}
   - component: {fileID: 7345460440953644190}
   - component: {fileID: 354184375693353295}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star3_shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2064,7 +2046,7 @@ GameObject:
   - component: {fileID: 3031556054939637109}
   - component: {fileID: 8516522290083782448}
   - component: {fileID: 5046525030910925134}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star1_shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2140,7 +2122,7 @@ GameObject:
   - component: {fileID: 6753202082956947125}
   - component: {fileID: 507216591961438074}
   - component: {fileID: 622543832192113142}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star1_on
   m_TagString: Untagged
   m_Icon: {fileID: 0}

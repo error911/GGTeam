@@ -114,6 +114,36 @@ namespace GGTeam.SmartMobileCore
         }
 
 
+        /// <summary>
+        /// Получить все интерфейсы типа
+        /// </summary>
+        /// <param name="uiType"></param>
+        public List<UIScreen> GetUI(UITypes uiType)
+        {
+            List<UIScreen> lst = new List<UIScreen>();
+            foreach (var item in screenList)
+            {
+                if (item == null) { continue; }
+                if (item.UIType == uiType) lst.Add(item);
+            }
+            return lst;
+        }
+
+        /// <summary>
+        /// Получить один интерфейсы типа (если их несколько, то первый попавшийся)
+        /// </summary>
+        /// <param name="uiType"></param>
+        public UIScreen GetUIOnce(UITypes uiType)
+        {
+            foreach (var item in screenList)
+            {
+                if (item == null) { continue; }
+                if (item.UIType == uiType) return item;
+            }
+            return null;
+        }
+
+
         #region === Приватные методы ===
         internal void Register(UIScreen screen)
         {

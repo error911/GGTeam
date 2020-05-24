@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 42300179}
   - component: {fileID: 42300178}
   - component: {fileID: 42300177}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonSelectLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 764587507}
   - component: {fileID: 764587506}
   - component: {fileID: 764587505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 1716679582}
   - component: {fileID: 1716679581}
   - component: {fileID: 1716679580}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_descr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 4119483863779712151}
   - component: {fileID: 4119483863779712145}
   - component: {fileID: 4119483863779712150}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 4119483863960294932}
   - component: {fileID: 4119483863960294934}
   - component: {fileID: 4119483863960294935}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: bg_night
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 4119483864226852971}
   - component: {fileID: 4119483864226852965}
   - component: {fileID: 4119483864226852970}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,8 +601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4119483864333122137}
   - component: {fileID: 4119483864333122136}
-  - component: {fileID: 4119483864333122139}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,25 +636,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4119483864333122142}
   m_CullTransparentMesh: 0
---- !u!95 &4119483864333122139
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4119483864333122142}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dff3238e2736a584087ac63aede45905, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4119483864859681214
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +649,7 @@ GameObject:
   - component: {fileID: 4119483864859681210}
   - component: {fileID: 4119483864859681211}
   - component: {fileID: 4119483864859681208}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_main (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +760,7 @@ GameObject:
   - component: {fileID: 4119483864931067901}
   - component: {fileID: 4119483864931067874}
   - component: {fileID: 4119483864931067875}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_descr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +869,7 @@ GameObject:
   - component: {fileID: 4119483864977844801}
   - component: {fileID: 4119483864977844803}
   - component: {fileID: 4119483864977844800}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: bg_day
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,7 +946,7 @@ GameObject:
   - component: {fileID: 4119483865087120898}
   - component: {fileID: 4119483865087120899}
   - component: {fileID: 4119483865087120896}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonPlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1099,7 +1079,7 @@ GameObject:
   - component: {fileID: 4119483865287781359}
   - component: {fileID: 4119483865287781353}
   - component: {fileID: 4119483865287781358}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CompanyName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1177,7 +1157,7 @@ GameObject:
   - component: {fileID: 4119483865404701954}
   - component: {fileID: 4119483865404701955}
   - component: {fileID: 4119483865404701952}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextGameName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1286,7 +1266,7 @@ GameObject:
   - component: {fileID: 4119483865484885655}
   - component: {fileID: 4119483865484885648}
   - component: {fileID: 4119483865484885649}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextCompanyName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1434,7 +1414,7 @@ GameObject:
   - component: {fileID: 4119483865744263835}
   - component: {fileID: 4119483865744263832}
   - component: {fileID: 4119483865744263833}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}

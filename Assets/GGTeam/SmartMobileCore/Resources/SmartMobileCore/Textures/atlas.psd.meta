@@ -101,6 +101,12 @@ TextureImporter:
   - first:
       213: -997972493423046422
     second: atlas_noads
+  - first:
+      213: -7222525224129699230
+    second: atlas_corner_btn_L
+  - first:
+      213: -1978408039002297464
+    second: atlas_text_skin
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -317,7 +323,7 @@ TextureImporter:
       name: atlas_corner_btn
       rect:
         serializedVersion: 2
-        x: 72
+        x: 71
         y: 256
         width: 184
         height: 128
@@ -855,6 +861,48 @@ TextureImporter:
       bones: []
       spriteID: e7b9cefa3c642ae4ca4348d2fb195d31
       internalID: -997972493423046422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_corner_btn_L
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 512
+        width: 184
+        height: 128
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7257f1215d68f5c4f916b284872c3b40
+      internalID: -7222525224129699230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_text_skin
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 640
+        width: 184
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5934973cbc50dfe419ce291371a5d28e
+      internalID: -1978408039002297464
       vertices: []
       indices: 
       edges: []
