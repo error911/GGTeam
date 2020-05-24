@@ -29,7 +29,6 @@ public class GameProcessWindow : UIScreen
     public Image menuSetupVibroOn;
     public Image menuSetupVibroOff;
 
-    //public Button[] BntSelectSkinObj;
     public GameObject RowSkinPref;
 
     private float duration = 1.0f;
@@ -40,6 +39,8 @@ public class GameProcessWindow : UIScreen
     private string rateUrl = "";
 
 
+    bool btn_skin_defState = false;
+    bool btn_pause_defState = false;
 
 
     #region === Работа со скинами ===
@@ -48,29 +49,109 @@ public class GameProcessWindow : UIScreen
     public Image imgPlaySkins;
     public Transform rtBtnSkins;
 
-    public Action<int> OnSelectSkin;
-    Dictionary<int, List<Sprite>> skinList = new Dictionary<int, List<Sprite>>();
+    public Action<SkinPack> OnSelectAviableSkin;
+    public Action<SkinPack> OnSelectUnaviableSkin;
+
+    Dictionary<int, SkinPack> skinPack = new Dictionary<int, SkinPack>();
     bool skinlist_inited = false;
     private bool opened_skins = false;
+    private int selected = 0;
+
     internal void BtnClickSelectSkin(int id)
     {
-        if (!skinList.ContainsKey(id)) { Debug.Log("Скин #" + id + " не найден"); return; }
-        OnSelectSkin?.Invoke(id);
+        if (!skinPack.ContainsKey(id)) { Debug.Log("Скин #" + id + " не найден"); return; }
+
+        if (skinPack[id].closed) { SelectSkin(id); OnSelectAviableSkin?.Invoke(skinPack[id]); }
+        else OnSelectUnaviableSkin?.Invoke(skinPack[id]);
+    }
+
+    /// <summary>
+    /// Установить свойства пака
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="opened"></param>
+    /// <param name="aviable"></param>
+    public void SkinPack_SetState(int id, bool opened, bool aviable = true)
+    {
+        if (!skinPack.ContainsKey(id)) { Debug.LogError("SkinPack_SetState> Не найден id:" + id); return; }
+
+        skinPack[id].closed = aviable;
+        if (!aviable)
+        {
+            skinPack[id].img_closed.enabled = true;
+            skinPack[id].img_off.enabled = false;
+            skinPack[id].img_on.enabled = false;
+        }
+        else
+        {
+            skinPack[id].img_closed.enabled = false;
+            skinPack[id].img_off.enabled = !opened;
+            skinPack[id].img_on.enabled = opened;
+        }
+    }
+
+    /// <summary>
+    /// Получить свойства пака скинов
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public SkinPack SkinPack_GetState(int id)
+    {
+        if (!skinPack.ContainsKey(id)) { Debug.LogError("SkinPack_GetState> Не найден id:" + id); return null; }
+        return skinPack[id];
+    }
+
+    public void SkinPack_SetColor(int id, List<Color> colors)
+    {
+        if (!skinPack.ContainsKey(id)) { Debug.LogError("SkinPack_SetColor> Не найден id:" + id); return; }
+        int i = 0;
+        foreach (var item in skinPack[id].skinPreviewList)
+        {
+            if (colors.Count >= i + 1) item.color = colors[i];
+            i++;
+        }
+    }
+
+    public class SkinPack
+    {
+        public int id = 0;
+        public bool closed = false;
+        public Button btn;
+        public Image img_on;
+        public Image img_off;
+        public Image img_closed;
+        public List<Image> skinPreviewList = new List<Image>();
+    }
+
+    void SelectSkin(int id)
+    {
+        foreach (var item in skinPack)
+        {
+            if (item.Key == id)
+            {
+                item.Value.img_on.enabled = true;
+                item.Value.img_off.enabled = false;
+            }
+            else
+            {
+                item.Value.img_on.enabled = false;
+                item.Value.img_off.enabled = true;
+            }
+        }
     }
 
     /// <summary>
     /// Задать список скинов
     /// </summary>
     /// <param name="skinList"></param>
-    public void SkinListInit(Dictionary<int, List<Sprite>> skinList)
+    public void SkinPack_Init(int selected, Dictionary<int, List<Sprite>> skinList)
     {
         if (skinlist_inited) return;
 
-        this.skinList = skinList;
+        skinPack = new Dictionary<int, SkinPack>();
+        this.selected = selected;
 
         rtBtnSkins.gameObject.SetActive(true);
-
-        //RowSkinPref.SetActive(false);
 
         int skinN = 0;
         foreach (var skinItem in skinList)
@@ -78,25 +159,50 @@ public class GameProcessWindow : UIScreen
             if (skinItem.Value == null) continue;
             if (skinItem.Value.Count == 0) continue;
 
+            SkinPack skinPackHeader = new SkinPack();
+            skinPackHeader.skinPreviewList = new List<Image>();
+            skinPackHeader.id = skinN;
+
             GameObject rowGo = Instantiate(RowSkinPref, RowSkinPref.transform.parent);
             rowGo.SetActive(true);
             Transform buttonTr = rowGo.transform.Find("Button");
-          Button btn = buttonTr.GetComponent<Button>();
+
+            skinPackHeader.img_on = buttonTr.Find("ImageOn").GetComponent<Image>();
+            skinPackHeader.img_off = buttonTr.Find("ImageOff").GetComponent<Image>();
+            skinPackHeader.img_closed = buttonTr.Find("ImageClosed").GetComponent<Image>();
+
+            skinPackHeader.btn = buttonTr.GetComponent<Button>();
+
             Transform contentTr = buttonTr.Find("content");
             Transform imgTr1 = contentTr.Find("Image_1");
             Transform imgTr2 = contentTr.Find("Image_2");
             Transform imgTr3 = contentTr.Find("Image_3");
             Transform imgTr4 = contentTr.Find("Image_4");
-          Image img1 = imgTr1.GetComponent<Image>();    img1.enabled = false;
-          Image img2 = imgTr2.GetComponent<Image>();    img2.enabled = false;
-          Image img3 = imgTr3.GetComponent<Image>();    img3.enabled = false;
-          Image img4 = imgTr4.GetComponent<Image>();    img4.enabled = false;
+            Image img1 = imgTr1.GetComponent<Image>(); img1.enabled = false; skinPackHeader.skinPreviewList.Add(img1);
+            Image img2 = imgTr2.GetComponent<Image>(); img2.enabled = false; skinPackHeader.skinPreviewList.Add(img2);
+            Image img3 = imgTr3.GetComponent<Image>(); img3.enabled = false; skinPackHeader.skinPreviewList.Add(img3);
+            Image img4 = imgTr4.GetComponent<Image>(); img4.enabled = false; skinPackHeader.skinPreviewList.Add(img4);
+
+            if (selected == skinN)
+            {
+                skinPackHeader.img_on.enabled = true;
+                skinPackHeader.img_off.enabled = false;
+                skinPackHeader.img_closed.enabled = false;
+            }
+            else
+            {
+                skinPackHeader.img_on.enabled = false;
+                skinPackHeader.img_off.enabled = true;
+                skinPackHeader.img_closed.enabled = false;
+            }
+
             int i = 1;
             foreach (var spr in skinItem.Value)
             {
                 if (i > 4) continue;
-                
-                if (i == 1) {
+
+                if (i == 1)
+                {
                     img1.sprite = spr; img1.enabled = true;
                 }
 
@@ -118,7 +224,11 @@ public class GameProcessWindow : UIScreen
                 i++;
             }
 
-            btn.onClick.AddListener(() => { BtnClickSelectSkin(skinN); });
+            //btn.onClick.RemoveAllListeners();
+            int nn = skinN;
+            skinPackHeader.btn.onClick.AddListener(() => { BtnClickSelectSkin(nn); });
+
+            skinPack.Add(skinN, skinPackHeader);
 
             skinN++;
         }
@@ -133,14 +243,17 @@ public class GameProcessWindow : UIScreen
 
         if (!opened_skins)
         {
+            btn_pause_defState = rtBtnPause.gameObject.activeSelf;
+            rtBtnPause.gameObject.SetActive(false);
+
             RowSkinPref.SetActive(false);
 
-//2Game.Metrica.Report_MenuOpen();
-//2SetPause(true);
+            //2Game.Metrica.Report_MenuOpen();
+            SetPause(true);
             //Time.timeScale = 0;
             // Открываем игровое меню
             opened_skins = true;
-//2pauseProcess = true;
+            //2pauseProcess = true;
             trSkinsMenuContent.gameObject.SetActive(true);
             Tween.TweenFloat((a) => {
                 imgPauseSkins.color = new Color(imgPauseSkins.color.r, imgPauseSkins.color.g, imgPauseSkins.color.b, 1 - a);
@@ -155,7 +268,7 @@ public class GameProcessWindow : UIScreen
             Tween.TweenVector3((p) => { rtBtnSkins.localPosition = p; }, posSt, posEn, speed, 0, OnSkinsHideCallback1);
             void OnSkinsHideCallback1()
             {
-//2                pauseProcess = false;
+                //2                pauseProcess = false;
             }
         }
         else
@@ -164,7 +277,7 @@ public class GameProcessWindow : UIScreen
             SetPause(false);
             //Time.timeScale = 1;
             opened_skins = false;
-//2pauseProcess = true;
+            //2pauseProcess = true;
             Tween.TweenFloat((a) => {
                 imgPauseSkins.color = new Color(imgPauseSkins.color.r, imgPauseSkins.color.g, imgPauseSkins.color.b, a);
                 imgPlaySkins.color = new Color(imgPlaySkins.color.r, imgPlaySkins.color.g, imgPlaySkins.color.b, 1 - a);
@@ -180,7 +293,8 @@ public class GameProcessWindow : UIScreen
             void OnSkinsHideCallback2()
             {
                 trSkinsMenuContent.gameObject.SetActive(false);
-//2                pauseProcess = false;
+                //2                pauseProcess = false;
+                rtBtnPause.gameObject.SetActive(btn_pause_defState);
             }
         }
     }
@@ -194,7 +308,10 @@ public class GameProcessWindow : UIScreen
 
         if (!opened_menu)
         {
-Game.Metrica.Report_MenuOpen();
+            btn_skin_defState = rtBtnSkins.gameObject.activeSelf;
+            rtBtnSkins.gameObject.SetActive(false);
+
+            Game.Metrica.Report_MenuOpen();
             SetPause(true);
             //Time.timeScale = 0;
             // Открываем игровое меню
@@ -240,6 +357,8 @@ Game.Metrica.Report_MenuOpen();
             {
                 trIngameMenuContent.gameObject.SetActive(false);
                 pauseProcess = false;
+
+                rtBtnSkins.gameObject.SetActive(btn_skin_defState);
             }
         }
     }
@@ -254,7 +373,7 @@ Game.Metrica.Report_MenuOpen();
     public void OnBtnSound()
     {
         Game.Config.SETUP_SOUND_ENABLED = !Game.Config.SETUP_SOUND_ENABLED;
-Game.Metrica.Report_MenuSound(Game.Config.SETUP_SOUND_ENABLED);
+        Game.Metrica.Report_MenuSound(Game.Config.SETUP_SOUND_ENABLED);
 
         RenderButtonsImage();
     }
@@ -262,13 +381,13 @@ Game.Metrica.Report_MenuSound(Game.Config.SETUP_SOUND_ENABLED);
     public void OnBtnVibro()
     {
         Game.Config.SETUP_VIBRO_ENABLED = !Game.Config.SETUP_VIBRO_ENABLED;
-Game.Metrica.Report_MenuVibro(Game.Config.SETUP_VIBRO_ENABLED);
+        Game.Metrica.Report_MenuVibro(Game.Config.SETUP_VIBRO_ENABLED);
         RenderButtonsImage();
     }
 
     public void OnBtnRate()
     {
-Game.Metrica.Report_MenuRate();
+        Game.Metrica.Report_MenuRate();
         Application.OpenURL(rateUrl);
     }
 
@@ -280,7 +399,7 @@ Game.Metrica.Report_MenuRate();
 
     public void OnBtnLevelSelect()
     {
-Game.Metrica.Report_MenuSelectLevel();
+        Game.Metrica.Report_MenuSelectLevel();
         OnBtnOpen_Menu();
         Game.UI.Close(UITypes.InterfaceInGame);
         Game.UI.Open(UITypes.ScreenLevelSelect, OnLevelSelectCallback);
