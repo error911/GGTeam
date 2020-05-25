@@ -36,7 +36,6 @@ namespace GGTeam.SmartMobileCore
                 if (score <= 0) return level.Data.score;
                 int newScore = level.Data.score + score;
                 level.Data.score = newScore;
-                //level.OnScoreUpdate?.Invoke(newScore);
                 gameManager.Levels.OnScoreChanged?.Invoke(newScore);
                 return newScore;
             }
@@ -53,8 +52,22 @@ namespace GGTeam.SmartMobileCore
                 int newScore = level.Data.score - score;
                 if (newScore < 0) newScore = 0;
                 level.Data.score = newScore;
+                gameManager.Levels.OnScoreChanged?.Invoke(newScore);
                 return newScore;
             }
+
+            /// <summary>
+            /// Обнулить очки текущего уровня
+            /// </summary>
+            /// <param name="score"></param>
+            /// <returns></returns>
+            public void ScoreClear()
+            {
+                if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return 0; }
+                level.Data.score = 0;
+                gameManager.Levels.OnScoreChanged?.Invoke(0);
+            }
+
         }
         #endregion
 
