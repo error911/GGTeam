@@ -63,7 +63,7 @@ namespace GGTeam.SmartMobileCore
             /// <returns></returns>
             public void ScoreClear()
             {
-                if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return 0; }
+                if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return; }
                 level.Data.score = 0;
                 gameManager.Levels.OnScoreChanged?.Invoke(0);
             }
