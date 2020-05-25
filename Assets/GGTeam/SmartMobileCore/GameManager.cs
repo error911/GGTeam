@@ -79,6 +79,18 @@ namespace GGTeam.SmartMobileCore
 //            Levels = new LevelsHeader(this);
             UI = new UIHeader(this);
             ADS = new AdsHeader(this, adsProvider);
+
+            #region === Инициализация Аналитики ===
+            var metrPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[Analytics]");
+            if (metrPref == null) Debug.LogError("Не найден префаб SmartMobileCore/Prefabs/[Analytics]");
+            var metrGo = Instantiate(metrPref);
+            metrGo.name = "[Analytics]";
+            //Metrica = Analytics.Instance;
+            //Metrica.OnActivation += dfsdfsd;
+            //Metrica.ResumeSession();
+            Metrica = metrGo.GetComponent<Analytics>();
+
+            #endregion
         }
 
         void Init()
@@ -149,20 +161,6 @@ namespace GGTeam.SmartMobileCore
             var loadingGo = Instantiate(loadingPref);
             ld = loadingGo.GetComponent<Loading>();
             ld.StartProcess(this);
-
-            #region Аналитика
-            var metrPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[Analytics]");
-            if (metrPref == null) Debug.LogError("Не найден префаб SmartMobileCore/Prefabs/[Analytics]");
-            var metrGo = Instantiate(metrPref);
-            metrGo.name = "[Analytics]";
-            //Metrica = Analytics.Instance;
-            //Metrica.OnActivation += dfsdfsd;
-            //Metrica.ResumeSession();
-            Metrica = metrGo.GetComponent<Analytics>();
-            
-            #endregion
-
-
 
             Invoke("Loading2", 0.25f);
         }
