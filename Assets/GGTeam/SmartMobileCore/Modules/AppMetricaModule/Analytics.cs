@@ -518,7 +518,7 @@ namespace GGTeam.SmartMobileCore
 //        string e_MenuSelectLevel = "Menu_Click_SelectLevel";
         
 //        string e_PurchaseStart = "PurchaseStart";
-        string e_PurchaseComplete = "PurchaseComplete";
+//        string e_PurchaseComplete = "PurchaseComplete";
 
 
         string e_Level = "Level";

@@ -63,11 +63,10 @@ namespace GGTeam.SmartMobileCore
         #endregion
 
         #region === Редактор ===
+        string contName = "content";
 #if UNITY_EDITOR
         private void Reset()
         {
-            string contName = "content";
-
             var c = transform.Find(contName);
             if (c == null)
             {
@@ -92,7 +91,12 @@ namespace GGTeam.SmartMobileCore
         [EditorButton("Open / Close")]
         public void ButtonShowHide()
         {
-            if (content == null) return;
+            if (content == null)
+            {
+                var c = transform.Find(contName);
+                if (c == null) return;
+                content = c.gameObject;
+            }
             uiscreen_opened = content.activeSelf;
             uiscreen_opened = !uiscreen_opened;
             content.SetActive(IsOpen);
@@ -122,6 +126,9 @@ namespace GGTeam.SmartMobileCore
         public virtual void Open(Action OnClose = null, bool use_animate = true)
         {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
+
+if (uiscreen_opened) return;
+
             uiscreen_opened = !uiscreen_opened;
             OnCloseAction = OnClose;
 
@@ -154,6 +161,9 @@ namespace GGTeam.SmartMobileCore
         {
             //if (!opened) return;
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
+
+if (!uiscreen_opened) return;
+
             uiscreen_opened = !uiscreen_opened;
 
             Vector3 s_sc = new Vector3(1, 1, 1);
