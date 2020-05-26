@@ -10,6 +10,12 @@ namespace GGTeam.SmartMobileCore
 {
     public sealed class GameManager : MonoBehaviour
     {
+
+#if UNITY_EDITOR
+        public GameConfigSO cfgEditor => gameConfig;
+#endif
+
+
         [SerializeField] GameConfigSO gameConfig = null;
 
         /// <summary>

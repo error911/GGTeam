@@ -12,8 +12,7 @@ namespace GGTeam.SmartMobileCore
 {
     public abstract class Level : MonoBehaviour
     {
- 
-        #region Подсчет очков
+         #region Подсчет очков
         public class ScoreHeader
         {
             string MES_ERROR_NOT_INIT = "Уровень не инициализирован";
@@ -181,13 +180,6 @@ _Game.Metrica.Report_LevelStart(levelNumber, _Data.score);
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelComplete);            
 
-            //Debug.Log("num " + Data.number);
-            //Debug.Log("played " + Data.played);
-            //Debug.Log("completed " + Data.completed);
-            //Debug.Log("score " + Data.score);
-            //Debug.Log("stars " + Data.stars);
-
-
             // ТУТ СОХРАНИТЬ ПРОГРЕСС
             //            Game.Levels.Current.Data.Save();
             //=======================
@@ -208,7 +200,6 @@ _Game.Metrica.Report_LevelComplete(lastLvlNum, _Data.score, _Data.stars);
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);
             Game.UI.Open(UITypes.ScreenLevelFailed);
-//! if (Data.score < score) Data.score = score;
             OnLevelFailed(_Data);
 
 _Game.Metrica.Report_LevelFailed(_Data.number, _Data.score, _Data.stars);
