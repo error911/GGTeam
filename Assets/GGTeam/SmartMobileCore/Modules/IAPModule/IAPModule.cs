@@ -461,7 +461,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
             // == для IAP Buttons ===
-
             PurchaseProcessingResult result;
 
             // if any receiver consumed this purchase we return the status
@@ -512,12 +511,12 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             }
             else
             {
-
                 #region === Статистика ===
                 double p_price = Convert.ToDouble(args.purchasedProduct.metadata.localizedPrice);
                 string p_currency = args.purchasedProduct.metadata.isoCurrencyCode;
 
                 string receipt = "";
+                if (!string.IsNullOrEmpty(args.purchasedProduct.receipt)) receipt = args.purchasedProduct.receipt;
                 if (args.purchasedProduct.hasReceipt) receipt = args.purchasedProduct.receipt;
 
                 Game.Metrica.Report_PurchaseComplete(args.purchasedProduct.definition.id, true, p_price, p_currency, args.purchasedProduct.transactionID, receipt);

@@ -488,6 +488,8 @@ namespace GGTeam.SmartMobileCore
                     PayloadAndroid payloadAndroid = JsonUtility.FromJson<PayloadAndroid>(receipt);
                     yaReceipt.Signature = payloadAndroid.Signature;
                     yaReceipt.Data = payloadAndroid.Json;
+
+                    yaReceipt.TransactionID = transactionId;
 #elif UNITY_IPHONE
             yaReceipt.TransactionID = receipt.TransactionID;
             yaReceipt.Data = receipt.Payload;
