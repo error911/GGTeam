@@ -14,7 +14,7 @@ namespace GGTeam.SmartMobileCore
     [CanEditMultipleObjects]
     public class GameManagerEditor : Editor
     {
-        SerializedProperty gameConfig;
+        //SerializedProperty gameConfig;
 
         Texture2D icon_ads_on;
         Texture2D icon_ads_off;
@@ -28,9 +28,8 @@ namespace GGTeam.SmartMobileCore
 #if UNITY_EDITOR
         void OnEnable()
         {
-            gameConfig = serializedObject.FindProperty("gameConfig");
+            //gameConfig = serializedObject.FindProperty("gameConfig");
 
-            //if (texture == null) texture = Resources.Load<Texture2D>("SmartMobileCore/Textures/gg_logo");
             if (icon_ads_on == null) icon_ads_on = Resources.Load<Texture2D>("SmartMobileCore/Icons/ads_1");
             if (icon_ads_off == null) icon_ads_off = Resources.Load<Texture2D>("SmartMobileCore/Icons/ads_0");
 
@@ -39,7 +38,6 @@ namespace GGTeam.SmartMobileCore
 
             if (icon_iap_on == null) icon_iap_on = Resources.Load<Texture2D>("SmartMobileCore/Icons/iap_1");
             if (icon_iap_off == null) icon_iap_off = Resources.Load<Texture2D>("SmartMobileCore/Icons/iap_0");
-
         }
 #endif
 
@@ -48,21 +46,8 @@ namespace GGTeam.SmartMobileCore
         {
             serializedObject.Update();
 
-            /*
-            GUILayout.BeginArea(new Rect(0, 0, 128, 64));
-            GUILayout.BeginHorizontal();
-            if (icon_ads_on) GUILayout.Label(icon_ads_on);
-            if (icon_ads_off) GUILayout.Label(icon_ads_off);
-            GUILayout.EndHorizontal();
-            GUILayout.EndArea();
-            GUILayout.Space(64);
-            */
-
             GameManager gm = this.target as GameManager;
             GameConfigSO cfg = gm.cfgEditor;
-
-            //GameManager cfg = (GameManager)target;
-            //GameConfigSO cfg = (GameConfigSO)target;
 
             bool b_ads = false;
             bool b_stat = false;
@@ -79,7 +64,6 @@ namespace GGTeam.SmartMobileCore
                 b_iap = true;
 #endif
             }
-
 
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
