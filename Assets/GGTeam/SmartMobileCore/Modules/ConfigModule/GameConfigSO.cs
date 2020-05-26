@@ -27,6 +27,10 @@ public class GameConfigSO : ScriptableObject
     [Header("- LEVEL -----------------------------------------------------------------")]
     [Tooltip("Ожидание после выгрузки/загрузки сцены (мс)")]
     public int LEVEL_WAIT_AFTER_LOADING = 50;
+    [Tooltip("Использовать одну сцену для всех уровней")]
+    public bool LEVEL_USE_ONE_SCENE_FOR_ALL = false;
+    [Tooltip("Кол-во уровней. Внимание! Имеет значение только если параметр выше=true")]
+    public int LEVEL_ONE_SCENE_LEVELS_COUNT = 0;
 
     /*
     // ========== Game setup ==========
@@ -37,7 +41,7 @@ public class GameConfigSO : ScriptableObject
     public bool GAME_VIBRO_ENABLE = true;
     public string MARKET_URL_IOS = "";
     */
-    
+
     // ========== LOG ==========
     [Space(8)]
     [Header("- LOG -----------------------------------------------------------------")]

@@ -484,8 +484,9 @@ namespace GGTeam.SmartMobileCore
                 {
                     YandexAppMetricaReceipt yaReceipt = new YandexAppMetricaReceipt();
                     Receipt r_receipt = JsonUtility.FromJson<Receipt>(receipt);
+r_receipt.TransactionID = transactionId;
 #if UNITY_ANDROID
-                    PayloadAndroid payloadAndroid = JsonUtility.FromJson<PayloadAndroid>(receipt);
+                    PayloadAndroid payloadAndroid = JsonUtility.FromJson<PayloadAndroid>(r_receipt.Payload);
                     yaReceipt.Signature = payloadAndroid.Signature;
                     yaReceipt.Data = payloadAndroid.Json;
 

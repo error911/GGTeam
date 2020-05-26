@@ -71,12 +71,15 @@ namespace GGTeam.SmartMobileCore
                     }
                 }
 
+Debug.Log("R"+allLevelsNumList.Count);
+            
             int predloaded_level = GetLevelPreloaded();
             if (predloaded_level != 0)
             {
                 CurrentNumber = predloaded_level;
                 WaitSceneLoad(predloaded_level);
             }
+            
         }
 
         // ====================================================
@@ -127,6 +130,7 @@ namespace GGTeam.SmartMobileCore
             Game.UI.GFX.Show(_OnShowComplete);
             void _OnShowComplete()
             {
+                
                 ReplaceCurrentLevel(need_num, _AdShow);
 
                 // Реклама - Старт
@@ -259,7 +263,12 @@ namespace GGTeam.SmartMobileCore
         {
             List<int> tmp = new List<int>();
             int sceneCount = SceneManager.sceneCountInBuildSettings;
+
+            if (Game.Config.Current.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneCount = Game.Config.Current.LEVEL_ONE_SCENE_LEVELS_COUNT + 1;
+            if (sceneCount == 0) Game.Log.Warning("Не указано кол-во уровней. Или параметр [LEVEL_USE_ONE_SCENE_FOR_ALL] установлен ошибочно.");
+
             for (int i = 0; i < sceneCount; i++) if (i != 0) tmp.Add(i);
+
             return tmp;
         }
 
@@ -348,11 +357,22 @@ namespace GGTeam.SmartMobileCore
         // Загрузить уровень (по номеру 1..MaxNumber)
         private void OnlyLoad(int levelNumber, Action OnLoaded = null)
         {
+
+            if (!Game.Config.Current.LEVEL_USE_ONE_SCENE_FOR_ALL)
+            {
+
 #pragma warning disable CS0618 // Тип или член устарел
-            Game.Scenes.LoadScene(levelNumber, _OnLoadComplete);
+                Game.Scenes.LoadScene(levelNumber, _OnLoadComplete);
 #pragma warning restore CS0618 // Тип или член устарел
+            }
+            else
+            {
+                Game.Scenes.LoadScene(1, _OnLoadComplete);
+            }
+
             void _OnLoadComplete()
             {
+Debug.Log("Уровень #" + levelNumber + " загружен.");
                 Game.Log.Debug("Level", "Уровень #" + levelNumber + " загружен.");
                 ChangeCurrentNumber(levelNumber);
                 _LevelInit();

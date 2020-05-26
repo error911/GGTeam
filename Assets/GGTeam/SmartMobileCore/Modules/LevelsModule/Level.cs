@@ -102,7 +102,7 @@ namespace GGTeam.SmartMobileCore
             Score = new ScoreHeader(this, gameManager);
             _Data.Save();
 
-_Game.Metrica.Report_LevelStart(levelNumber, _Data.score);
+            _Game.Metrica.Report_LevelStart(levelNumber, _Data.score);
 
             StartCoroutine(SkipFrame(OnOk));
             void OnOk()
