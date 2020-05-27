@@ -100,7 +100,7 @@ public class LevelSelectWindow : UIScreen
             else
             {
                 lockTr.localScale = new Vector3(0, 0, 1);
-                Tween.TweenVector3((v) => { lockTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.15f, (i - 1) * 0.05f);
+                Tween.TweenVector3((v) => { lockTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.15f, (i * 0.25f - 1) * 0.05f);
 
                 normalTr.gameObject.SetActive(false);
                 lockTr.gameObject.SetActive(true);
