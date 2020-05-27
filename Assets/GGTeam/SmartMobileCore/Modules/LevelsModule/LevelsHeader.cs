@@ -71,7 +71,7 @@ namespace GGTeam.SmartMobileCore
                     }
                 }
 
-Debug.Log("R"+allLevelsNumList.Count);
+//Debug.Log("R"+allLevelsNumList.Count);
             
             int predloaded_level = GetLevelPreloaded();
             if (predloaded_level != 0)

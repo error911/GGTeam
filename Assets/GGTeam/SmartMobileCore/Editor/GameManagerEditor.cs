@@ -14,7 +14,7 @@ namespace GGTeam.SmartMobileCore
     [CanEditMultipleObjects]
     public class GameManagerEditor : Editor
     {
-        //SerializedProperty gameConfig;
+        SerializedProperty gameConfig;
 
         Texture2D icon_ads_on;
         Texture2D icon_ads_off;
@@ -28,7 +28,7 @@ namespace GGTeam.SmartMobileCore
 #if UNITY_EDITOR
         void OnEnable()
         {
-            //gameConfig = serializedObject.FindProperty("gameConfig");
+            gameConfig = serializedObject.FindProperty("gameConfig");
 
             if (icon_ads_on == null) icon_ads_on = Resources.Load<Texture2D>("SmartMobileCore/Icons/ads_1");
             if (icon_ads_off == null) icon_ads_off = Resources.Load<Texture2D>("SmartMobileCore/Icons/ads_0");
@@ -46,8 +46,9 @@ namespace GGTeam.SmartMobileCore
         {
             serializedObject.Update();
 
-            GameManager gm = this.target as GameManager;
-            GameConfigSO cfg = gm.cfgEditor;
+            //GameManager gm = this.target as GameManager;
+            //GameConfigSO cfg = gm.cfgEditor;
+            GameConfigSO cfg = gameConfig.objectReferenceValue as GameConfigSO;
 
             bool b_ads = false;
             bool b_stat = false;
