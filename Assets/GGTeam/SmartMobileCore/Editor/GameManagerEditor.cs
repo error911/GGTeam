@@ -71,10 +71,14 @@ namespace GGTeam.SmartMobileCore
             if (b_ads) { if (icon_ads_on) GUILayout.Label(icon_ads_on); } else if (icon_ads_off) GUILayout.Label(icon_ads_off);
             if (b_stat) { if (icon_stat_on) GUILayout.Label(icon_stat_on); } else if (icon_stat_off) GUILayout.Label(icon_stat_off);
             if (b_iap) { if (icon_iap_on) GUILayout.Label(icon_iap_on); } else if (icon_iap_off) GUILayout.Label(icon_iap_off);
-            //if (icon_iap_off) GUILayout.Label(icon_iap_off);
             GUILayout.EndHorizontal();
-            
 
+
+            EditorGUILayout.Space();
+            //if (b_iap) EditorGUILayout.LabelField("dsjskjshsdjds");
+            if (!b_iap) EditorGUILayout.HelpBox("Для активации внутриигровых покупок (IAP), включите In-App Purchasing в окне Services [Ctrl+0]", MessageType.Info);
+            if (!b_stat) EditorGUILayout.HelpBox("Для активации аналитики (STAT), задайте ключь ANALYTICS_APP_KEY в GameConfig", MessageType.Info);
+            if (!b_ads) EditorGUILayout.HelpBox("Для активации рекламы (ADS), задайте ключь ADS_APP_KEY в GameConfig и активируйте Видео и/или Баннер рекламу", MessageType.Info);
 
             //EditorGUILayout.PropertyField(_Data, true);
 
