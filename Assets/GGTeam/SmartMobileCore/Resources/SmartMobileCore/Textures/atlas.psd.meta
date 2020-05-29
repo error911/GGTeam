@@ -107,6 +107,12 @@ TextureImporter:
   - first:
       213: -1978408039002297464
     second: atlas_text_skin
+  - first:
+      213: -3940530566567805665
+    second: atlas_camera
+  - first:
+      213: -997972493423046422
+    second: atlas_crystal
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -895,7 +901,7 @@ TextureImporter:
         width: 184
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -903,6 +909,48 @@ TextureImporter:
       bones: []
       spriteID: 5934973cbc50dfe419ce291371a5d28e
       internalID: -1978408039002297464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_camera
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a199f3fc90acd94682c5d03a82df017
+      internalID: -3940530566567805665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_crystal
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea2d4e1f7c4f9e47833e8c7d5dcd2f8
+      internalID: -997972493423046422
       vertices: []
       indices: 
       edges: []

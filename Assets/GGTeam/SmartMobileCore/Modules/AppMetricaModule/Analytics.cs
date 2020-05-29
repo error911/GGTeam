@@ -21,7 +21,7 @@ using UnityEngine.SocialPlatforms.Impl;
 namespace GGTeam.SmartMobileCore
 {
 
-    public class Analytics : MonoBehaviour
+    public sealed class Analytics : MonoBehaviour
     {
         public const string VERSION = "3.5.0";
 
@@ -98,11 +98,11 @@ namespace GGTeam.SmartMobileCore
 
         void SetupMetrica()
         {
-            if (string.IsNullOrEmpty(Game.Config.Current.ANALYTICS_APP_KEY)) return;    // Отключаем аналитику
-            var configuration = new YandexAppMetricaConfig(Game.Config.Current.ANALYTICS_APP_KEY)
+            if (string.IsNullOrEmpty(Game.Config.GameConfig.ANALYTICS_APP_KEY)) return;    // Отключаем аналитику
+            var configuration = new YandexAppMetricaConfig(Game.Config.GameConfig.ANALYTICS_APP_KEY)
             {
                 SessionTimeout = (int)SessionTimeoutSec,
-                Logs = Game.Config.Current.ANALYTICS_LOGS,
+                Logs = Game.Config.GameConfig.ANALYTICS_LOGS,
                 HandleFirstActivationAsUpdate = HandleFirstActivationAsUpdate,
                 StatisticsSending = StatisticsSending,
             };
@@ -145,8 +145,8 @@ namespace GGTeam.SmartMobileCore
 
         private void OnEnable()
         {
-            ExceptionsReporting = Game.Config.Current.ANALYTICS_EXCEPTIONS_REPORTING;
-            if (string.IsNullOrEmpty(Game.Config.Current.ANALYTICS_APP_KEY)) use_anilytics = false;
+            ExceptionsReporting = Game.Config.GameConfig.ANALYTICS_EXCEPTIONS_REPORTING;
+            if (string.IsNullOrEmpty(Game.Config.GameConfig.ANALYTICS_APP_KEY)) use_anilytics = false;
 
             if (!use_anilytics) return;
 

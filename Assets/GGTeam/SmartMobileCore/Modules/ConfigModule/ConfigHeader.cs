@@ -11,32 +11,50 @@ namespace GGTeam.SmartMobileCore
     public sealed class ConfigHeader
     {
         /// <summary>
-        /// Текущая, используемая конфигурация
+        /// Текущая, используемая конфигурация (только для чтения)
         /// </summary>
-        public GameConfigSO Current { get; private set; }
+        public GameConfigSO GameConfig { get; private set; }
+
+        /// <summary>
+        /// Сохраняемые настройки и данные игры. При изменении, необходимо сохранить Save()
+        /// </summary>
+        public GameData GameSetup { get; private set; }
+        
+        //~ConfigHeader()
+        //{
+        //    Debug.Log("GameData saved...");
+        //    CurrentGameData.Save();
+        //    Debug.Log("GameData saved - ok");
+        //}
 
         private GameManager Game;
 
+        /*
         string s_data_level_lastplayed = "";
         string s_data_sound_enabled = "";
         string s_data_vibro_enabled = "";
         string s_data_ads_disabled_by_user = "";
+        */
 
         public ConfigHeader(GameManager gameManager, GameConfigSO gameConfig)
         {
             this.Game = gameManager;
-            this.Current = gameConfig;
-            if (this.Current == null) this.Current = ScriptableObject.CreateInstance<GameConfigSO>();
+            this.GameConfig = gameConfig;
+            this.GameSetup = new GameData();
+            GameSetup.Load();
 
-            s_data_level_lastplayed = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Level.lastplayed";
-            s_data_sound_enabled = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Setup.Sound.enabled";
-            s_data_vibro_enabled = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Setup.Vibro.enabled";
-            s_data_ads_disabled_by_user = Current.DATA_SAVE_PREFIX + "." + Current.DATA_SAVE_SUFFIX + ".Config.Setup.Ads.useroff";
+            if (this.GameConfig == null) this.GameConfig = ScriptableObject.CreateInstance<GameConfigSO>();
 
+            /*
+            s_data_level_lastplayed = GameConfig.DATA_SAVE_PREFIX + "." + GameConfig.DATA_SAVE_SUFFIX + ".Config.Level.lastplayed";
+            s_data_sound_enabled = GameConfig.DATA_SAVE_PREFIX + "." + GameConfig.DATA_SAVE_SUFFIX + ".Config.Setup.Sound.enabled";
+            s_data_vibro_enabled = GameConfig.DATA_SAVE_PREFIX + "." + GameConfig.DATA_SAVE_SUFFIX + ".Config.Setup.Vibro.enabled";
+            s_data_ads_disabled_by_user = GameConfig.DATA_SAVE_PREFIX + "." + GameConfig.DATA_SAVE_SUFFIX + ".Config.Setup.Ads.useroff";
+            */
         }
 
         // ========== SAVED CORE DATA ==========
-        
+/*        
         /// <summary>
         /// Номер уровня, в который играли последний раз
         /// </summary>
@@ -52,8 +70,6 @@ namespace GGTeam.SmartMobileCore
                 PlayerPrefs.SetInt(s_data_level_lastplayed, value);
             }
         }
-
-
 
         /// <summary>
         /// Звук: Вкл/Откл
@@ -114,29 +130,7 @@ namespace GGTeam.SmartMobileCore
                 PlayerPrefs.SetInt(s_data_ads_disabled_by_user, i);
             }
         }
-
-
-
-
-
-        /*
-        /// <summary>
-        /// Максимальный номер уровня, в который играли
-        /// </summary>
-        public int SAVED_LEVEL_MAXPLAYED
-        {
-            get
-            {
-                return PlayerPrefs.GetInt(s_data_level_maxplayed, 0);
-            }
-
-            set
-            {
-                PlayerPrefs.SetInt(s_data_level_maxplayed, value);
-            }
-        }
-        */
-
+*/
 
         /*
         public Dictionary<int, bool> SAVED_LEVEL_COMPLETED_LISTQQQ

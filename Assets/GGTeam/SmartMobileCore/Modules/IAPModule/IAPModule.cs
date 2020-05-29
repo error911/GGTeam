@@ -493,7 +493,8 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 if (args.purchasedProduct.definition.id == noAdsProductId)
                 {
                     resultProcessed = true;
-                    Game.Config.SETUP_ADS_USEROFF = true;
+                    Game.Config.GameSetup.SETUP_ADS_USEROFF = true;
+                    Game.Config.GameSetup.Save();
                 }
 
             if (OnPurchaseCompleteListener != null) resultProcessed = true;

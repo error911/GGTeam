@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IronSourceAdsProvider : IAdsProvider
+public sealed class IronSourceAdsProvider : IAdsProvider
 {
     public string ProviderName => "IronSource";
 

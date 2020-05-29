@@ -17,7 +17,7 @@ public class EventsSphere : MonoBehaviour
     {
         if (Complete)
         {
-            level.Score.ScoreAdd(1500);
+            level.Progress.ScoreAdd(1500);
             level.LevelComplete(2.5f);
         }
         else level.LevelFailed();

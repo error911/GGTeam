@@ -372,16 +372,18 @@ public class GameProcessWindow : UIScreen
 
     public void OnBtnSound()
     {
-        Game.Config.SETUP_SOUND_ENABLED = !Game.Config.SETUP_SOUND_ENABLED;
-        Game.Metrica.Report_MenuSound(Game.Config.SETUP_SOUND_ENABLED);
+        Game.Config.GameSetup.SETUP_SOUND_ENABLED = !Game.Config.GameSetup.SETUP_SOUND_ENABLED;
+        Game.Config.GameSetup.Save();
+        Game.Metrica.Report_MenuSound(Game.Config.GameSetup.SETUP_SOUND_ENABLED);
 
         RenderButtonsImage();
     }
 
     public void OnBtnVibro()
     {
-        Game.Config.SETUP_VIBRO_ENABLED = !Game.Config.SETUP_VIBRO_ENABLED;
-        Game.Metrica.Report_MenuVibro(Game.Config.SETUP_VIBRO_ENABLED);
+        Game.Config.GameSetup.SETUP_VIBRO_ENABLED = !Game.Config.GameSetup.SETUP_VIBRO_ENABLED;
+        Game.Config.GameSetup.Save();
+        Game.Metrica.Report_MenuVibro(Game.Config.GameSetup.SETUP_VIBRO_ENABLED);
         RenderButtonsImage();
     }
 
@@ -393,7 +395,8 @@ public class GameProcessWindow : UIScreen
 
     public void OnBtnAdsUserOff()
     {
-        Game.Config.SETUP_ADS_USEROFF = true;
+        Game.Config.GameSetup.SETUP_ADS_USEROFF = true;
+        Game.Config.GameSetup.Save();
         //RenderButtonsImage();
     }
 
@@ -420,10 +423,10 @@ public class GameProcessWindow : UIScreen
 
     void RenderButtonsImage()
     {
-        if (Game.Config.SETUP_SOUND_ENABLED) { menuSetupSoundOn.enabled = true; menuSetupSoundOff.enabled = false; }
+        if (Game.Config.GameSetup.SETUP_SOUND_ENABLED) { menuSetupSoundOn.enabled = true; menuSetupSoundOff.enabled = false; }
         else { menuSetupSoundOn.enabled = false; menuSetupSoundOff.enabled = true; }
 
-        if (Game.Config.SETUP_VIBRO_ENABLED) { menuSetupVibroOn.enabled = true; menuSetupVibroOff.enabled = false; }
+        if (Game.Config.GameSetup.SETUP_VIBRO_ENABLED) { menuSetupVibroOn.enabled = true; menuSetupVibroOff.enabled = false; }
         else { menuSetupVibroOn.enabled = false; menuSetupVibroOff.enabled = true; }
     }
 
@@ -490,13 +493,13 @@ public class GameProcessWindow : UIScreen
 
 
 
-        if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
-        else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+        if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.GameConfig.MARKET_URL_ANDROID;
+        else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.GameConfig.MARKET_URL_IOS;
         else
         {
             rateUrl = "http://greatgalaxy.ru/";
-            if (Game.Config.Current.MARKET_URL_ANDROID.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
-            else if (Game.Config.Current.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.Current.MARKET_URL_IOS;
+            if (Game.Config.GameConfig.MARKET_URL_ANDROID.Length > 1) rateUrl = Game.Config.GameConfig.MARKET_URL_ANDROID;
+            else if (Game.Config.GameConfig.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.GameConfig.MARKET_URL_IOS;
         }
 
 

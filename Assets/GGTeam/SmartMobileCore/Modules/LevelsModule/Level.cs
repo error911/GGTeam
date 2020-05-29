@@ -13,12 +13,13 @@ namespace GGTeam.SmartMobileCore
     public abstract class Level : MonoBehaviour
     {
          #region Подсчет очков
-        public class ScoreHeader
+        /*
+        public class LevelProgressHeader
         {
             string MES_ERROR_NOT_INIT = "Уровень не инициализирован";
             readonly Level level;
             readonly GameManager gameManager;
-            public ScoreHeader(Level level, GameManager gameManager)
+            public LevelProgressHeader(Level level, GameManager gameManager)
             {
                 this.level = level;
                 this.gameManager = gameManager;
@@ -68,12 +69,13 @@ namespace GGTeam.SmartMobileCore
             }
 
         }
+        */
         #endregion
 
         /// <summary>
-        /// Очки
+        /// Прогресс уровня. Очки, Кристаллы...
         /// </summary>
-        public ScoreHeader Score;
+        public LevelProgressHeader Progress;
 
         // <summary>
         // Прогресс уровня
@@ -99,7 +101,7 @@ namespace GGTeam.SmartMobileCore
 
             _Data = _Game.Levels.LevelData(levelNumber);
             _Data.opened = true;
-            Score = new ScoreHeader(this, gameManager);
+            Progress = new LevelProgressHeader(this, Data, gameManager);
             _Data.Save();
 
             _Game.Metrica.Report_LevelStart(levelNumber, _Data.score);
@@ -174,7 +176,8 @@ namespace GGTeam.SmartMobileCore
                 if (!nextLvl.opened) { /*lastLvlNum = nextLvl.number;*/ nextLvl.opened = true; nextLvl.Save(); }
             }
 
-            Game.Config.SAVED_LEVEL_LASTPLAYED = lastLvlNum;
+            Game.Config.GameSetup.GAMEPLAY_LEVEL_LASTPLAYED = lastLvlNum;
+            Game.Config.GameSetup.Save();
 
             Game.UI.Close(UITypes.ScreenMainMenu);
             Game.UI.Close(UITypes.InterfaceInGame);

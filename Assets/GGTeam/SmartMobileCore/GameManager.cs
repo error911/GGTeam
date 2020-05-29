@@ -47,15 +47,15 @@ namespace GGTeam.SmartMobileCore
         /// Рекламная площадка
         /// </summary>
         public AdsHeader ADS;
+
         readonly IAdsProvider adsProvider = new IronSourceAdsProvider();
 
         /// <summary>
         /// Аналитика
         /// </summary>
-        //public IYandexAppMetrica Metrica;
         [HideInInspector] public Analytics Metrica;
 
-        internal bool inited = false;
+        internal bool IsInited { get; private set; } = false;
 
         /// <summary>
         /// Синглтон
@@ -110,7 +110,7 @@ namespace GGTeam.SmartMobileCore
                 go.AddComponent<StandaloneInputModule>();
             }
 
-            if (Config.Current.POLICY_ENABLED)
+            if (Config.GameConfig.POLICY_ENABLED)
             {
                 var gdrpPref = Resources.Load<GameObject>("SmartMobileCore/Prefabs/[GDRPPolicy]");
                 if (gdrpPref == null)
@@ -124,7 +124,7 @@ namespace GGTeam.SmartMobileCore
                     GDRPPolicy created_GDRPPolicy = go.GetComponent<GDRPPolicy>();
                     if (created_GDRPPolicy != null)
                     {
-                        created_GDRPPolicy.Init(Config.Current.POLICY_GDRP_TEXT_EN, Config.Current.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
+                        created_GDRPPolicy.Init(Config.GameConfig.POLICY_GDRP_TEXT_EN, Config.GameConfig.POLICY_CCOPA_TEXT_EN, On_GDRPP_Complete);
                     }
                 }
             }
@@ -143,18 +143,18 @@ namespace GGTeam.SmartMobileCore
         //void Start()
         void InitAds()
         {
-            if (Config.Current.ADS_APP_KEY.Length > 0)
+            if (Config.GameConfig.ADS_APP_KEY.Length > 0)
             {
-                ADS.Init(Config.Current.ADS_APP_KEY, Config.Current.ADS_ENABLE_VIDEO, Config.Current.ADS_ENABLE_BANNER, Config.Current.ADS_START_VIDEO_FROM_LEVEL, Config.Current.ADS_SHOW_TIME_MIN_SEC);
+                ADS.Init(Config.GameConfig.ADS_APP_KEY, Config.GameConfig.ADS_ENABLE_VIDEO, Config.GameConfig.ADS_ENABLE_BANNER, Config.GameConfig.ADS_START_VIDEO_FROM_LEVEL, Config.GameConfig.ADS_SHOW_TIME_MIN_SEC);
             }
             else
             {
                 ADS.Init("", false, false, 0, 0);
             }
             
-            if (Config.Current.HARD_TARGET_FRAMERATE >= 0) Application.targetFrameRate = Config.Current.HARD_TARGET_FRAMERATE;
+            if (Config.GameConfig.HARD_TARGET_FRAMERATE >= 0) Application.targetFrameRate = Config.GameConfig.HARD_TARGET_FRAMERATE;
 
-            inited = true;
+            IsInited = true;
             Log.Info("GameManager", "Started");
         }
 

@@ -46,7 +46,7 @@ namespace GGTeam.SmartMobileCore
         /// <param name="OnComplete">выполнить по завершении загрузки</param>
         public void LoadScene(int sceneID, Action OnComplete)
         {
-            if (sceneID > 1) if (Game.Config.Current.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneID = 1;
+            if (sceneID > 1) if (Game.Config.GameConfig.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneID = 1;
 
             if (!CheckExist(sceneID)) { /* OnComplete?.Invoke(); */ Game.Log.Error("Scene", "Ошибка загрузки сцены #" + sceneID + " в память."); return; }
             var loading = SceneManager.LoadSceneAsync(sceneID, LoadSceneMode.Additive);
@@ -80,7 +80,7 @@ namespace GGTeam.SmartMobileCore
         /// <param name="OnComplete">выполнить по завершении выгрузки</param>
         public void UnloadScene(int sceneID, Action<bool> OnComplete)
         {
-            if (sceneID > 1) if (Game.Config.Current.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneID = 1;
+            if (sceneID > 1) if (Game.Config.GameConfig.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneID = 1;
 
             if (LoadedScenes.ContainsKey(sceneID))
             {
@@ -90,7 +90,7 @@ namespace GGTeam.SmartMobileCore
                 {
                     bool ok = ListRemove(sceneID);
                     if (!ok) { Game.Log.Error("Scene", "Ошибка выгрузки сцены #" + sceneID + " из памяти."); return; }
-                    WaitTime(Game.Config.Current.LEVEL_WAIT_AFTER_LOADING, _AfterWait);
+                    WaitTime(Game.Config.GameConfig.LEVEL_WAIT_AFTER_LOADING, _AfterWait);
                     void _AfterWait()
                     {
                         OnComplete?.Invoke(true);

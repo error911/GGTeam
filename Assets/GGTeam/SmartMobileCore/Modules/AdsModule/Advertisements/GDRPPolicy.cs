@@ -54,7 +54,7 @@ namespace GGTeam.SmartMobileCore
                 {
                     this.textPolicy_GDRP.text = textPolicy_GDRP;
                     this.textPolicy_GDRP.text = this.textPolicy_GDRP.text.Replace("{company}", Application.companyName);
-                    this.textPolicy_GDRP.text = this.textPolicy_GDRP.text.Replace("{age}", Game.Config.Current.POLICY_AGE_MIN.ToString());
+                    this.textPolicy_GDRP.text = this.textPolicy_GDRP.text.Replace("{age}", Game.Config.GameConfig.POLICY_AGE_MIN.ToString());
                 }
 
             if (textPolicy_CCOPA != null)
@@ -62,7 +62,7 @@ namespace GGTeam.SmartMobileCore
                 {
                     this.textPolicy_CCOPA.text = textPolicy_CCOPA;
                     this.textPolicy_CCOPA.text = this.textPolicy_CCOPA.text.Replace("{company}", Application.companyName);
-                    this.textPolicy_CCOPA.text = this.textPolicy_CCOPA.text.Replace("{age}", Game.Config.Current.POLICY_AGE_MIN.ToString());
+                    this.textPolicy_CCOPA.text = this.textPolicy_CCOPA.text.Replace("{age}", Game.Config.GameConfig.POLICY_AGE_MIN.ToString());
                 }
 
 

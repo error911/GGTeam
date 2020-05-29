@@ -9,13 +9,39 @@ using UnityEngine.UI;
 
 public class LevelCompleteWindow : UIScreen
 {
+    // collect reward
+    [SerializeField] bool use_collect_reward = false;
+    [SerializeField] int collectX_module = 3;
+
     [SerializeField] Text textLvlNum = null;
     [SerializeField] Text textScores = null;
     [SerializeField] Image imgStar1 = null;
     [SerializeField] Image imgStar2 = null;
     [SerializeField] Image imgStar3 = null;
 
+    [SerializeField] Image imgCollect1 = null;
+    [SerializeField] Image imgCollect2 = null;
+    [SerializeField] Image imgCollect3 = null;
+
     [SerializeField] GameObject fxStarShow = null;
+    [SerializeField] GameObject fxCollectShow = null;
+
+    [SerializeField] Button btnContinue = null;
+    [SerializeField] Button btnCollect = null;
+    [SerializeField] Button btnCollectX = null;
+    [SerializeField] Text textCollectX = null;
+
+    [SerializeField] GameObject panelCollectReward = null;
+
+    public void OnBtnCollect()
+    {
+        //Game.Levels.LoadNext();
+    }
+
+    public void OnBtnCollectX()
+    {
+        //Game.Levels.LoadNext();
+    }
 
     public void OnBtnContinue()
     {
@@ -34,7 +60,23 @@ public class LevelCompleteWindow : UIScreen
 
     public override void OnInit()
     {
-
+        if (use_collect_reward)
+        {
+            textScores.gameObject.SetActive(false);
+            panelCollectReward.SetActive(true);
+            btnContinue.gameObject.SetActive(false);
+            btnCollect.gameObject.SetActive(true);
+            btnCollectX.gameObject.SetActive(true);
+            textCollectX.text = "COLLECT<color=orange>X</color>" + collectX_module.ToString();
+        }
+        else
+        {
+            textScores.gameObject.SetActive(true);
+            panelCollectReward.SetActive(false);
+            btnContinue.gameObject.SetActive(true);
+            btnCollect.gameObject.SetActive(false);
+            btnCollectX.gameObject.SetActive(false);
+        }
     }
 
     public override void OnOpen()
@@ -88,13 +130,32 @@ public class LevelCompleteWindow : UIScreen
             Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, 1, anSpeed, anSpeed * 2 - 0.1f);
         }
 
-
+//3        if (use_collect_reward) Invoke("ShowCollect", 1.5f);
     }
+
+    /*
+    void ShowCollect()
+    {
+        //FXCollect(imgCollect1.transform);
+        //Game.Levels.Current.Data.number;
+
+        //if (Game.Levels.Current.Data.score
+    }
+    */
 
     void FXStar(Transform pos)
     {
         if (fxStarShow == null) return;
-        Vector3 newPos = new Vector3(pos.position.x, pos.position.y, 300);
+        Vector3 newPos = new Vector3(pos.position.x, pos.position.y, 0);
         Instantiate(fxStarShow, newPos, Quaternion.identity);
     }
+
+    /*
+    void FXCollect(Transform pos)
+    {
+        if (fxCollectShow == null) return;
+        Vector3 newPos = new Vector3(pos.position.x, pos.position.y, 300);
+        Instantiate(fxCollectShow, newPos, Quaternion.identity);
+    }
+    */
 }

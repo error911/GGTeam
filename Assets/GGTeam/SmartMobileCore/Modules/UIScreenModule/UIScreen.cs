@@ -213,7 +213,7 @@ if (!uiscreen_opened) return;
         private IEnumerator SkipFrameAndInit()
         {
             yield return new WaitForEndOfFrame();
-            while (!Game.inited)
+            while (!Game.IsInited)
             {
                 yield return new WaitForEndOfFrame();
 
@@ -237,7 +237,7 @@ if (!uiscreen_opened) return;
         void Awake()
         {
             // Ожидаем инициализации ядра
-            if (!Game.inited) { Invoke("Awake", 0.25f); return; }
+            if (!Game.IsInited) { Invoke("Awake", 0.25f); return; }
 
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
             //if (anim == null) anim = content.GetComponent<Animator>();

@@ -58,7 +58,7 @@ namespace GGTeam.SmartMobileCore
             this.Game = gameManager;
             allLevelsNumList = GetAllLevelsNumList();
 
-            CurrentNumber = gameManager.Config.SAVED_LEVEL_LASTPLAYED;
+            CurrentNumber = gameManager.Config.GameSetup.GAMEPLAY_LEVEL_LASTPLAYED;
             _Levels = LevelsProgressLoadAll(allLevelsNumList);
 
             if (_Levels.Count == 0 && allLevelsNumList.Count > 0)
@@ -264,7 +264,7 @@ namespace GGTeam.SmartMobileCore
             List<int> tmp = new List<int>();
             int sceneCount = SceneManager.sceneCountInBuildSettings;
 
-            if (Game.Config.Current.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneCount = Game.Config.Current.LEVEL_ONE_SCENE_LEVELS_COUNT + 1;
+            if (Game.Config.GameConfig.LEVEL_USE_ONE_SCENE_FOR_ALL) sceneCount = Game.Config.GameConfig.LEVEL_ONE_SCENE_LEVELS_COUNT + 1;
             if (sceneCount == 0) Game.Log.Warning("Не указано кол-во уровней. Или параметр [LEVEL_USE_ONE_SCENE_FOR_ALL] установлен ошибочно.");
 
             for (int i = 0; i < sceneCount; i++) if (i != 0) tmp.Add(i);
@@ -306,7 +306,7 @@ namespace GGTeam.SmartMobileCore
                 ended_last_level_num = n - 1;
 //                LevelsProgressSave(ended_last_level_num, true);
             }
-            Game.Config.SAVED_LEVEL_LASTPLAYED = ended_last_level_num;
+            Game.Config.GameSetup.GAMEPLAY_LEVEL_LASTPLAYED = ended_last_level_num; Game.Config.GameSetup.Save();
         }
 
         // Ожидаем загрузки сцены (в редакторе)
@@ -358,7 +358,7 @@ namespace GGTeam.SmartMobileCore
         private void OnlyLoad(int levelNumber, Action OnLoaded = null)
         {
 
-            if (!Game.Config.Current.LEVEL_USE_ONE_SCENE_FOR_ALL)
+            if (!Game.Config.GameConfig.LEVEL_USE_ONE_SCENE_FOR_ALL)
             {
 
 #pragma warning disable CS0618 // Тип или член устарел

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GGTeam.SmartMobileCore
 {
-    public class AdsHeader
+    public sealed class AdsHeader
     {
         /// <summary>
         /// Отображать после каждого уровня
@@ -101,7 +101,7 @@ namespace GGTeam.SmartMobileCore
         /// <param name="OnComplete">При завершении показа</param>
         public void Show(int levelNum, Action<bool> OnComplete)
         {
-            if (Game.Config.SETUP_ADS_USEROFF) { OnComplete?.Invoke(false); return; }
+            if (Game.Config.GameSetup.SETUP_ADS_USEROFF) { OnComplete?.Invoke(false); return; }
             if (!IsEnabled) { OnComplete?.Invoke(false); return; }
             if (!IsInited) { Game.Log.Warning("Ads", "Не удалось проинициализировать провайдера источника рекламы [" + adwareProvider.ProviderName + "]"); OnComplete?.Invoke(false); return; }
             if (levelNum > config.show_video_start_level && Game.ADS != null && Game.ADS.IsEnabled)
@@ -165,7 +165,7 @@ namespace GGTeam.SmartMobileCore
 
             predBannerPosition = bannerPosition;
             //IronSource.Agent.displayBanner();// BannerLayout banner = IronSource.createBanner(Activity, new ISBannerSize(320, 50));
-            if (Game.Config.SETUP_ADS_USEROFF) return;
+            if (Game.Config.GameSetup.SETUP_ADS_USEROFF) return;
             if (!IsEnabled) return;
             if (!config.enable_banner) return;
 

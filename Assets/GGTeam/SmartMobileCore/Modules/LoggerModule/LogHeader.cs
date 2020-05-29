@@ -55,22 +55,22 @@ namespace GGTeam.SmartMobileCore
 
         void RenderLogDebug(string mes)
         {
-            if (Game.Config.Current.LOG_SHOW_DEBUG) UnityEngine.Debug.Log(mes);
+            if (Game.Config.GameConfig.LOG_SHOW_DEBUG) UnityEngine.Debug.Log(mes);
         }
 
         void RenderLogInfo(string mes)
         {
-            if (Game.Config.Current.LOG_SHOW_INFO) UnityEngine.Debug.Log(mes);
+            if (Game.Config.GameConfig.LOG_SHOW_INFO) UnityEngine.Debug.Log(mes);
         }
 
         void RenderLogWarning(string mes)
         {
-            if (Game.Config.Current.LOG_SHOW_WARNING) UnityEngine.Debug.LogWarning(mes);
+            if (Game.Config.GameConfig.LOG_SHOW_WARNING) UnityEngine.Debug.LogWarning(mes);
         }
 
         void RenderLogError(string mes)
         {
-            if (Game.Config.Current.LOG_SHOW_ERROR) UnityEngine.Debug.LogError(mes);
+            if (Game.Config.GameConfig.LOG_SHOW_ERROR) UnityEngine.Debug.LogError(mes);
         }
     }
 }
