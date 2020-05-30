@@ -16,6 +16,7 @@ public class GameProcessWindow : UIScreen
 
     public Text textLvlValue;
     public Text textScoreValue;
+    public Text textMoneyValue;
     public Transform rtBtnPause;
     public Transform rtBtnNoAds;
     public Transform rtBtnRate;
@@ -474,6 +475,10 @@ public class GameProcessWindow : UIScreen
         textScoreValue.text = "-";
         trIngameMenuContent.gameObject.SetActive(false);
 
+        //textMoneyValue.text = Game.Levels.OnMoneyChanged;
+        textMoneyValue.text = Game.Config.GameSetup.GAMEPLAY_USER_MONEY.ToString();
+        Game.Levels.OnMoneyChanged += OnMoneyChanged;
+
         //        if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
         //        else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
         //        else
@@ -513,6 +518,11 @@ public class GameProcessWindow : UIScreen
 
         RenderButtonsImage();
 
+    }
+
+    private void OnMoneyChanged(int obj)
+    {
+        textMoneyValue.text = obj.ToString();  // Game.Config.GameSetup.GAMEPLAY_USER_MONEY.ToString();
     }
 
     void ScoreChange(int score)

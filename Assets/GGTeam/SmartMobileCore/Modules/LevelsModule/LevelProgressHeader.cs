@@ -73,7 +73,7 @@ namespace GGTeam.SmartMobileCore
             levelData.money = newMoney;
             //Game.Config.GameSetup.GAMEPLAY_USER_MONEY += money;
             //Game.Config.GameSetup.Save();
-            Game.Levels.OnMoneyChanged?.Invoke(newMoney);
+            Game.Levels.OnMoneyChanged?.Invoke(Game.Config.GameSetup.GAMEPLAY_USER_MONEY + newMoney);
             return newMoney;
         }
 
@@ -84,7 +84,7 @@ namespace GGTeam.SmartMobileCore
         {
             if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return; }
             levelData.money = 0;
-            Game.Levels.OnMoneyChanged?.Invoke(0);
+            Game.Levels.OnMoneyChanged?.Invoke(Game.Config.GameSetup.GAMEPLAY_USER_MONEY + 0);
         }
 
     }
