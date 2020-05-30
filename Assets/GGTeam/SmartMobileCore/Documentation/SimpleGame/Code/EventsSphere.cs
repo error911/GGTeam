@@ -17,6 +17,7 @@ public class EventsSphere : MonoBehaviour
     {
         if (Complete)
         {
+            level.Progress.MoneyAdd(4);
             level.Progress.ScoreAdd(1500);
             level.LevelComplete(2.5f);
         }

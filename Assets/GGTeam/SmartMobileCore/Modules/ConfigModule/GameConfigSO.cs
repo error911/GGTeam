@@ -7,6 +7,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MainConfig", menuName = "GGTeam/SmartMobileCore/GameConfig", order = 1)]
 public class GameConfigSO : ScriptableObject
 {
+    // ========== GAMEPLAY ==========
+    [Space(8)]
+    [Header("- GAMEPLAY -----------------------------------------------------------------")]
+    [Tooltip("Обнулять очки текущего уровня")]
+    public bool GAMEPLAY_CLEAR_SCORE_ON_START_LEVEL = true;
+
     // ========== POLICY ==========
     [Space(8)]
     [Header("- POLICY (Supported tags:{company},{age}) -----------------------------------------------------------------")]

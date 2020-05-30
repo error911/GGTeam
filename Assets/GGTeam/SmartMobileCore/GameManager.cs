@@ -11,9 +11,9 @@ namespace GGTeam.SmartMobileCore
     public sealed class GameManager : MonoBehaviour
     {
 
-//#if UNITY_EDITOR
-//        protected GameConfigSO cfgEditor => gameConfig;
-//#endif
+        //#if UNITY_EDITOR
+        //        protected GameConfigSO cfgEditor => gameConfig;
+        //#endif
 
         [SerializeField] GameConfigSO gameConfig = null;
 
@@ -65,9 +65,9 @@ namespace GGTeam.SmartMobileCore
 
         void Awake()
         {
-            #pragma warning disable CS0618 // Тип или член устарел
+#pragma warning disable CS0618 // Тип или член устарел
             API = this;
-            #pragma warning restore CS0618 // Тип или член устарел
+#pragma warning restore CS0618 // Тип или член устарел
             Prepare();
 
             //Invoke("Init", 8);
@@ -78,10 +78,10 @@ namespace GGTeam.SmartMobileCore
         {
             Config = new ConfigHeader(this, gameConfig);
             Log = new LogHeader(this);
-//#pragma warning disable CS0618 // Тип или член устарел
-//            Scenes = new ScenesHeader(this);
-//#pragma warning restore CS0618 // Тип или член устарел
-//            Levels = new LevelsHeader(this);
+            //#pragma warning disable CS0618 // Тип или член устарел
+            //            Scenes = new ScenesHeader(this);
+            //#pragma warning restore CS0618 // Тип или член устарел
+            //            Levels = new LevelsHeader(this);
             UI = new UIHeader(this);
             ADS = new AdsHeader(this, adsProvider);
 
@@ -151,7 +151,7 @@ namespace GGTeam.SmartMobileCore
             {
                 ADS.Init("", false, false, 0, 0);
             }
-            
+
             if (Config.GameConfig.HARD_TARGET_FRAMERATE >= 0) Application.targetFrameRate = Config.GameConfig.HARD_TARGET_FRAMERATE;
 
             IsInited = true;

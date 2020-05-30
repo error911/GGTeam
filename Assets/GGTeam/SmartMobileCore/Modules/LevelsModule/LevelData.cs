@@ -22,6 +22,11 @@ public class LevelData : DataModel
     [SerializeField] public int score = 0;
 
     /// <summary>
+    /// Полученые деньги/кристаллы за текущий уровень и т.п. (Обнуляются при старте каждого нового уровня)
+    /// </summary>
+    [SerializeField] public int money = 0;
+
+    /// <summary>
     /// Полученные звезды (желательно 0..3 с шагом 0.5f)
     /// </summary>
     [SerializeField] public float stars = 0;

@@ -31,13 +31,20 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public Level Current { get; private set; }
 
-        // <summary>
-        // Максимальный уровень
-        // </summary>
-        //public int MaxNumber => Count;
-
+        /// <summary>
+        /// Событие: Сменился уровень
+        /// </summary>
         public Action<int> OnLevelChanged;
+
+        /// <summary>
+        /// Событие: Изменилось количество очков
+        /// </summary>
         public Action<int> OnScoreChanged;
+
+        /// <summary>
+        /// Событие: Изменилось количество денег
+        /// </summary>
+        public Action<int> OnMoneyChanged;
 
         private readonly GameManager Game;
         private bool loadingProcess = false;
@@ -130,14 +137,12 @@ namespace GGTeam.SmartMobileCore
             Game.UI.GFX.Show(_OnShowComplete);
             void _OnShowComplete()
             {
-                
                 ReplaceCurrentLevel(need_num, _AdShow);
 
                 // Реклама - Старт
                 void _AdShow()
                 {
                     Game.ADS.Show(Current.Data.number, _AdsEnd);
-
                     Game.ADS.ReloadBanner();    // ShowBanner();
                 }
 
@@ -149,7 +154,7 @@ namespace GGTeam.SmartMobileCore
                     void _OnHided()
                     {
                         if (LevelData(need_num) != null)
-                        { LevelData(need_num).opened = true; /*Debug.Log("SAVE! #NULL " + need_num);*/ LevelsProgressSave(); }
+                        { LevelData(need_num).opened = true; /*Debug.Log("SAVE! #NULL " + need_num);*/ LevelsProgressSave(); LevelData(need_num).Save(); }
 
                         loadingProcess = false;
                         OnLoaded?.Invoke();
@@ -223,12 +228,14 @@ namespace GGTeam.SmartMobileCore
 
         #region === Приватные методы ===
 
-        private void LevelsProgressSave(int lvlNum = 0, bool completeState = true, int newScore = 0, float newStars = 0)
+        //????? Убрать этот метод
+        private void LevelsProgressSave()   //int lvlNum = 0, bool completeState = true, int newScore = 0, float newStars = 0, int moneyInLevel = 0
         {
             //1if (!progressLevelsLoaded) LevelsData = LevelsProgressLoadAll(allLevelsNumList);
             if (!progressLevelsLoaded) _Levels = LevelsProgressLoadAll(allLevelsNumList);
 //!            string s_data_level_completed_list = Game.Config.Current.DATA_SAVE_PREFIX + "." + Game.Config.Current.DATA_SAVE_SUFFIX + ".Config.Level.completedlist";
 
+            /*333
             if (lvlNum > 0)
             {
                 var findingLvl = _Levels.Where(x => x.number == lvlNum).SingleOrDefault();
@@ -238,6 +245,7 @@ namespace GGTeam.SmartMobileCore
                     d.completed = completeState;
                     d.score = newScore;
                     d.stars = newStars;
+                    d.money = moneyInLevel;
                     d.opened = true;
                     _Levels.Add(d);
                 }
@@ -246,8 +254,12 @@ namespace GGTeam.SmartMobileCore
                     findingLvl.completed = completeState;
                     if (newScore > findingLvl.score) findingLvl.score = newScore;
                     if (newStars > findingLvl.stars) findingLvl.stars = newStars;
+                    if (moneyInLevel > findingLvl.money) findingLvl.money = moneyInLevel;
                 }
             }
+            */
+
+
             /*
             var test = LevelsData.Data.Where(x => x.number == lvlNum).SingleOrDefault();
             if (test == null) Debug.Log("SAVE #NULL " + lvlNum);
@@ -367,7 +379,9 @@ namespace GGTeam.SmartMobileCore
             }
             else
             {
+#pragma warning disable CS0618 // Тип или член устарел
                 Game.Scenes.LoadScene(1, _OnLoadComplete);
+#pragma warning restore CS0618 // Тип или член устарел
             }
 
             void _OnLoadComplete()

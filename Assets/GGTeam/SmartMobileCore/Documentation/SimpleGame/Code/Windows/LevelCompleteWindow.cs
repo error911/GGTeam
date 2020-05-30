@@ -2,8 +2,10 @@
 // Simple UI Window for SmartMobileCore
 // ====================================
 
+using Boo.Lang;
 using GGTeam.SmartMobileCore;
 using GGTeam.Tools.Tween;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +15,20 @@ public class LevelCompleteWindow : UIScreen
     [SerializeField] bool use_collect_reward = false;
     [SerializeField] int collectX_module = 3;
 
+    [Space(32)]
+
     [SerializeField] Text textLvlNum = null;
     [SerializeField] Text textScores = null;
+    [SerializeField] Text textCrystals = null;
     [SerializeField] Image imgStar1 = null;
     [SerializeField] Image imgStar2 = null;
     [SerializeField] Image imgStar3 = null;
 
-    [SerializeField] Image imgCollect1 = null;
-    [SerializeField] Image imgCollect2 = null;
-    [SerializeField] Image imgCollect3 = null;
+    //[SerializeField] Image imgCrystal = null;
+    [SerializeField] GameObject goCrystal = null;
+    [SerializeField] Transform contentCrystals = null;
+    //[SerializeField] Image imgCollect2 = null;
+    //[SerializeField] Image imgCollect3 = null;
 
     [SerializeField] GameObject fxStarShow = null;
     [SerializeField] GameObject fxCollectShow = null;
@@ -35,12 +42,44 @@ public class LevelCompleteWindow : UIScreen
 
     public void OnBtnCollect()
     {
+        //Game.Config.GameSetup.GAMEPLAY_USER_MONEY
         //Game.Levels.LoadNext();
+
+        int m = Game.Levels.Current.Data.money;
+        if (m > 0)
+        {
+            Game.Config.GameSetup.GAMEPLAY_USER_MONEY += m;
+            Game.Config.GameSetup.Save();
+        }
+        Game.Levels.LoadNext();
     }
 
     public void OnBtnCollectX()
     {
-        //Game.Levels.LoadNext();
+        int m = Game.Levels.Current.Data.money;
+        if (m > 0)
+        {
+            Game.Config.GameSetup.GAMEPLAY_USER_MONEY += m;
+            Game.Config.GameSetup.Save();
+        }
+
+        Game.ADS.ShowRewarded(OnRewOk, OnRevCancel);
+    }
+
+    private void OnRevCancel()
+    {
+        OnBtnCollect();
+    }
+
+    private void OnRewOk()
+    {
+        int m = Game.Levels.Current.Data.money * collectX_module;
+        if (m > 0)
+        {
+            Game.Config.GameSetup.GAMEPLAY_USER_MONEY += m;
+            Game.Config.GameSetup.Save();
+        }
+        Game.Levels.LoadNext();
     }
 
     public void OnBtnContinue()
@@ -55,7 +94,14 @@ public class LevelCompleteWindow : UIScreen
 
     public override void OnClose()
     {
-
+        if (use_collect_reward)
+        {
+            textCrystals.text = "";
+            foreach (Transform item in contentCrystals)
+            {
+                if (item != goCrystal.transform) Destroy(item.gameObject);
+            }
+        }
     }
 
     public override void OnInit()
@@ -66,8 +112,10 @@ public class LevelCompleteWindow : UIScreen
             panelCollectReward.SetActive(true);
             btnContinue.gameObject.SetActive(false);
             btnCollect.gameObject.SetActive(true);
-            btnCollectX.gameObject.SetActive(true);
+            if (Game.ADS.ADS_ENABLED) btnCollectX.gameObject.SetActive(true);
             textCollectX.text = "COLLECT<color=orange>X</color>" + collectX_module.ToString();
+            goCrystal.SetActive(false);
+            textCrystals.text = "";
         }
         else
         {
@@ -130,18 +178,38 @@ public class LevelCompleteWindow : UIScreen
             Tween.TweenFloat((f) => { imgStar3.fillAmount = f; }, 0, 1, anSpeed, anSpeed * 2 - 0.1f);
         }
 
-//3        if (use_collect_reward) Invoke("ShowCollect", 1.5f);
+        if (use_collect_reward) Invoke("ShowCollect", 0.25f);
     }
 
-    /*
+    
     void ShowCollect()
     {
-        //FXCollect(imgCollect1.transform);
-        //Game.Levels.Current.Data.number;
+        if (!goCrystal) return;
+        int MAX_SHOW = 8;
+        int m = Game.Levels.Current.Data.money;
+        int c = m;
+        if (c > MAX_SHOW) c = MAX_SHOW;
 
-        //if (Game.Levels.Current.Data.score
+        Tween.TweenInt((t) => { textCrystals.text = t.ToString(); }, 0, m, 0.5f, 0.5f);
+
+        if (m > 0)
+        {
+            for (int i = 0; i < c; i++)
+            {
+                GameObject go = Instantiate(goCrystal, contentCrystals);
+                go.SetActive(true);
+                Image img = go.GetComponent<Image>();
+                img.color = new Color(img.color.r, img.color.g, img.color.b, 0);
+
+                float n = (c-i) * 0.20f;
+                Vector3 pos = img.transform.localPosition;
+                Tween.TweenFloat((u) => { img.color = new Color(img.color.r, img.color.g, img.color.b, u); }, 0, 1, 0.25f, n);  //()=> FXCollect(img)
+                Tween.TweenFloat((u) => { }, 0, 1, 0.1f, n, () => FXCollect(img));
+            }
+        }
+
     }
-    */
+    
 
     void FXStar(Transform pos)
     {
@@ -150,12 +218,11 @@ public class LevelCompleteWindow : UIScreen
         Instantiate(fxStarShow, newPos, Quaternion.identity);
     }
 
-    /*
-    void FXCollect(Transform pos)
+    void FXCollect(Image img)
     {
         if (fxCollectShow == null) return;
-        Vector3 newPos = new Vector3(pos.position.x, pos.position.y, 300);
-        Instantiate(fxCollectShow, newPos, Quaternion.identity);
+        var g = Instantiate(fxCollectShow, img.transform);
+        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -300);
     }
-    */
+    
 }

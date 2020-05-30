@@ -8,12 +8,13 @@ namespace GGTeam.SmartMobileCore
         string MES_ERROR_NOT_INIT = "Уровень не инициализирован";
         readonly Level level;
         readonly LevelData levelData;
-        readonly GameManager gameManager;
+        readonly GameManager Game;
         public LevelProgressHeader(Level level, LevelData levelData, GameManager gameManager)
         {
             this.level = level;
             this.levelData = levelData;
-            this.gameManager = gameManager;
+            this.levelData.money = 0;
+            this.Game = gameManager;
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace GGTeam.SmartMobileCore
             if (score <= 0) return levelData.score;
             int newScore = levelData.score + score;
             levelData.score = newScore;
-            gameManager.Levels.OnScoreChanged?.Invoke(newScore);
+            Game.Levels.OnScoreChanged?.Invoke(newScore);
             return newScore;
         }
 
@@ -43,7 +44,7 @@ namespace GGTeam.SmartMobileCore
             int newScore = levelData.score - score;
             if (newScore < 0) newScore = 0;
             levelData.score = newScore;
-            gameManager.Levels.OnScoreChanged?.Invoke(newScore);
+            Game.Levels.OnScoreChanged?.Invoke(newScore);
             return newScore;
         }
 
@@ -56,7 +57,34 @@ namespace GGTeam.SmartMobileCore
         {
             if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return; }
             levelData.score = 0;
-            gameManager.Levels.OnScoreChanged?.Invoke(0);
+            Game.Levels.OnScoreChanged?.Invoke(0);
+        }
+
+        /// <summary>
+        /// Добавить игровую валюту (деньги/кристаллы...) в текущий уровень.
+        /// </summary>
+        /// <param name="money"></param>
+        /// <returns></returns>
+        public int MoneyAdd(int money)
+        {
+            if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return 0; }
+            if (money <= 0) return levelData.money;
+            int newMoney = levelData.money + money;
+            levelData.money = newMoney;
+            //Game.Config.GameSetup.GAMEPLAY_USER_MONEY += money;
+            //Game.Config.GameSetup.Save();
+            Game.Levels.OnMoneyChanged?.Invoke(newMoney);
+            return newMoney;
+        }
+
+        /// <summary>
+        /// Обнулить игровую валюту текущего уровня
+        /// </summary>
+        public void MoneyClear()
+        {
+            if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return; }
+            levelData.money = 0;
+            Game.Levels.OnMoneyChanged?.Invoke(0);
         }
 
     }

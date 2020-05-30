@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5894914559811034603}
   - component: {fileID: 5893995432223408385}
   - component: {fileID: 549876403453672763}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: FX_Firework
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5983735072005756413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 139, y: 140, z: -121}
-  m_LocalScale: {x: 60, y: 60, z: 60}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 80, y: 80, z: 80}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -186,8 +186,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.85490197, b: 0, a: 0.54901963}
-      maxColor: {r: 1, g: 0.9098039, b: 0.37254903, a: 0.78431374}
+      minColor: {r: 1, g: 0.2494924, b: 0, a: 0.54901963}
+      maxColor: {r: 1, g: 0.76470286, b: 0.4764151, a: 0.78431374}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -457,7 +457,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0.5
-    maxNumParticles: 70
+    maxNumParticles: 500
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -814,7 +814,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 70
+        scalar: 60
         minScalar: 70
         maxCurve:
           serializedVersion: 2
@@ -880,20 +880,20 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -0.30748683
-          outSlope: -0.30748683
+          inSlope: -0.0000022649767
+          outSlope: -0.0000022649767
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.18421051
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: -1.617187
-          outSlope: -1.617187
+          inSlope: -4.3181767
+          outSlope: -4.3181767
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.078947425
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -4485,6 +4485,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4540,7 +4541,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5983735072005756413}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a015e6aed110124080429a8d003a8da, type: 3}
   m_Name: 

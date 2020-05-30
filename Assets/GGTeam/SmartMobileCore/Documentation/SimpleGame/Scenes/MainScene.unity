@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -565,11 +566,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914856913}
     m_Modifications:
-    - target: {fileID: 1062939870823518092, guid: a4426534da281eb41963ac81ac503f28,
-        type: 3}
-      propertyPath: m_Name
-      value: WindowLevelComplete
-      objectReference: {fileID: 0}
     - target: {fileID: 1062939870823518091, guid: a4426534da281eb41963ac81ac503f28,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -674,6 +670,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1062939870823518092, guid: a4426534da281eb41963ac81ac503f28,
+        type: 3}
+      propertyPath: m_Name
+      value: WindowLevelComplete
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4426534da281eb41963ac81ac503f28, type: 3}
@@ -690,11 +691,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914856913}
     m_Modifications:
-    - target: {fileID: 4119483865553511946, guid: 421e3930d152db94786d6b01ea14340c,
-        type: 3}
-      propertyPath: m_Name
-      value: WindowMain
-      objectReference: {fileID: 0}
     - target: {fileID: 4119483865553511941, guid: 421e3930d152db94786d6b01ea14340c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -800,6 +796,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4119483865553511946, guid: 421e3930d152db94786d6b01ea14340c,
+        type: 3}
+      propertyPath: m_Name
+      value: WindowMain
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 421e3930d152db94786d6b01ea14340c, type: 3}
 --- !u!1001 &4718033878518919378
@@ -809,10 +810,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914856913}
     m_Modifications:
-    - target: {fileID: 8720588529472138557, guid: 523c36cf1b66f0d40b177f7984a90e6e,
+    - target: {fileID: 2675192133799066537, guid: 523c36cf1b66f0d40b177f7984a90e6e,
         type: 3}
-      propertyPath: m_Name
-      value: WindowLevelSelect
+      propertyPath: m_AnchoredPosition.y
+      value: -11.050293
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718033878340837010, guid: 523c36cf1b66f0d40b177f7984a90e6e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -68
       objectReference: {fileID: 0}
     - target: {fileID: 8720588529472138554, guid: 523c36cf1b66f0d40b177f7984a90e6e,
         type: 3}
@@ -919,15 +925,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2675192133799066537, guid: 523c36cf1b66f0d40b177f7984a90e6e,
+    - target: {fileID: 8720588529472138557, guid: 523c36cf1b66f0d40b177f7984a90e6e,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -11.050293
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718033878340837010, guid: 523c36cf1b66f0d40b177f7984a90e6e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -68
+      propertyPath: m_Name
+      value: WindowLevelSelect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 523c36cf1b66f0d40b177f7984a90e6e, type: 3}
@@ -938,11 +939,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914856913}
     m_Modifications:
-    - target: {fileID: 5785678628036784091, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
-        type: 3}
-      propertyPath: m_Name
-      value: WindowGameProcess
-      objectReference: {fileID: 0}
     - target: {fileID: 5785678628036784090, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1047,6 +1043,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785678628036784091, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3,
+        type: 3}
+      propertyPath: m_Name
+      value: WindowGameProcess
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e65d6c3e0ef2f24a9a9ba6a3c3642c3, type: 3}
