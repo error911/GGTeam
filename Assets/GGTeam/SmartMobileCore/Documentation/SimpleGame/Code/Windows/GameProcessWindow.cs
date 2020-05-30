@@ -522,6 +522,7 @@ public class GameProcessWindow : UIScreen
 
     private void OnMoneyChanged(int obj)
     {
+
         textMoneyValue.text = obj.ToString();  // Game.Config.GameSetup.GAMEPLAY_USER_MONEY.ToString();
     }
 
