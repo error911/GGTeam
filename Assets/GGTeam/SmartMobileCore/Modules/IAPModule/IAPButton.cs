@@ -29,7 +29,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         string localizedDescription = "";
         string localizedPrice = "";
         bool localizedInter = true;
-        
+[HideInInspector] public bool clicked = false;
 
         public enum ButtonType
         {
@@ -92,6 +92,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
         void Start()
         {
+clicked = false;
             button = GetComponent<Button>();
             if (titleText != null) titleText.text = "Loading..";
             if (priceText != null) priceText.text = "";
@@ -167,11 +168,8 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                     //UpdateText();
                     //return;
                 }
-
             }
         }
-
-
 
         void AddToList()
         {
@@ -190,7 +188,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
         void OnEnable()
         {
-            AddToList();
+            if (!aded) AddToList();
         }
 
         void OnDisable()
@@ -208,7 +206,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             if (buttonType == ButtonType.Purchase)
             {
                 if (debugMode) Debug.Log("IAPButton.BuyProductID() with product ID: " + productId); //PurchaseProduct
-
+clicked = true;
                 IAPModule.Instance.BuyProductID(productId); // InitiatePurchase
             }
         }

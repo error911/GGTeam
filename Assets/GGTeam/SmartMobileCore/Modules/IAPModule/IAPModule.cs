@@ -326,6 +326,10 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             return storeController != null && storeExtensionProvider != null;
         }
 
+        /// <summary>
+        /// Купить продукт
+        /// </summary>
+        /// <param name="productId"></param>
         public void BuyProductID(string productId)
         {
             // If Purchasing has been initialized ...
@@ -466,11 +470,15 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
             // if any receiver consumed this purchase we return the status
             bool consumePurchase = false;
             bool resultProcessed = false;
+List<IAPButton> btn_clicked = new List<IAPButton>();
 
             foreach (IAPButton button in activeButtons)
             {
                 if (button.productId == args.purchasedProduct.definition.id)
                 {
+
+if (button.clicked) btn_clicked.Add(button);
+
                     var pr = allProducts.Where((x) => x.id == button.productId).SingleOrDefault();
                     bool consumable = false;
                     if (pr != null) if (pr.productType == ProductType.Consumable) consumable = true; else consumable = false;
@@ -509,18 +517,35 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
                 Debug.LogError("Покупка не правильно обработана для продукта \"" +
                                      args.purchasedProduct.definition.id +
                                      "\". Добавьте активную кнопку IAP для обработки этой покупки, или подпишитесь на события IAPModule для получения любых необработанные событий покупки.");
+
+                foreach (var item in btn_clicked)
+                {
+                    if (args.purchasedProduct != null)
+                        if (args.purchasedProduct.definition != null)
+                            if (item.productId == args.purchasedProduct.definition.id) item.clicked = false;
+                }
             }
             else
             {
                 #region === Статистика ===
-                double p_price = Convert.ToDouble(args.purchasedProduct.metadata.localizedPrice);
-                string p_currency = args.purchasedProduct.metadata.isoCurrencyCode;
 
-                string receipt = "";
-                if (!string.IsNullOrEmpty(args.purchasedProduct.receipt)) receipt = args.purchasedProduct.receipt;
-                if (args.purchasedProduct.hasReceipt) receipt = args.purchasedProduct.receipt;
+                foreach (var item in btn_clicked)
+                {
+                    if (item.productId == args.purchasedProduct.definition.id)
+                    {
+                        item.clicked = false;
 
-                Game.Metrica.Report_PurchaseComplete(args.purchasedProduct.definition.id, true, p_price, p_currency, args.purchasedProduct.transactionID, receipt);
+                        double p_price = Convert.ToDouble(args.purchasedProduct.metadata.localizedPrice);
+                        string p_currency = args.purchasedProduct.metadata.isoCurrencyCode;
+
+                        string receipt = "";
+                        if (!string.IsNullOrEmpty(args.purchasedProduct.receipt)) receipt = args.purchasedProduct.receipt;
+                        if (args.purchasedProduct.hasReceipt) receipt = args.purchasedProduct.receipt;
+
+                        Game.Metrica.Report_PurchaseComplete(args.purchasedProduct.definition.id, true, p_price, p_currency, args.purchasedProduct.transactionID, receipt);
+                    }
+                }
+
                 #endregion
             }
 
