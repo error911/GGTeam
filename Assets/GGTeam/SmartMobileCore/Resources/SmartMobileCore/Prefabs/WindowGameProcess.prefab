@@ -1665,7 +1665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -82.00012, y: -225}
+  m_AnchoredPosition: {x: -82, y: -225}
   m_SizeDelta: {x: 250, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6645209144558026547
@@ -1910,7 +1910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.000122, y: -150}
+  m_AnchoredPosition: {x: 62, y: -150}
   m_SizeDelta: {x: 250, y: 128}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7337665520064133363
@@ -4287,11 +4287,14 @@ MonoBehaviour:
   imgPauseMenu: {fileID: 3970344723970899053}
   imgPlayMenu: {fileID: 2875693040947489647}
   menuBackgroundImg: {fileID: 60108702544362535}
+  menuBackgroundRaycast: {fileID: 1399585416}
   menuSetupSoundOn: {fileID: 1157527401995145491}
   menuSetupSoundOff: {fileID: 6418167117022759793}
   menuSetupVibroOn: {fileID: 8682738462427614439}
   menuSetupVibroOff: {fileID: 9201072515956249045}
   RowSkinPref: {fileID: 4301732457163572956}
+  skinsBackgroundImg: {fileID: 3602912396008632104}
+  skinsBackgroundRaycast: {fileID: 1086638538}
   trSkinsMenuContent: {fileID: 7210333095159045531}
   imgPauseSkins: {fileID: 6685829476644774600}
   imgPlaySkins: {fileID: 1545550828786272094}
@@ -4332,7 +4335,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 188, y: -6}
-  m_SizeDelta: {x: 540, y: 128}
+  m_SizeDelta: {x: 520, y: 128}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4519332581735363173
 CanvasRenderer:
@@ -4374,7 +4377,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TO THANK
+  m_Text: Disable FOREVER
 --- !u!114 &6523436728242674251
 MonoBehaviour:
   m_ObjectHideFlags: 0

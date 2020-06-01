@@ -2,7 +2,6 @@
 // Simple UI Window for SmartMobileCore
 // ====================================
 
-using Boo.Lang;
 using GGTeam.SmartMobileCore;
 using GGTeam.Tools.Tween;
 using System;

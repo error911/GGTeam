@@ -23,7 +23,11 @@ public class GameProcessWindow : UIScreen
     public Transform trIngameMenuContent;
     public Image imgPauseMenu;
     public Image imgPlayMenu;
-    public Image menuBackgroundImg;
+public Image menuBackgroundImg;
+
+    public GraphicRaycaster menuBackgroundRaycast;
+
+
 
     public Image menuSetupSoundOn;
     public Image menuSetupSoundOff;
@@ -42,7 +46,12 @@ public class GameProcessWindow : UIScreen
     bool btn_skin_defState = false;
     bool btn_pause_defState = false;
 
-    #region === Работа со скинами ===
+    #region === Popup Pause ===
+    #endregion
+
+    #region === Popup Skins ===
+public Image skinsBackgroundImg;
+public GraphicRaycaster skinsBackgroundRaycast;
     public Transform trSkinsMenuContent;
     public Image imgPauseSkins;
     public Image imgPlaySkins;
@@ -235,6 +244,9 @@ public class GameProcessWindow : UIScreen
         skinlist_inited = true;
     }
 
+    // ==================================
+    // Открыть/Закрыть меню выбора скинов
+    // ==================================
     public void OnBtnOpen_Skins()
     {
         //if (pauseProcess) return;
@@ -242,6 +254,7 @@ public class GameProcessWindow : UIScreen
 
         if (!opened_skins)
         {
+skinsBackgroundRaycast.enabled = true;
             btn_pause_defState = rtBtnPause.gameObject.activeSelf;
             rtBtnPause.gameObject.SetActive(false);
 
@@ -260,7 +273,7 @@ public class GameProcessWindow : UIScreen
             }, 0, 1, speed * 2);
 
             // Фон
-            Tween.TweenFloat((a) => { menuBackgroundImg.color = new Color(menuBackgroundImg.color.r, menuBackgroundImg.color.g, menuBackgroundImg.color.b, a); }, 0, 0.8f, speed);
+            Tween.TweenFloat((a) => { skinsBackgroundImg.color = new Color(skinsBackgroundImg.color.r, skinsBackgroundImg.color.g, skinsBackgroundImg.color.b, a); }, 0, 0.8f, speed);
 
             Vector3 posSt = rtBtnSkins.localPosition;
             Vector3 posEn = rtBtnSkins.localPosition + new Vector3(869, 0, 0);
@@ -272,6 +285,7 @@ public class GameProcessWindow : UIScreen
         }
         else
         {
+skinsBackgroundRaycast.enabled = false;
             // Закрываем игровое меню
             SetPause(false);
             //Time.timeScale = 1;
@@ -283,7 +297,7 @@ public class GameProcessWindow : UIScreen
             }, 0, 1, speed * 2);
 
             // Фон
-            Tween.TweenFloat((a) => { menuBackgroundImg.color = new Color(menuBackgroundImg.color.r, menuBackgroundImg.color.g, menuBackgroundImg.color.b, a); }, 0.8f, 0.0f, speed);
+            Tween.TweenFloat((a) => { skinsBackgroundImg.color = new Color(skinsBackgroundImg.color.r, skinsBackgroundImg.color.g, skinsBackgroundImg.color.b, a); }, 0.8f, 0.0f, speed);
 
             Vector3 posSt = rtBtnSkins.localPosition;
             Vector3 posEn = rtBtnSkins.localPosition - new Vector3(869, 0, 0);
@@ -300,6 +314,9 @@ public class GameProcessWindow : UIScreen
 
     #endregion
 
+    // ==================================
+    // Открыть/Закрыть меню паузы
+    // ==================================
     public void OnBtnOpen_Menu()
     {
         if (pauseProcess) return;
@@ -307,6 +324,7 @@ public class GameProcessWindow : UIScreen
 
         if (!opened_menu)
         {
+menuBackgroundRaycast.enabled = true;
             btn_skin_defState = rtBtnSkins.gameObject.activeSelf;
             rtBtnSkins.gameObject.SetActive(false);
 
@@ -335,6 +353,7 @@ public class GameProcessWindow : UIScreen
         }
         else
         {
+menuBackgroundRaycast.enabled = false;
             // Закрываем игровое меню
             SetPause(false);
             //Time.timeScale = 1;
@@ -361,7 +380,6 @@ public class GameProcessWindow : UIScreen
             }
         }
     }
-
 
     public void OnBtnRestart()
     {
@@ -465,6 +483,9 @@ public class GameProcessWindow : UIScreen
 
     public override void OnInit()
     {
+        skinsBackgroundRaycast.enabled = false;
+        menuBackgroundRaycast.enabled = false;
+
         textLvlValue.text = "-";
         textScoreValue.text = "-";
         trIngameMenuContent.gameObject.SetActive(false);
@@ -531,4 +552,14 @@ public class GameProcessWindow : UIScreen
         tId = Tween.TweenInt((x) => { textScoreValue.text = x.ToString(); }, ssc, score, duration);
         curScore = score;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (opened_menu) { OnBtnOpen_Menu(); return; }
+            if (opened_skins) { OnBtnOpen_Skins(); return; }
+        }
+    }
+
 }
