@@ -39,10 +39,8 @@ public class GameProcessWindow : UIScreen
     private bool pauseProcess = false;
     private string rateUrl = "";
 
-
     bool btn_skin_defState = false;
     bool btn_pause_defState = false;
-
 
     #region === Работа со скинами ===
     public Transform trSkinsMenuContent;
@@ -420,8 +418,6 @@ public class GameProcessWindow : UIScreen
         else Time.timeScale = 1;
     }
 
-
-
     void RenderButtonsImage()
     {
         if (Game.Config.GameSetup.SETUP_SOUND_ENABLED) { menuSetupSoundOn.enabled = true; menuSetupSoundOff.enabled = false; }
@@ -430,8 +426,6 @@ public class GameProcessWindow : UIScreen
         if (Game.Config.GameSetup.SETUP_VIBRO_ENABLED) { menuSetupVibroOn.enabled = true; menuSetupVibroOff.enabled = false; }
         else { menuSetupVibroOn.enabled = false; menuSetupVibroOff.enabled = true; }
     }
-
-
 
     public override void OnOpen()
     {
@@ -510,7 +504,11 @@ public class GameProcessWindow : UIScreen
 
         if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(false);
 #if UNITY_PURCHASING
-        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+        if (rtBtnNoAds)
+        {
+            //if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
+                rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+        }
 #endif
 
         if (rateUrl.Length <= 1) if (rtBtnRate) rtBtnRate.gameObject.SetActive(false);

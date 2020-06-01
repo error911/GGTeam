@@ -42,9 +42,6 @@ public class LevelCompleteWindow : UIScreen
 
     public void OnBtnCollect()
     {
-        //Game.Config.GameSetup.GAMEPLAY_USER_MONEY
-        //Game.Levels.LoadNext();
-
         int m = Game.Levels.Current.Data.money;
         if (m > 0)
         {
@@ -92,17 +89,7 @@ public class LevelCompleteWindow : UIScreen
         Game.Levels.LoadCurrent();
     }
 
-    public override void OnClose()
-    {
-        if (use_collect_reward)
-        {
-            textCrystals.text = "";
-            foreach (Transform item in contentCrystals)
-            {
-                if (item != goCrystal.transform) Destroy(item.gameObject);
-            }
-        }
-    }
+    
 
     public override void OnInit()
     {
@@ -111,8 +98,11 @@ public class LevelCompleteWindow : UIScreen
             textScores.gameObject.SetActive(false);
             panelCollectReward.SetActive(true);
             btnContinue.gameObject.SetActive(false);
-            btnCollect.gameObject.SetActive(true);
-            if (Game.ADS.ADS_ENABLED) btnCollectX.gameObject.SetActive(true);
+            //btnCollect.gameObject.SetActive(true);
+            //if (Game.ADS.ADS_ENABLED) btnCollectX.gameObject.SetActive(true);
+            btnCollect.gameObject.SetActive(false);
+            btnCollectX.gameObject.SetActive(false);
+
             textCollectX.text = "COLLECT<color=orange>X</color>" + collectX_module.ToString();
             goCrystal.SetActive(false);
             textCrystals.text = "";
@@ -127,6 +117,21 @@ public class LevelCompleteWindow : UIScreen
         }
     }
 
+    public override void OnClose()
+    {
+        if (use_collect_reward)
+        {
+            textCrystals.text = "";
+            foreach (Transform item in contentCrystals)
+            {
+                if (item != goCrystal.transform) Destroy(item.gameObject);
+            }
+
+            btnCollect.gameObject.SetActive(false);
+            btnCollectX.gameObject.SetActive(false);
+        }
+    }
+
     public override void OnOpen()
     {
         textLvlNum.text = "LEVEL " + Game.Levels.Current.Data.number;
@@ -134,6 +139,19 @@ public class LevelCompleteWindow : UIScreen
         {
             textScores.text = Game.Levels.Current.Data.score.ToString();
             Tween.TweenInt((n) => { textScores.text = n.ToString(); }, 0, Game.Levels.Current.Data.score, 0.8f);
+        }
+
+
+        if (use_collect_reward)
+        {
+            btnCollectX.gameObject.SetActive(true);
+            btnCollectX.transform.localScale = Vector3.zero;
+            Tween.TweenVector3((s) => { btnCollectX.transform.localScale = s; }, Vector3.zero, Vector3.one, 0.25f, 0, null, false, TweenType.Overshoot);
+
+            float delay = 2.0f;
+            btnCollect.gameObject.SetActive(true);
+            btnCollect.transform.localScale = Vector3.zero;
+            Tween.TweenVector3((s) => { btnCollect.transform.localScale = s; }, Vector3.zero, Vector3.one, 0.25f, delay, null, false, TweenType.Overshoot);
         }
 
         float stars = Game.Levels.Current.Data.stars;
