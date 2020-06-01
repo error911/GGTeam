@@ -33,7 +33,7 @@ namespace GGTeam.SmartMobileCore
                 return (int)ts.TotalSeconds;
             }
         }
-        private DateTime last_show_time = DateTime.Now;
+        private DateTime last_show_time = DateTime.Now - new TimeSpan(1, 0, 0);
 
         public AdsHeader(GameManager game, IAdsProvider adwareProvider)
         {
