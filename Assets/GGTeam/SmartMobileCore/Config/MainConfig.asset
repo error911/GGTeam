@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0d69773cf4abe4e879f359c7f2b163, type: 3}
   m_Name: MainConfig
   m_EditorClassIdentifier: 
+  GAMEPLAY_CLEAR_SCORE_ON_START_LEVEL: 1
   POLICY_ENABLED: 1
   POLICY_AGE_MIN: 16
   POLICY_GDRP_TEXT_EN: I hereby consent to {company} processing of my personal data
@@ -38,7 +39,7 @@ MonoBehaviour:
   ADS_APP_KEY: b4fa68fd
   ADS_ENABLE_VIDEO: 1
   ADS_ENABLE_BANNER: 1
-  ADS_START_VIDEO_FROM_LEVEL: 4
-  ADS_SHOW_TIME_MIN_SEC: 20
+  ADS_START_VIDEO_FROM_LEVEL: 2
+  ADS_SHOW_TIME_MIN_SEC: 30
   MARKET_URL_ANDROID: 
   MARKET_URL_IOS: 

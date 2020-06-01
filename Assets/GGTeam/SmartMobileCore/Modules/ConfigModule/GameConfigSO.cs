@@ -38,16 +38,6 @@ public class GameConfigSO : ScriptableObject
     [Tooltip("Кол-во уровней. Внимание! Имеет значение только если параметр выше=true")]
     public int LEVEL_ONE_SCENE_LEVELS_COUNT = 0;
 
-    /*
-    // ========== Game setup ==========
-    [Space(8)]
-    [Header("- Game setup -----------------------------------------------------------------")]
-    //[Tooltip("Публикация")]
-    public bool GAME_SOUND_ENABLE = true;
-    public bool GAME_VIBRO_ENABLE = true;
-    public string MARKET_URL_IOS = "";
-    */
-
     // ========== LOG ==========
     [Space(8)]
     [Header("- LOG -----------------------------------------------------------------")]
@@ -92,8 +82,8 @@ public class GameConfigSO : ScriptableObject
     public bool ADS_ENABLE_BANNER = false;
     [Tooltip("Начинать показывать рекламу с уровня N")]
     public int ADS_START_VIDEO_FROM_LEVEL = 4;
-    [Tooltip("Отображать рекламу не чаще этого времени")]
-    public int ADS_SHOW_TIME_MIN_SEC = 60;
+    [Tooltip("Отображать рекламу не чаще этого времени (сек)")]
+    public int ADS_SHOW_TIME_MIN_SEC = 120;
 
     // ========== Publishing ==========
     [Space(8)]

@@ -220,6 +220,7 @@ public class LevelCompleteWindow : UIScreen
 
     void FXCollect(Image img)
     {
+        if (img == null) return;
         if (fxCollectShow == null) return;
         var g = Instantiate(fxCollectShow, img.transform);
         g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -300);

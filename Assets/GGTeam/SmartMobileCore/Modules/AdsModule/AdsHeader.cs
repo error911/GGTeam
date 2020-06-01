@@ -14,7 +14,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Отображать после каждого уровня
         /// </summary>
-        public bool Show_each_level { get; private set; } = true;
+        public bool Show_each_level { get; private set; } = false;
         public bool ADS_ENABLED { get; private set; } = false;
         public bool IsInited { get; private set; } = false;
         public bool IsEnabled { get; private set; } = false;
@@ -24,7 +24,7 @@ namespace GGTeam.SmartMobileCore
         private readonly GameManager Game;
         private readonly IAdsProvider adwareProvider;
 
-        // Сколько секунд назад успешно отобразилась реклама (нативная)
+        // Сколько секунд назад успешно отобразилась реклама (видео not-rewarded)
         public int Last_show_sec
         {
             get
