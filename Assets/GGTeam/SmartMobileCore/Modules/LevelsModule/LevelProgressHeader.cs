@@ -15,6 +15,9 @@ namespace GGTeam.SmartMobileCore
             this.levelData = levelData;
             this.levelData.money = 0;
             this.Game = gameManager;
+            // Дернуть подписки для обновления
+            this.Game.Levels.OnMoneyChanged?.Invoke(Game.Config.GameSetup.GAMEPLAY_USER_MONEY);
+            this.Game.Levels.OnScoreChanged?.Invoke(levelData.score);
         }
 
         /// <summary>
