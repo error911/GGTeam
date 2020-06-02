@@ -61,7 +61,7 @@ namespace GGTeam.SmartMobileCore
         }
 
         /// <summary>
-        /// Добавить игровую валюту (деньги/кристаллы...) в текущий уровень.
+        /// Предварительно добавить игровую валюту (деньги/кристаллы...) в текущий уровень. Начислиться она в конце уровня.
         /// </summary>
         /// <param name="money"></param>
         /// <returns></returns>
@@ -74,6 +74,27 @@ namespace GGTeam.SmartMobileCore
             //Game.Config.GameSetup.GAMEPLAY_USER_MONEY += money;
             //Game.Config.GameSetup.Save();
             Game.Levels.OnMoneyChanged?.Invoke(Game.Config.GameSetup.GAMEPLAY_USER_MONEY + newMoney);
+            return newMoney;
+        }
+
+        /// <summary>
+        /// Потратить игровую валюту (деньги/кристаллы...) в текущий уровень.
+        /// </summary>
+        /// <param name="money"></param>
+        /// <returns></returns>
+        public int MoneyRemove(int money)
+        {
+            if (level == null) { Debug.LogWarning(MES_ERROR_NOT_INIT); return 0; }
+            if (money <= 0) return Game.Config.GameSetup.GAMEPLAY_USER_MONEY;
+
+            int m = Game.Config.GameSetup.GAMEPLAY_USER_MONEY;
+
+            if (m <= 0) return Game.Config.GameSetup.GAMEPLAY_USER_MONEY;
+            if (m - money < 0) return Game.Config.GameSetup.GAMEPLAY_USER_MONEY;
+            int newMoney = m - money;
+            Game.Config.GameSetup.GAMEPLAY_USER_MONEY = newMoney;
+            Game.Config.GameSetup.Save();
+            Game.Levels.OnMoneyChanged?.Invoke(Game.Config.GameSetup.GAMEPLAY_USER_MONEY);
             return newMoney;
         }
 
