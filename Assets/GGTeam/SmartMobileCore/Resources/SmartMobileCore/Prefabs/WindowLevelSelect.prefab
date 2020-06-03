@@ -2326,7 +2326,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8720588529472138554}
-  - component: {fileID: 8720588529472138552}
   - component: {fileID: 8720588529472138530}
   m_Layer: 5
   m_Name: WindowLevelSelect
@@ -2355,14 +2354,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8720588529472138552
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8720588529472138557}
-  m_CullTransparentMesh: 0
 --- !u!114 &8720588529472138530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2377,7 +2368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiType: 5
   showOnStart: 0
-  animate: 0
+  animate: 1
   animateTypeOpen: 14
   animateTypeClose: 14
   content: {fileID: 8720588529019977417}

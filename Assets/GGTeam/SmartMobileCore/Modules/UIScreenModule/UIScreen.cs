@@ -256,6 +256,7 @@ if (!uiscreen_opened) return;
         ScreenLevelComplete = 3,
         ScreenLevelFailed = 4,
         ScreenLevelSelect = 5,
+        ScreenShop = 6,
     }
 
     [Serializable]
