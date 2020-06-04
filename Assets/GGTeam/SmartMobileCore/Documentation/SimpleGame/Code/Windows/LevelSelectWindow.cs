@@ -49,8 +49,8 @@ public class LevelSelectWindow : UIScreen
 
             if (data.completed || data.opened)
             {
-                normalTr.localScale = new Vector3(0, 0, 1);
-                Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i - 1) * 0.05f);
+                //normalTr.localScale = new Vector3(0, 0, 1);
+                //Tween.TweenVector3((v) => { normalTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.25f, (i - 1) * 0.05f);
 
                 if (data.completed && data.opened)
                 {
@@ -99,8 +99,8 @@ public class LevelSelectWindow : UIScreen
             }
             else
             {
-                lockTr.localScale = new Vector3(0, 0, 1);
-                Tween.TweenVector3((v) => { lockTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.15f, (i * 0.25f - 1) * 0.05f);
+                //lockTr.localScale = new Vector3(0, 0, 1);
+                //Tween.TweenVector3((v) => { lockTr.localScale = v; }, new Vector3(0, 0, 1), new Vector3(1, 1, 1), 0.15f, (i * 0.25f - 1) * 0.05f);
 
                 normalTr.gameObject.SetActive(false);
                 lockTr.gameObject.SetActive(true);
@@ -160,5 +160,9 @@ public class LevelSelectWindow : UIScreen
         }
     }
 
+    private void Start()
+    {
+        CellPref.SetActive(false);
+    }
 
 }

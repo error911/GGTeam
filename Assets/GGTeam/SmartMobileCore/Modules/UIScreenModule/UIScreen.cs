@@ -56,10 +56,22 @@ namespace GGTeam.SmartMobileCore
         #endregion
 
         #region === Приватные ===
-        private float _anim_open_duration = 0.25f;
-        private float _anim_close_duration = 0.15f;
+        private float _anim_open_duration = 0.35f;
+        private float _anim_close_duration = 0.25f;
         private bool ui_screen_inited = false;
-        //private Animator anim;
+        private Image contentImg
+        {
+            get
+            {
+                if (_contentImg != null) return _contentImg;
+                if (content == null) return null;
+                _contentImg = content.GetComponent<Image>();
+                return _contentImg;
+            }
+        }
+        Image _contentImg;
+        Color contentImgStartColor = new Color(1, 1, 1, 1);
+        Color contentImgEndColor = new Color(1, 1, 1, 0.2f);
         #endregion
 
         #region === Редактор ===
@@ -97,9 +109,19 @@ namespace GGTeam.SmartMobileCore
                 if (c == null) return;
                 content = c.gameObject;
             }
+
             uiscreen_opened = content.activeSelf;
-            uiscreen_opened = !uiscreen_opened;
-            content.SetActive(IsOpen);
+            if (Application.isPlaying)
+            {
+                if (!uiscreen_opened) Open();
+                else Close();
+            }
+            else
+            {
+                
+                uiscreen_opened = !uiscreen_opened;
+                content.SetActive(IsOpen);
+            }
         }
 
 #endif
@@ -126,8 +148,7 @@ namespace GGTeam.SmartMobileCore
         public virtual void Open(Action OnClose = null, bool use_animate = true)
         {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
-
-if (uiscreen_opened) return;
+            if (uiscreen_opened) return;
 
             uiscreen_opened = !uiscreen_opened;
             OnCloseAction = OnClose;
@@ -137,9 +158,20 @@ if (uiscreen_opened) return;
             content.SetActive(true);
             if (use_animate && animate)
             {
-                content.transform.localScale = Vector3.zero;
-                //Tween.StopTween(twId);
-                twId = Tween.TweenVector3((a) => content.transform.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, EndAnim1, false, animateTypeOpen);
+                int n = 0;
+if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImgStartColor, contentImgEndColor, _anim_open_duration, 0, null, false, TweenType.EaseOutQuint);
+                foreach (Transform item in content.transform)
+                {
+                    item.localScale = Vector3.zero;
+                    if (n == 0)
+                        Tween.TweenVector3((a) => item.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, EndAnim1, false, animateTypeOpen);
+                    else
+                        Tween.TweenVector3((a) => item.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, null, false, animateTypeOpen);
+                    n++;
+                }
+
+                //content.transform.localScale = Vector3.zero;
+                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, EndAnim1, false, animateTypeOpen);
             }
             else
             {
@@ -159,19 +191,27 @@ if (uiscreen_opened) return;
         /// </summary>
         public virtual void Close(bool use_animate = true)
         {
-            //if (!opened) return;
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
-
-if (!uiscreen_opened) return;
-
+            if (!uiscreen_opened) return;
             uiscreen_opened = !uiscreen_opened;
-
             Vector3 s_sc = new Vector3(1, 1, 1);
 
             if (use_animate && animate)
             {
-                //Tween.StopTween(twId);
-                twId = Tween.TweenVector3((a) => content.transform.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, EndAnim, false, animateTypeClose);
+if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImgEndColor, contentImgStartColor, _anim_open_duration, 0, null, false, TweenType.EaseOutQuint);
+                int n = 0;
+                foreach (Transform item in content.transform)
+                {
+                    if (n == 0)
+                        Tween.TweenVector3((a) => item.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, EndAnim, false, animateTypeClose);
+                    else
+                        Tween.TweenVector3((a) => item.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, null, false, animateTypeClose);
+                    n++;
+                }
+
+
+
+                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, EndAnim, false, animateTypeClose);
             }
             else
             {
@@ -204,6 +244,14 @@ if (!uiscreen_opened) return;
         protected void OnEnable()
         {
             if (Game == null) return;
+            if (contentImg != null)
+            {
+                contentImgStartColor = contentImg.color;
+                contentImgEndColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, contentImgStartColor.a);
+                contentImgStartColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, 0.0f);
+                
+                
+            }
             StartCoroutine(SkipFrameAndReg());
 
             StartCoroutine(SkipFrameAndInit());
