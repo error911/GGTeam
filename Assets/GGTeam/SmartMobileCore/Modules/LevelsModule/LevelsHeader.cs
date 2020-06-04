@@ -131,7 +131,6 @@ namespace GGTeam.SmartMobileCore
             int need_num = CurrentNumber + 1;
             if (need_num > Count) need_num = 1;
             if (need_num == 0) need_num = 1;
-
             _HideUI();
             Game.ADS.HideBanner();
             Game.UI.GFX.Show(_OnShowComplete);
@@ -195,7 +194,6 @@ namespace GGTeam.SmartMobileCore
                         {
                             _ShowUI(CurrentNumber);
                             loadingProcess = false;
-
                             OnLoaded?.Invoke();
                             OnLevelChanged?.Invoke(CurrentNumber);
                         }
@@ -363,16 +361,14 @@ namespace GGTeam.SmartMobileCore
             Game.UI.Close(UITypes.ScreenLevelComplete, true);
             Game.UI.Close(UITypes.ScreenLevelFailed, true);
             Game.UI.Close(UITypes.InterfaceInGame, true);
-            Game.UI.Close(UITypes.ScreenLevelSelect, true);
+//            Game.UI.Close(UITypes.ScreenLevelSelect, true);
         }
 
         // Загрузить уровень (по номеру 1..MaxNumber)
         private void OnlyLoad(int levelNumber, Action OnLoaded = null)
         {
-
             if (!Game.Config.GameConfig.LEVEL_USE_ONE_SCENE_FOR_ALL)
             {
-
 #pragma warning disable CS0618 // Тип или член устарел
                 Game.Scenes.LoadScene(levelNumber, _OnLoadComplete);
 #pragma warning restore CS0618 // Тип или член устарел

@@ -111,9 +111,10 @@ public class LevelSelectWindow : UIScreen
     public void StartLevel(int i)
     {
         Game.Levels.Load(i, ComplLoaded);
+        Close();
         void ComplLoaded()
         {
-            Close();
+            //Close();
         }
         
     }
