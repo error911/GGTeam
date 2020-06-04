@@ -493,6 +493,7 @@ menuBackgroundRaycast.enabled = false;
         //textMoneyValue.text = Game.Levels.OnMoneyChanged;
         textMoneyValue.text = Game.Config.GameSetup.GAMEPLAY_USER_MONEY.ToString();
         Game.Levels.OnMoneyChanged += OnMoneyChanged;
+        //Game.Levels.OnScoreChanged += ScoreChange;  //6
 
         //        if (Application.platform == RuntimePlatform.Android) rateUrl = Game.Config.Current.MARKET_URL_ANDROID;
         //        else if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer) rateUrl = Game.Config.Current.MARKET_URL_IOS;
@@ -541,7 +542,6 @@ menuBackgroundRaycast.enabled = false;
 
     private void OnMoneyChanged(int obj)
     {
-
         textMoneyValue.text = obj.ToString();  // Game.Config.GameSetup.GAMEPLAY_USER_MONEY.ToString();
     }
 
