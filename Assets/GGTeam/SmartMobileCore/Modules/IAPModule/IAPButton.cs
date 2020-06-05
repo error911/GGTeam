@@ -105,9 +105,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         void RedrawProductInfo()
         {
             if (productItem == null) productItem = IAPModule.Instance.GetLocalProductInCatalogue(productId);
-            Debug.Log(1);
             if (productItem == null) return;
-            Debug.Log(2);
             if (productItem.productImage != null) productImage.sprite = _productItem.productImage;
             if (!string.IsNullOrEmpty(productItem.productTitle) && titleText != null) titleText.text = productItem.productTitle;
             if (!string.IsNullOrEmpty(productItem.productDescription) && descriptionText != null) descriptionText.text = productItem.productDescription;
