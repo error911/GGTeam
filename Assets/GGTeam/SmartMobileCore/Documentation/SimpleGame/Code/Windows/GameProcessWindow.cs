@@ -12,14 +12,26 @@ using UnityEngine.UI;
 public class GameProcessWindow : UIScreen
 {
     public bool EnableBtn_NoAds = true;
+    public bool EnableBtn_Restart = true;
+    public bool EnableBtn_Levels = true;
+    public bool EnableBtn_Sound = true;
+    public bool EnableBtn_Vibro = true;
+    public bool EnableBtn_Rate = true;
+
     [Space(16)]
 
     public Text textLvlValue;
     public Text textScoreValue;
     public Text textMoneyValue;
     public Transform rtBtnPause;
-    public Transform rtBtnNoAds;
-    public Transform rtBtnRate;
+
+    public Transform rtRowRestart;
+    public Transform rtRowLevels;
+    public Transform rtRowSound;
+    public Transform rtRowVibro;
+    public Transform rtRowRate;
+    public Transform rtRowNoAds;
+
     public Transform trIngameMenuContent;
     public Image imgPauseMenu;
     public Image imgPlayMenu;
@@ -31,7 +43,7 @@ public class GameProcessWindow : UIScreen
     public Image menuSetupVibroOn;
     public Image menuSetupVibroOff;
 
-    public GameObject RowSkinPref;
+    
 
     private float duration = 1.0f;
     private int curScore = 0;
@@ -47,7 +59,8 @@ public class GameProcessWindow : UIScreen
     #endregion
 
     #region === Popup Skins ===
-public Image skinsBackgroundImg;
+    public GameObject RowSkinPref;
+    public Image skinsBackgroundImg;
 public GraphicRaycaster skinsBackgroundRaycast;
     public Transform trSkinsMenuContent;
     public Image imgPauseSkins;
@@ -389,7 +402,6 @@ menuBackgroundRaycast.enabled = false;
         Game.Config.GameSetup.SETUP_SOUND_ENABLED = !Game.Config.GameSetup.SETUP_SOUND_ENABLED;
         Game.Config.GameSetup.Save();
         Game.Metrica.Report_MenuSound(Game.Config.GameSetup.SETUP_SOUND_ENABLED);
-
         RenderButtonsImage();
     }
 
@@ -519,17 +531,22 @@ menuBackgroundRaycast.enabled = false;
             else if (Game.Config.GameConfig.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.GameConfig.MARKET_URL_IOS;
         }
 
+        if (!EnableBtn_Restart) rtRowRestart.gameObject.SetActive(false);
+        if (!EnableBtn_Levels) rtRowLevels.gameObject.SetActive(false);
+        if (!EnableBtn_Sound) rtRowSound.gameObject.SetActive(false);
+        if (!EnableBtn_Vibro) rtRowVibro.gameObject.SetActive(false);
+        if (!EnableBtn_Rate) rtRowRate.gameObject.SetActive(false);
 
-        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(false);
+        if (rtRowNoAds) rtRowNoAds.gameObject.SetActive(false);
 #if UNITY_PURCHASING
-        if (rtBtnNoAds)
+        if (rtRowNoAds)
         {
             //if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
-                rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
+                rtRowNoAds.gameObject.SetActive(EnableBtn_NoAds);
         }
 #endif
 
-        if (rateUrl.Length <= 1) if (rtBtnRate) rtBtnRate.gameObject.SetActive(false);
+        if (rateUrl.Length <= 1) if (rtRowRate) rtRowRate.gameObject.SetActive(false);
 
 
         RenderButtonsImage();

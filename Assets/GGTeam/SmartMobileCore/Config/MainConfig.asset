@@ -23,8 +23,8 @@ MonoBehaviour:
     that I can always withdraw my consent at any time from within Settings in the
     game.
   LEVEL_WAIT_AFTER_LOADING: 0
-  LEVEL_USE_ONE_SCENE_FOR_ALL: 0
-  LEVEL_ONE_SCENE_LEVELS_COUNT: 10
+  LEVEL_USE_ONE_SCENE_FOR_ALL: 1
+  LEVEL_ONE_SCENE_LEVELS_COUNT: 99
   LOG_SHOW_DEBUG: 0
   LOG_SHOW_WARNING: 1
   LOG_SHOW_ERROR: 1
