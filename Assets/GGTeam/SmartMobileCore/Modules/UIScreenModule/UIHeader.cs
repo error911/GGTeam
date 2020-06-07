@@ -45,6 +45,7 @@ namespace GGTeam.SmartMobileCore
                     {
                         // Если есть предзагруженый уровень
                         // то не показываем начальные интерфейсы
+                        //item.Open();
                     }
                 }
             }
@@ -168,10 +169,6 @@ namespace GGTeam.SmartMobileCore
         {
             int timeShow_ms = 125;
             int timeHide_ms = 125;
-            //Color colorShowIn = new Color(1,1,1, 0);
-            //Color colorShowOut = new Color(1,1,1, 1);
-            //Color colorHideIn = new Color(1,1,1, 1);
-            //Color colorHideOut = new Color(1,1,1, 0);
             Color colorShowIn = new Color(0,0,0, 0);
             Color colorShowOut = new Color(0,0,0, 1);
             Color colorHideIn = new Color(0,0,0, 1);

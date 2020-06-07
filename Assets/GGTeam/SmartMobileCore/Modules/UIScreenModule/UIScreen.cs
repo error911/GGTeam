@@ -147,6 +147,9 @@ namespace GGTeam.SmartMobileCore
         /// </summary>
         public virtual void Open(Action OnClose = null, bool use_animate = true)
         {
+//Debug.Log("1");
+//if (!ui_screen_inited) OnInit();
+
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             if (uiscreen_opened) return;
 
@@ -159,7 +162,7 @@ namespace GGTeam.SmartMobileCore
             if (use_animate && animate)
             {
                 int n = 0;
-if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImgStartColor, contentImgEndColor, _anim_open_duration, 0, null, false, TweenType.EaseOutQuint);
+                if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImgStartColor, contentImgEndColor, _anim_open_duration, 0, null, false, TweenType.EaseOutQuint);
                 foreach (Transform item in content.transform)
                 {
                     item.localScale = Vector3.zero;
@@ -169,9 +172,6 @@ if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImg
                         Tween.TweenVector3((a) => item.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, null, false, animateTypeOpen);
                     n++;
                 }
-
-                //content.transform.localScale = Vector3.zero;
-                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, EndAnim1, false, animateTypeOpen);
             }
             else
             {
@@ -184,7 +184,6 @@ if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImg
                 //                OnOpenAction?.Invoke();
             }
         }
-        int twId = -1;
 
         /// <summary>
         /// Скрыть интерфейс
@@ -198,7 +197,7 @@ if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImg
 
             if (use_animate && animate)
             {
-if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImgEndColor, contentImgStartColor, _anim_open_duration, 0, null, false, TweenType.EaseOutQuint);
+                if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImgEndColor, contentImgStartColor, _anim_open_duration, 0, null, false, TweenType.EaseOutQuint);
                 int n = 0;
                 foreach (Transform item in content.transform)
                 {
@@ -208,10 +207,6 @@ if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImg
                         Tween.TweenVector3((a) => item.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, null, false, animateTypeClose);
                     n++;
                 }
-
-
-
-                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, EndAnim, false, animateTypeClose);
             }
             else
             {
@@ -249,13 +244,11 @@ if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImg
                 contentImgStartColor = contentImg.color;
                 contentImgEndColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, contentImgStartColor.a);
                 contentImgStartColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, 0.0f);
-                
-                
             }
             StartCoroutine(SkipFrameAndReg());
-
             StartCoroutine(SkipFrameAndInit());
-            //            WaitForInit();
+
+             //            WaitForInit();
         }
 
         private IEnumerator SkipFrameAndInit()
@@ -286,9 +279,7 @@ if (contentImg != null) Tween.TweenColor((c) => contentImg.color = c, contentImg
         {
             // Ожидаем инициализации ядра
             if (!Game.IsInited) { Invoke("Awake", 0.25f); return; }
-
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
-            //if (anim == null) anim = content.GetComponent<Animator>();
             uiscreen_opened = content.activeSelf;
             if (showOnStart) Open();
             else if (uiType != UITypes.ScreenMainMenu) Close();

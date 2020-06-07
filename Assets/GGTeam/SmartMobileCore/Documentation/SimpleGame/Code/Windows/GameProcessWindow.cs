@@ -203,6 +203,7 @@ public GraphicRaycaster skinsBackgroundRaycast;
 
             if (selected == skinN)
             {
+                //SelectSkin(skinN);
                 skinPackHeader.img_on.enabled = true;
                 skinPackHeader.img_off.enabled = false;
                 skinPackHeader.img_closed.enabled = false;
@@ -259,23 +260,18 @@ public GraphicRaycaster skinsBackgroundRaycast;
     // ==================================
     public void OnBtnOpen_Skins()
     {
-        //if (pauseProcess) return;
         float speed = 0.15f;
 
         if (!opened_skins)
         {
-skinsBackgroundRaycast.enabled = true;
+            skinsBackgroundRaycast.enabled = true;
             btn_pause_defState = rtBtnPause.gameObject.activeSelf;
             rtBtnPause.gameObject.SetActive(false);
 
             RowSkinPref.SetActive(false);
-
-            //2Game.Metrica.Report_MenuOpen();
             SetPause(true);
-            //Time.timeScale = 0;
             // Открываем игровое меню
             opened_skins = true;
-            //2pauseProcess = true;
             trSkinsMenuContent.gameObject.SetActive(true);
             Tween.TweenFloat((a) => {
                 imgPauseSkins.color = new Color(imgPauseSkins.color.r, imgPauseSkins.color.g, imgPauseSkins.color.b, 1 - a);
@@ -295,12 +291,10 @@ skinsBackgroundRaycast.enabled = true;
         }
         else
         {
-skinsBackgroundRaycast.enabled = false;
+            skinsBackgroundRaycast.enabled = false;
             // Закрываем игровое меню
             SetPause(false);
-            //Time.timeScale = 1;
             opened_skins = false;
-            //2pauseProcess = true;
             Tween.TweenFloat((a) => {
                 imgPauseSkins.color = new Color(imgPauseSkins.color.r, imgPauseSkins.color.g, imgPauseSkins.color.b, a);
                 imgPlaySkins.color = new Color(imgPlaySkins.color.r, imgPlaySkins.color.g, imgPlaySkins.color.b, 1 - a);
@@ -316,7 +310,6 @@ skinsBackgroundRaycast.enabled = false;
             void OnSkinsHideCallback2()
             {
                 trSkinsMenuContent.gameObject.SetActive(false);
-                //2                pauseProcess = false;
                 rtBtnPause.gameObject.SetActive(btn_pause_defState);
             }
         }
@@ -334,13 +327,12 @@ skinsBackgroundRaycast.enabled = false;
 
         if (!opened_menu)
         {
-menuBackgroundRaycast.enabled = true;
+            menuBackgroundRaycast.enabled = true;
             btn_skin_defState = rtBtnSkins.gameObject.activeSelf;
             rtBtnSkins.gameObject.SetActive(false);
 
             Game.Metrica.Report_MenuOpen();
             SetPause(true);
-            //Time.timeScale = 0;
             // Открываем игровое меню
             opened_menu = true;
             pauseProcess = true;
@@ -352,7 +344,6 @@ menuBackgroundRaycast.enabled = true;
 
             // Фон
             Tween.TweenFloat((a) => { menuBackgroundImg.color = new Color(menuBackgroundImg.color.r, menuBackgroundImg.color.g, menuBackgroundImg.color.b, a); }, 0, 0.8f, speed);
-
             Vector3 posSt = rtBtnPause.localPosition;
             Vector3 posEn = rtBtnPause.localPosition - new Vector3(869, 0, 0);
             Tween.TweenVector3((p) => { rtBtnPause.localPosition = p; }, posSt, posEn, speed, 0, OnPauseHideCallback1);
@@ -363,10 +354,9 @@ menuBackgroundRaycast.enabled = true;
         }
         else
         {
-menuBackgroundRaycast.enabled = false;
+            menuBackgroundRaycast.enabled = false;
             // Закрываем игровое меню
             SetPause(false);
-            //Time.timeScale = 1;
             opened_menu = false;
             pauseProcess = true;
             Tween.TweenFloat((a) => {
@@ -423,7 +413,6 @@ menuBackgroundRaycast.enabled = false;
     {
         Game.Config.GameSetup.SETUP_ADS_USEROFF = true;
         Game.Config.GameSetup.Save();
-        //RenderButtonsImage();
     }
 
     public void OnBtnLevelSelect()
@@ -456,6 +445,11 @@ menuBackgroundRaycast.enabled = false;
 
     public override void OnOpen()
     {
+        if (Game == null) Debug.Log("1");
+        if (Game.Levels == null) Debug.Log("2");
+        if (Game.Levels.Current == null) Debug.Log("3");
+        if (Game.Levels.Current.Data == null) Debug.Log("4");
+
         curScore = Game.Levels.Current.Data.score;
         textLvlValue.text = Game.Levels.Current.Data.number.ToString();
         textScoreValue.text = Game.Levels.Current.Data.score.ToString();
