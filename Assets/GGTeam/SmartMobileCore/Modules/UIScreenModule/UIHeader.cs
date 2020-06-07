@@ -5,6 +5,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GGTeam.SmartMobileCore
@@ -113,6 +114,12 @@ namespace GGTeam.SmartMobileCore
             }
         }
 
+        public T GetUI<T>()
+        {
+            var screen = screenList.Where(x => x.GetType() == typeof(T)).FirstOrDefault();
+            if (screen && screen is T scr) return scr;
+            return default;
+        }
 
         /// <summary>
         /// Получить все интерфейсы типа
