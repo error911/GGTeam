@@ -15,8 +15,8 @@ public class MyPlayer : MonoBehaviour
     {
         var ac = new AudioController();
         //IAudioController iac = ac;
-        iap = ac;
         imp = ac;
+        iap = ac;
         id = imp.PlayMusicClip(clip1);
         iap.PlayAudioClip2D(clip2);
     }
