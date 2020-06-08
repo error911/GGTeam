@@ -102,9 +102,18 @@ public GraphicRaycaster skinsBackgroundRaycast;
         }
         else
         {
-            skinPack[id].img_closed.enabled = false;
-            skinPack[id].img_off.enabled = !opened;
-            skinPack[id].img_on.enabled = opened;
+            if (id != selected)
+            {
+                skinPack[id].img_closed.enabled = false;
+                skinPack[id].img_off.enabled = true;//!opened;
+                skinPack[id].img_on.enabled = false;// opened;
+            }
+            else
+            {
+                skinPack[id].img_closed.enabled = false;
+                skinPack[id].img_off.enabled = false;
+                skinPack[id].img_on.enabled = true;
+            }
         }
     }
 
@@ -445,11 +454,6 @@ public GraphicRaycaster skinsBackgroundRaycast;
 
     public override void OnOpen()
     {
-        if (Game == null) Debug.Log("1");
-        if (Game.Levels == null) Debug.Log("2");
-        if (Game.Levels.Current == null) Debug.Log("3");
-        if (Game.Levels.Current.Data == null) Debug.Log("4");
-
         curScore = Game.Levels.Current.Data.score;
         textLvlValue.text = Game.Levels.Current.Data.number.ToString();
         textScoreValue.text = Game.Levels.Current.Data.score.ToString();
