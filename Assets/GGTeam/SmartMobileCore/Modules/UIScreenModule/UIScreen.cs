@@ -145,11 +145,17 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Отобразить интерфейс
         /// </summary>
-        public virtual void Open(Action OnClose = null, bool use_animate = true)
+        /// <param name="use_animate"></param>
+        public virtual void Open(bool use_animate = true)
         {
-//Debug.Log("1");
-//if (!ui_screen_inited) OnInit();
+            Open(null, use_animate);
+        }
 
+        /// <summary>
+        /// Отобразить интерфейс
+        /// </summary>
+        public virtual void Open(Action OnClose, bool use_animate = true)
+        {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             if (uiscreen_opened) return;
 
