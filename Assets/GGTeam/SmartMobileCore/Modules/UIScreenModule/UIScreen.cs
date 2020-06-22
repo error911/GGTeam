@@ -278,17 +278,25 @@ namespace GGTeam.SmartMobileCore
 
         private void OnDisable()
         {
-            if (Game != null) if (Game.UI != null) Game.UI.UnRegister(this);
+            if (!quiting)
+                if (Game != null) if (Game.UI != null) Game.UI.UnRegister(this);
         }
 
         void Awake()
         {
+            Application.quitting += OnQuiting;
             // Ожидаем инициализации ядра
             if (!Game.IsInited) { Invoke("Awake", 0.25f); return; }
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
             uiscreen_opened = content.activeSelf;
             if (showOnStart) Open();
             else if (uiType != UITypes.ScreenMainMenu) Close();
+        }
+
+        bool quiting = false;
+        private void OnQuiting()
+        {
+            quiting = true;
         }
     }
 
