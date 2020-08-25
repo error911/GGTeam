@@ -96,6 +96,7 @@ namespace GGTeam.SmartMobileCore
                 go.AddComponent<CanvasRenderer>();
                 go.name = contName;
                 content = go;
+                go.layer = 5;
             }
             else content = c.gameObject;
         }
