@@ -12,14 +12,14 @@ namespace GGTeam.SmartMobileCore
 {
     public sealed class UIHeader
     {
-        private GameManager Game;
+        private GameManager _game;
         private List<UIScreen> screenList = new List<UIScreen>();
-        private GFXHeader GFX;
-
+        private GFXHeader _GFX;
+        
         public UIHeader(GameManager game)
         {
-            this.Game = game;
-            GFX = new GFXHeader(this);
+            this._game = game;
+            _GFX = new GFXHeader(this);
         }
 
         // Открывает начальные интерфейсы
@@ -52,16 +52,16 @@ namespace GGTeam.SmartMobileCore
 
             int GetLevelPreloaded()
             {
-                if (Game == null) return 0;
-                if (Game.Levels == null) return 0;
-                return Game.Levels.GetLevelPreloaded();
+                if (_game == null) return 0;
+                if (_game.Levels == null) return 0;
+                return _game.Levels.GetLevelPreloaded();
             }
 
 
             //void WaitSeconds(float seconds, Action onComplete)
             void WaitSeconds(Action _OnComplete)
             {
-                Game.StartCoroutine(Routine());
+                _game.StartCoroutine(Routine());
 
                 IEnumerator Routine()
                 {
