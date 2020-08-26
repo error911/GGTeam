@@ -12,9 +12,9 @@ namespace GGTeam.SmartMobileCore
 {
     public sealed class UIHeader
     {
-        GameManager Game;
-        List<UIScreen> screenList = new List<UIScreen>();
-        public GFXHeader GFX;
+        private GameManager Game;
+        private List<UIScreen> screenList = new List<UIScreen>();
+        private GFXHeader GFX;
 
         public UIHeader(GameManager game)
         {
@@ -165,7 +165,7 @@ namespace GGTeam.SmartMobileCore
 
         #endregion
 
-        public class GFXHeader
+        private class GFXHeader
         {
             int timeShow_ms = 125;
             int timeHide_ms = 125;
