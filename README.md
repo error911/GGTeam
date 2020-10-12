@@ -9,6 +9,22 @@ Tested in Unity 2019.2.X +
 *Assets/GGTeam/SmartMobileCore*    
 ____
 
+## Установка
+In order to install package, you need to add acoped registry into your package manifest at
+unity_project/Packages/manifest.json
+{
+  "scopedRegistries": [
+    {
+      "name": "SmartMobileCore",
+      "url": "https://registry.npmjs.org/",
+      "scopes": [
+        "com.ggteam.smartmobilecore"
+      ]
+    }
+  ],
+  "dependencies": {
+ 
+ 
  ## В ПЛАНАХ    
  - Сохранять список номеров всех пройденных уровней
 
