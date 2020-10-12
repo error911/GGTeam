@@ -3,7 +3,7 @@
 
 Свободная лицензия: CC BY Murnik Roman   
 Free license: CC BY Murnik Roman    
-Tested in Unity 2019.2.X +    
+Tested in Unity 2020.1.X +    
 
 Входит в состав набора инструментов GGTools. Рекомендуемое расположение в проекте:    
 *Assets/GGTeam/SmartMobileCore*    
