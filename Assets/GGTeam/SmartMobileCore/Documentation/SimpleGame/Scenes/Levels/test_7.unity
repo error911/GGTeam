@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3b836ab9d34c34bba500fad430bb0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: 1
+  Complete: 1
 --- !u!135 &156638913
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3b836ab9d34c34bba500fad430bb0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: 2
+  Complete: 0
 --- !u!135 &1833115184
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -994,7 +994,6 @@ MonoBehaviour:
     stars: 0
     completed: 0
     opened: 0
-    showedtutor: 0
 --- !u!4 &2001608654
 Transform:
   m_ObjectHideFlags: 0

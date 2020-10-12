@@ -96,7 +96,6 @@ namespace GGTeam.SmartMobileCore
                 go.AddComponent<CanvasRenderer>();
                 go.name = contName;
                 content = go;
-                go.layer = 5;
             }
             else content = c.gameObject;
         }
@@ -119,7 +118,7 @@ namespace GGTeam.SmartMobileCore
             }
             else
             {
-                
+
                 uiscreen_opened = !uiscreen_opened;
                 content.SetActive(IsOpen);
             }
@@ -146,16 +145,7 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Отобразить интерфейс
         /// </summary>
-        /// <param name="use_animate"></param>
-        public virtual void Open(bool use_animate = true)
-        {
-            Open(null, use_animate);
-        }
-
-        /// <summary>
-        /// Отобразить интерфейс
-        /// </summary>
-        public virtual void Open(Action OnClose, bool use_animate = true)
+        public virtual void Open(Action OnClose = null, bool use_animate = true)
         {
             if (content == null) { _Game.Log.Error("Content GameObject not found"); return; }
             if (uiscreen_opened) return;
@@ -179,6 +169,9 @@ namespace GGTeam.SmartMobileCore
                         Tween.TweenVector3((a) => item.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, null, false, animateTypeOpen);
                     n++;
                 }
+
+                //content.transform.localScale = Vector3.zero;
+                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, Vector3.zero, s_sc, _anim_open_duration, 0, EndAnim1, false, animateTypeOpen);
             }
             else
             {
@@ -214,6 +207,10 @@ namespace GGTeam.SmartMobileCore
                         Tween.TweenVector3((a) => item.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, null, false, animateTypeClose);
                     n++;
                 }
+
+
+
+                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, EndAnim, false, animateTypeClose);
             }
             else
             {
@@ -251,11 +248,13 @@ namespace GGTeam.SmartMobileCore
                 contentImgStartColor = contentImg.color;
                 contentImgEndColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, contentImgStartColor.a);
                 contentImgStartColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, 0.0f);
+
+
             }
             StartCoroutine(SkipFrameAndReg());
-            StartCoroutine(SkipFrameAndInit());
 
-             //            WaitForInit();
+            StartCoroutine(SkipFrameAndInit());
+            //            WaitForInit();
         }
 
         private IEnumerator SkipFrameAndInit()
@@ -279,25 +278,19 @@ namespace GGTeam.SmartMobileCore
 
         private void OnDisable()
         {
-            if (!quiting)
-                if (Game != null) if (Game.UI != null) Game.UI.UnRegister(this);
+            if (Game != null) if (Game.UI != null) Game.UI.UnRegister(this);
         }
 
         void Awake()
         {
-            Application.quitting += OnQuiting;
             // Ожидаем инициализации ядра
             if (!Game.IsInited) { Invoke("Awake", 0.25f); return; }
+
             if (content == null) { Game.Log.Error("Нет ссылки на Content (корневой элемент ui панели)"); return; }
+            //if (anim == null) anim = content.GetComponent<Animator>();
             uiscreen_opened = content.activeSelf;
             if (showOnStart) Open();
             else if (uiType != UITypes.ScreenMainMenu) Close();
-        }
-
-        bool quiting = false;
-        private void OnQuiting()
-        {
-            quiting = true;
         }
     }
 

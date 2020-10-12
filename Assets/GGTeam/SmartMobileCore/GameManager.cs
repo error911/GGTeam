@@ -2,13 +2,14 @@
 // Free license: CC BY Murnik Roman
 // ================================
 
+using GGTeam.SmartMobileCore;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace GGTeam.SmartMobileCore
-{
-    public sealed class GameManager : MonoBehaviour
+//namespace GGTeam.SmartMobileCore
+//{
+    public class GameManager : MonoBehaviour
     {
 
         //#if UNITY_EDITOR
@@ -184,7 +185,7 @@ namespace GGTeam.SmartMobileCore
         }
 
     }
-}
+//}
 
 
 #region === Хлам (удалить в релизе) ===

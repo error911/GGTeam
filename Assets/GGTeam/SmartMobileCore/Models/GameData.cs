@@ -9,8 +9,7 @@ namespace GGTeam.SmartMobileCore
     {
         public int GAMEPLAY_LEVEL_LASTPLAYED = 0;
         public bool SETUP_SOUND_ENABLED = true;
-        public bool SETUP_MUSIC_ENABLED = true;
-        public bool SETUP_VIBRO_ENABLED = false;
+        public bool SETUP_VIBRO_ENABLED = true;
         public bool SETUP_ADS_USEROFF = false;
 
         public int GAMEPLAY_USER_MONEY = 0;

@@ -5,7 +5,6 @@
 
 #if UNITY_PURCHASING
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,9 +50,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         [HideInInspector]
         public string productId;
 
-        //[HideInInspector]
-        //public Image productImage;
-
         // The type of this button, can be either a purchase or a restore button
         [Tooltip("Тип этой кнопки может быть кнопкой покупки или восстановления.")]
         public ButtonType buttonType = ButtonType.Purchase;
@@ -72,9 +68,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         [Tooltip("Событие, срабатываемое после неудачной покупки этого продукта")]
         public OnPurchaseFailedEvent onPurchaseFailed;
 
-        [Tooltip("[Необязательно] Изображение продукта.")]
-        public Image productImage;
-
         // [Optional] Displays the localized title from the app store
         [Tooltip("[Необязательно] Отображает локализованный заголовок из магазина приложений.")]
         public Text titleText;
@@ -88,37 +81,22 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         public Text descriptionText;
 
         Button button;
-        [HideInInspector] public ProductItem productItem
-        {
-            get
-            {
-                return _productItem;
-            }
-            set
-            {
-                _productItem = value;
-                if (_productItem.productImage != null) productImage.sprite = _productItem.productImage;
-            }
-        }
-        ProductItem _productItem;
 
-        void RedrawProductInfo()
-        {
-            if (productItem == null) productItem = IAPModule.Instance.GetLocalProductInCatalogue(productId);
-            if (productItem == null) return;
-            if (productItem.productImage != null) productImage.sprite = _productItem.productImage;
-            if (!string.IsNullOrEmpty(productItem.productTitle) && titleText != null) titleText.text = productItem.productTitle;
-            if (!string.IsNullOrEmpty(productItem.productDescription) && descriptionText != null) descriptionText.text = productItem.productDescription;
-        }
+        //        public Text debugText;
+
+        //        void Deb(string te)
+        //        {
+        //            if (debugText != null) debugText.text += te + "\r\n";
+        //        }
+
 
         void Start()
         {
-            clicked = false;
-            RedrawProductInfo();
+clicked = false;
             button = GetComponent<Button>();
-            if (string.IsNullOrEmpty(productItem.productTitle)) if (titleText != null) titleText.text = "Loading..";
+            if (titleText != null) titleText.text = "Loading..";
             if (priceText != null) priceText.text = "";
-            if (string.IsNullOrEmpty(productItem.productDescription)) if (descriptionText != null) descriptionText.text = "";
+            if (descriptionText != null) descriptionText.text = "";
 
             if (buttonType == ButtonType.Purchase)
             {
@@ -257,6 +235,7 @@ clicked = true;
                     IAPModule.Instance.ExtensionProvider.GetExtension<ISamsungAppsExtensions>() //CodelessIAPStoreListener
                         .RestoreTransactions(OnTransactionsRestored);
                 }
+                /*
                 else if (Application.platform == RuntimePlatform.Android &&
                          StandardPurchasingModule.Instance().appStore == AppStore.CloudMoolah)
                 {
@@ -268,6 +247,7 @@ clicked = true;
                                 restoreTransactionIDState != RestoreTransactionIDState.NotKnown);
                         });
                 }
+                */
                 else
                 {
                     // is not a supported platform for the Codeless IAP restore button

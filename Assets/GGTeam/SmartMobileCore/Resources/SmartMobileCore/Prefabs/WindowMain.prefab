@@ -438,7 +438,6 @@ GameObject:
   - component: {fileID: 4119483863960294932}
   - component: {fileID: 4119483863960294934}
   - component: {fileID: 4119483863960294935}
-  - component: {fileID: 7402860829999558777}
   m_Layer: 5
   m_Name: bg_night
   m_TagString: Untagged
@@ -503,20 +502,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7402860829999558777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4119483863960294933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 4
-  m_AspectRatio: 1
 --- !u!1 &4119483864226852968
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +592,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4119483864333122137}
+  - component: {fileID: 4119483864333122136}
   m_Layer: 5
   m_Name: content
   m_TagString: Untagged
@@ -634,6 +620,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4119483864333122136
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119483864333122142}
+  m_CullTransparentMesh: 0
 --- !u!1 &4119483864859681214
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +859,6 @@ GameObject:
   - component: {fileID: 4119483864977844801}
   - component: {fileID: 4119483864977844803}
   - component: {fileID: 4119483864977844800}
-  - component: {fileID: 2908969503382565945}
   m_Layer: 5
   m_Name: bg_day
   m_TagString: Untagged
@@ -930,20 +923,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2908969503382565945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4119483864977844806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 4
-  m_AspectRatio: 0.5625
 --- !u!1 &4119483865087120902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiType: 2
   showOnStart: 0
-  animate: 1
+  animate: 0
   animateTypeOpen: 14
   animateTypeClose: 14
   content: {fileID: 4119483864333122142}

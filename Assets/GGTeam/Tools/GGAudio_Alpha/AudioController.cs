@@ -329,8 +329,8 @@ namespace GGTeam.Tools.Audio
 
         private void Initialization()
         {
-            presenter = new GameObject("[AUDIO]").AddComponent<AudioPresenter>();
-            var listener = new GameObject("[LISTENER]").AddComponent<AudioListener>();
+            presenter = new GameObject("AUDIO").AddComponent<AudioPresenter>();
+            var listener = new GameObject("LISTENER").AddComponent<AudioListener>();
             listener.transform.SetParent(presenter.transform);
             presenter.AudioListener = listener;
         }

@@ -131,15 +131,6 @@ TextureImporter:
   - first:
       213: 9093825842685103111
     second: atlas_progr_body_2
-  - first:
-      213: 3150387745278999259
-    second: atlas_buy_coin_1
-  - first:
-      213: 3210994475073176143
-    second: atlas_buy_coin_2
-  - first:
-      213: -6596105612730252187
-    second: atlas_buy_coin_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -405,7 +396,7 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 62, z: 30, w: 62}
+      border: {x: 28, y: 28, z: 28, w: 28}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -426,7 +417,7 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 62, z: 30, w: 62}
+      border: {x: 28, y: 63, z: 28, w: 62}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -531,7 +522,7 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 62, z: 30, w: 62}
+      border: {x: 28, y: 63, z: 28, w: 62}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -573,7 +564,7 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 62, z: 30, w: 62}
+      border: {x: 28, y: 28, z: 28, w: 26}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -882,10 +873,10 @@ TextureImporter:
       name: atlas_noads
       rect:
         serializedVersion: 2
-        x: 540
-        y: 1100
-        width: 180
-        height: 180
+        x: 768
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1105,69 +1096,6 @@ TextureImporter:
       bones: []
       spriteID: 70c438a3c62c33e70800000000000000
       internalID: 9093825842685103111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: atlas_buy_coin_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1100
-        width: 180
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bda391e76fc68bb20800000000000000
-      internalID: 3150387745278999259
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: atlas_buy_coin_2
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 1100
-        width: 180
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f428a76667ebf8c20800000000000000
-      internalID: 3210994475073176143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: atlas_buy_coin_3
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 1100
-        width: 180
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 564c04494ece574a0800000000000000
-      internalID: -6596105612730252187
       vertices: []
       indices: 
       edges: []

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class EventsSphere : MonoBehaviour
 {
-    public TestState State = TestState.None;
+    public bool Complete = false;
     MyGameplay level;
 
     private void Awake()
@@ -15,25 +15,13 @@ public class EventsSphere : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (State == TestState.Complete)
+        if (Complete)
         {
             level.Progress.MoneyAdd(4);
             level.Progress.ScoreAdd(1500);
             level.LevelComplete(2.5f);
         }
-
-        if (State == TestState.Failed) level.LevelFailed();
-        if (State == TestState.MoneyAdd) { Debug.Log("Money"); level.Progress.MoneyAdd(1); }
-        if (State == TestState.ScoreAdd) { Debug.Log("Score"); level.Progress.ScoreAdd(1); }
-    }
-
-    public enum TestState
-    {
-        None,
-        Complete,
-        Failed,
-        MoneyAdd,
-        ScoreAdd,
+        else level.LevelFailed();
     }
 
 }

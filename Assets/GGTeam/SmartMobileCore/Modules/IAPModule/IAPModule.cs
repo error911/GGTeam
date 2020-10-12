@@ -22,16 +22,9 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
     {
         [Tooltip("ID продукта как в магазине GooglePlay и AppStore")]
         [SerializeField] public string id;
-        //[SerializeField] public bool consume;
         [Tooltip("Consumable: Расходуемый. NonConsumable: Единичный продукт и навсегда (например NoAds, Skin...) восстанавливается кнопкой Restore")]
+        //[SerializeField] public bool consume;
         [SerializeField] public ProductType productType;
-        [Tooltip("Изображение продукта (200*200px)")]
-        [SerializeField] public Sprite productImage;
-        [Tooltip("Название продукта (Если пусто - загрузиться из маркета)")]
-        [SerializeField] public string productTitle;
-        [Tooltip("Описание продукта (Если пусто - загрузиться из маркета)")]
-        [SerializeField] public string productDescription;
-
     }
 
 
@@ -113,20 +106,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
         //    debText.text = "";
         //    GetPurchasedProducts();
         //}
-
-        /// <summary>
-        /// Получить продукт из каталога
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ProductItem GetLocalProductInCatalogue(string id)
-        {
-            foreach (var item in allProducts)
-            {
-                if (item.id == id) return item;
-            }
-            return null;
-        }
 
         /// <summary>
         /// Получить список купленных постоянных (NotConsumable) продуктов

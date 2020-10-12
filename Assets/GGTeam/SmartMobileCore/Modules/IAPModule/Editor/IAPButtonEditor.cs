@@ -23,6 +23,7 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 			CreateDemoIAPButton();
 		}
 
+		//[MenuItem("Window/Unity IAP/Create IAP Button", false, 5)]
 		[MenuItem("GGTeam/SmartMobileCore/Modules/IAP/IAP-Button (Пустая)", false, 4)]	//5
 		public static void CreateUnityIAPButton()
 		{
@@ -101,21 +102,16 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 
 		private List<string> m_ValidIDs = new List<string>();
 		private SerializedProperty m_ProductIDProperty;
-		//private SerializedProperty m_ProductImageProperty;
-		//private SerializedProperty m_ProductTitle;
-		//private SerializedProperty m_ProductDescription;
 
 		public void OnEnable()
 		{
 			m_ProductIDProperty = serializedObject.FindProperty("productId");
-			//m_ProductImageProperty = serializedObject.FindProperty("productImage");
-			//m_ProductTitle = serializedObject.FindProperty("titleText");
-			//m_ProductDescription = serializedObject.FindProperty("descriptionText");
 		}
 
 		public override void OnInspectorGUI()
 		{
 			IAPButton button = (IAPButton)target;
+
 			serializedObject.Update();
 
 			if (button.buttonType == IAPButton.ButtonType.Purchase)
@@ -139,18 +135,6 @@ namespace GGTeam.SmartMobileCore.Modules.IAP
 				if (newIndex > 0 && newIndex < m_ValidIDs.Count)
 				{
 					m_ProductIDProperty.stringValue = m_ValidIDs[newIndex];
-
-					
-					foreach (var product in catalog)
-					{
-						if (product.id == m_ValidIDs[newIndex])
-						{
-							//if (product.productImage != null) button.productImage.sprite = product.productImage;
-							button.productItem = product;
-						}
-					}
-					
-					
 				}
 				else
 				{

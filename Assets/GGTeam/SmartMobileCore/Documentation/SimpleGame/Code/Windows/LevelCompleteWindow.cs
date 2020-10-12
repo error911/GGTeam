@@ -52,12 +52,12 @@ public class LevelCompleteWindow : UIScreen
 
     public void OnBtnCollectX()
     {
-        //int m = Game.Levels.Current.Data.money;
-        //if (m > 0)
-        //{
-        //    Game.Config.GameSetup.GAMEPLAY_USER_MONEY += m;
-        //    Game.Config.GameSetup.Save();
-        //}
+        int m = Game.Levels.Current.Data.money;
+        if (m > 0)
+        {
+            Game.Config.GameSetup.GAMEPLAY_USER_MONEY += m;
+            Game.Config.GameSetup.Save();
+        }
 
         Game.ADS.ShowRewarded(OnRewOk, OnRevCancel);
     }

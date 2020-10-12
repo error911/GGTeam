@@ -2,14 +2,17 @@
 // Free license: CC BY Murnik Roman
 // ================================
 
+using GGTeam.SmartMobileCore;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+#if UNITY_PURCHASING
 using UnityEngine.Purchasing;
+#endif
 
-namespace GGTeam.SmartMobileCore
-{
+//namespace GGTeam.SmartMobileCore
+//{
     [CustomEditor(typeof(GameManager), true)]
     [CanEditMultipleObjects]
     public class GameManagerEditor : Editor
@@ -28,7 +31,7 @@ namespace GGTeam.SmartMobileCore
 #if UNITY_EDITOR
         void OnEnable()
         {
-            gameConfig = serializedObject.FindProperty("gameConfig");
+            //gameConfig = serializedObject.FindProperty("gameConfig");
 
             if (icon_ads_on == null) icon_ads_on = Resources.Load<Texture2D>("SmartMobileCore/Icons/ads_1");
             if (icon_ads_off == null) icon_ads_off = Resources.Load<Texture2D>("SmartMobileCore/Icons/ads_0");
@@ -45,6 +48,8 @@ namespace GGTeam.SmartMobileCore
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+
+            if (gameConfig == null) gameConfig = serializedObject.FindProperty("gameConfig");
 
             //GameManager gm = this.target as GameManager;
             //GameConfigSO cfg = gm.cfgEditor;
@@ -75,12 +80,10 @@ namespace GGTeam.SmartMobileCore
 
 
             EditorGUILayout.Space();
-            //if (b_iap) EditorGUILayout.LabelField("dsjskjshsdjds");
             if (!b_iap) EditorGUILayout.HelpBox("Для активации внутриигровых покупок (IAP), включите In-App Purchasing в окне Services [Ctrl+0]", MessageType.Info);
             if (!b_stat) EditorGUILayout.HelpBox("Для активации аналитики (STAT), задайте ключь ANALYTICS_APP_KEY в GameConfig", MessageType.Info);
             if (!b_ads) EditorGUILayout.HelpBox("Для активации рекламы (ADS), задайте ключь ADS_APP_KEY в GameConfig и активируйте Видео и/или Баннер рекламу", MessageType.Info);
 
-            //EditorGUILayout.PropertyField(_Data, true);
 
             //if (Levels == null) return;
             //var d_num = Levels.FindPropertyRelative("CurrentNumber").intValue;
@@ -104,4 +107,4 @@ namespace GGTeam.SmartMobileCore
 #endif
 
     }
-}
+//}

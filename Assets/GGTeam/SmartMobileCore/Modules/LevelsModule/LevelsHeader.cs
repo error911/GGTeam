@@ -173,7 +173,6 @@ namespace GGTeam.SmartMobileCore
         {
             if (loadingProcess) return;
             loadingProcess = true;
-
             Game.UI.GFX.Show(_OnShowComplete);
             void _OnShowComplete()
             {
@@ -345,6 +344,7 @@ namespace GGTeam.SmartMobileCore
 
         private void _ShowUI(int levelNumber)
         {
+//Debug.Log("SHOW UI" + Current.Data.number);
             // Отображаем главный интерфейс
             if (levelNumber == 0) Game.UI.Open(UITypes.ScreenMainMenu);
 

@@ -5,21 +5,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace GGTeam.SmartMobileCore
 {
     public sealed class UIHeader
     {
-        private GameManager _game;
-        private List<UIScreen> screenList = new List<UIScreen>();
-        private GFXHeader _GFX;
-        
+        GameManager Game;
+        List<UIScreen> screenList = new List<UIScreen>();
+        public GFXHeader GFX;
+
         public UIHeader(GameManager game)
         {
-            this._game = game;
-            _GFX = new GFXHeader(this);
+            this.Game = game;
+            GFX = new GFXHeader(this);
         }
 
         // Открывает начальные интерфейсы
@@ -45,23 +44,22 @@ namespace GGTeam.SmartMobileCore
                     {
                         // Если есть предзагруженый уровень
                         // то не показываем начальные интерфейсы
-                        //item.Open();
                     }
                 }
             }
 
             int GetLevelPreloaded()
             {
-                if (_game == null) return 0;
-                if (_game.Levels == null) return 0;
-                return _game.Levels.GetLevelPreloaded();
+                if (Game == null) return 0;
+                if (Game.Levels == null) return 0;
+                return Game.Levels.GetLevelPreloaded();
             }
 
 
             //void WaitSeconds(float seconds, Action onComplete)
             void WaitSeconds(Action _OnComplete)
             {
-                _game.StartCoroutine(Routine());
+                Game.StartCoroutine(Routine());
 
                 IEnumerator Routine()
                 {
@@ -115,12 +113,6 @@ namespace GGTeam.SmartMobileCore
             }
         }
 
-        public T GetUI<T>()
-        {
-            var screen = screenList.Where(x => x.GetType() == typeof(T)).FirstOrDefault();
-            if (screen && screen is T scr) return scr;
-            return default;
-        }
 
         /// <summary>
         /// Получить все интерфейсы типа
@@ -165,10 +157,14 @@ namespace GGTeam.SmartMobileCore
 
         #endregion
 
-        private class GFXHeader
+        public class GFXHeader
         {
             int timeShow_ms = 125;
             int timeHide_ms = 125;
+            //Color colorShowIn = new Color(1,1,1, 0);
+            //Color colorShowOut = new Color(1,1,1, 1);
+            //Color colorHideIn = new Color(1,1,1, 1);
+            //Color colorHideOut = new Color(1,1,1, 0);
             Color colorShowIn = new Color(0,0,0, 0);
             Color colorShowOut = new Color(0,0,0, 1);
             Color colorHideIn = new Color(0,0,0, 1);

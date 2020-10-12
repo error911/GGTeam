@@ -12,26 +12,14 @@ using UnityEngine.UI;
 public class GameProcessWindow : UIScreen
 {
     public bool EnableBtn_NoAds = true;
-    public bool EnableBtn_Restart = true;
-    public bool EnableBtn_Levels = true;
-    public bool EnableBtn_Sound = true;
-    public bool EnableBtn_Vibro = true;
-    public bool EnableBtn_Rate = true;
-
     [Space(16)]
 
     public Text textLvlValue;
     public Text textScoreValue;
     public Text textMoneyValue;
     public Transform rtBtnPause;
-
-    public Transform rtRowRestart;
-    public Transform rtRowLevels;
-    public Transform rtRowSound;
-    public Transform rtRowVibro;
-    public Transform rtRowRate;
-    public Transform rtRowNoAds;
-
+    public Transform rtBtnNoAds;
+    public Transform rtBtnRate;
     public Transform trIngameMenuContent;
     public Image imgPauseMenu;
     public Image imgPlayMenu;
@@ -43,7 +31,7 @@ public class GameProcessWindow : UIScreen
     public Image menuSetupVibroOn;
     public Image menuSetupVibroOff;
 
-    
+    public GameObject RowSkinPref;
 
     private float duration = 1.0f;
     private int curScore = 0;
@@ -59,8 +47,7 @@ public class GameProcessWindow : UIScreen
     #endregion
 
     #region === Popup Skins ===
-    public GameObject RowSkinPref;
-    public Image skinsBackgroundImg;
+public Image skinsBackgroundImg;
 public GraphicRaycaster skinsBackgroundRaycast;
     public Transform trSkinsMenuContent;
     public Image imgPauseSkins;
@@ -212,7 +199,6 @@ public GraphicRaycaster skinsBackgroundRaycast;
 
             if (selected == skinN)
             {
-                //SelectSkin(skinN);
                 skinPackHeader.img_on.enabled = true;
                 skinPackHeader.img_off.enabled = false;
                 skinPackHeader.img_closed.enabled = false;
@@ -264,23 +250,25 @@ public GraphicRaycaster skinsBackgroundRaycast;
         skinlist_inited = true;
     }
 
-    // ==================================
-    // Открыть/Закрыть меню выбора скинов
-    // ==================================
     public void OnBtnOpen_Skins()
     {
+        //if (pauseProcess) return;
         float speed = 0.15f;
 
         if (!opened_skins)
         {
-            skinsBackgroundRaycast.enabled = true;
+skinsBackgroundRaycast.enabled = true;
             btn_pause_defState = rtBtnPause.gameObject.activeSelf;
             rtBtnPause.gameObject.SetActive(false);
 
             RowSkinPref.SetActive(false);
+
+            //2Game.Metrica.Report_MenuOpen();
             SetPause(true);
+            //Time.timeScale = 0;
             // Открываем игровое меню
             opened_skins = true;
+            //2pauseProcess = true;
             trSkinsMenuContent.gameObject.SetActive(true);
             Tween.TweenFloat((a) => {
                 imgPauseSkins.color = new Color(imgPauseSkins.color.r, imgPauseSkins.color.g, imgPauseSkins.color.b, 1 - a);
@@ -300,10 +288,12 @@ public GraphicRaycaster skinsBackgroundRaycast;
         }
         else
         {
-            skinsBackgroundRaycast.enabled = false;
+skinsBackgroundRaycast.enabled = false;
             // Закрываем игровое меню
             SetPause(false);
+            //Time.timeScale = 1;
             opened_skins = false;
+            //2pauseProcess = true;
             Tween.TweenFloat((a) => {
                 imgPauseSkins.color = new Color(imgPauseSkins.color.r, imgPauseSkins.color.g, imgPauseSkins.color.b, a);
                 imgPlaySkins.color = new Color(imgPlaySkins.color.r, imgPlaySkins.color.g, imgPlaySkins.color.b, 1 - a);
@@ -319,6 +309,7 @@ public GraphicRaycaster skinsBackgroundRaycast;
             void OnSkinsHideCallback2()
             {
                 trSkinsMenuContent.gameObject.SetActive(false);
+                //2                pauseProcess = false;
                 rtBtnPause.gameObject.SetActive(btn_pause_defState);
             }
         }
@@ -336,12 +327,13 @@ public GraphicRaycaster skinsBackgroundRaycast;
 
         if (!opened_menu)
         {
-            menuBackgroundRaycast.enabled = true;
+menuBackgroundRaycast.enabled = true;
             btn_skin_defState = rtBtnSkins.gameObject.activeSelf;
             rtBtnSkins.gameObject.SetActive(false);
 
             Game.Metrica.Report_MenuOpen();
             SetPause(true);
+            //Time.timeScale = 0;
             // Открываем игровое меню
             opened_menu = true;
             pauseProcess = true;
@@ -353,6 +345,7 @@ public GraphicRaycaster skinsBackgroundRaycast;
 
             // Фон
             Tween.TweenFloat((a) => { menuBackgroundImg.color = new Color(menuBackgroundImg.color.r, menuBackgroundImg.color.g, menuBackgroundImg.color.b, a); }, 0, 0.8f, speed);
+
             Vector3 posSt = rtBtnPause.localPosition;
             Vector3 posEn = rtBtnPause.localPosition - new Vector3(869, 0, 0);
             Tween.TweenVector3((p) => { rtBtnPause.localPosition = p; }, posSt, posEn, speed, 0, OnPauseHideCallback1);
@@ -363,9 +356,10 @@ public GraphicRaycaster skinsBackgroundRaycast;
         }
         else
         {
-            menuBackgroundRaycast.enabled = false;
+menuBackgroundRaycast.enabled = false;
             // Закрываем игровое меню
             SetPause(false);
+            //Time.timeScale = 1;
             opened_menu = false;
             pauseProcess = true;
             Tween.TweenFloat((a) => {
@@ -401,6 +395,7 @@ public GraphicRaycaster skinsBackgroundRaycast;
         Game.Config.GameSetup.SETUP_SOUND_ENABLED = !Game.Config.GameSetup.SETUP_SOUND_ENABLED;
         Game.Config.GameSetup.Save();
         Game.Metrica.Report_MenuSound(Game.Config.GameSetup.SETUP_SOUND_ENABLED);
+
         RenderButtonsImage();
     }
 
@@ -422,6 +417,7 @@ public GraphicRaycaster skinsBackgroundRaycast;
     {
         Game.Config.GameSetup.SETUP_ADS_USEROFF = true;
         Game.Config.GameSetup.Save();
+        //RenderButtonsImage();
     }
 
     public void OnBtnLevelSelect()
@@ -529,22 +525,17 @@ public GraphicRaycaster skinsBackgroundRaycast;
             else if (Game.Config.GameConfig.MARKET_URL_IOS.Length > 1) rateUrl = Game.Config.GameConfig.MARKET_URL_IOS;
         }
 
-        if (!EnableBtn_Restart) rtRowRestart.gameObject.SetActive(false);
-        if (!EnableBtn_Levels) rtRowLevels.gameObject.SetActive(false);
-        if (!EnableBtn_Sound) rtRowSound.gameObject.SetActive(false);
-        if (!EnableBtn_Vibro) rtRowVibro.gameObject.SetActive(false);
-        if (!EnableBtn_Rate) rtRowRate.gameObject.SetActive(false);
 
-        if (rtRowNoAds) rtRowNoAds.gameObject.SetActive(false);
+        if (rtBtnNoAds) rtBtnNoAds.gameObject.SetActive(false);
 #if UNITY_PURCHASING
-        if (rtRowNoAds)
+        if (rtBtnNoAds)
         {
             //if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
-                rtRowNoAds.gameObject.SetActive(EnableBtn_NoAds);
+                rtBtnNoAds.gameObject.SetActive(EnableBtn_NoAds);
         }
 #endif
 
-        if (rateUrl.Length <= 1) if (rtRowRate) rtRowRate.gameObject.SetActive(false);
+        if (rateUrl.Length <= 1) if (rtBtnRate) rtBtnRate.gameObject.SetActive(false);
 
 
         RenderButtonsImage();
@@ -572,5 +563,4 @@ public GraphicRaycaster skinsBackgroundRaycast;
             if (opened_skins) { OnBtnOpen_Skins(); return; }
         }
     }
-
 }

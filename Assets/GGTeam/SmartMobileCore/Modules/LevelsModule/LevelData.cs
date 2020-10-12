@@ -40,7 +40,7 @@ public class LevelData : DataModel
     /// Открыт
     /// </summary>
     [SerializeField] public bool opened = false;
-    
+
     /// <summary>
     /// Подсказки показывались
     /// </summary>
