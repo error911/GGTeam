@@ -1,0 +1,21 @@
+{
+  "name": "com.ggteam.smartmobilecore",
+  "version": "1.0.0",
+  "displayName": "SmartMobileCore",
+  "description": "SmartMobileCore is a lightweight framework for fastest casual mobile game development.",
+  "keywords": [
+    "Core",
+    "GameCore",
+    "GGTeam",
+    "Mobile",
+	"Smart"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/error911/GGTeam.git"
+  },
+  "author": {
+    "name": "Roman Murnik",
+    "email": "murnikr@gmail.com"
+  }
+}
