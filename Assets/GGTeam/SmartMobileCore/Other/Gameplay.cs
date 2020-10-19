@@ -10,16 +10,6 @@ namespace GGTeam.SmartMobileCore
 {
     public class SimpleGameplay : Level
     {
-        public void Awake()
-        {
-            //Debug.Log("Awake!");
-        }
-
-        public void Start()
-        {
-            //Debug.Log("Start! " + CurrentNumber);
-        }
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.C)) LevelComplete();
@@ -27,10 +17,9 @@ namespace GGTeam.SmartMobileCore
             if (Input.GetKeyDown(KeyCode.R)) LevelRestart();
         }
 
-
         public override void OnLevelStart()
         {
-            Game.Log.Info("OnLevelStart " + Data.number, "Simple gameplay works!");   //!  CurrentNumber
+            Game.Log.Info("OnLevelStart " + Data.number, "Simple gameplay works!");
             Game.Log.Warning("Создайте класс с логикой уровня и сделайте его наследником от Level");
         }
 
@@ -47,7 +36,7 @@ namespace GGTeam.SmartMobileCore
         void OnGUI()
         {
             GUIStyle guiStyle = new GUIStyle();
-            GUI.Label(new Rect(10, 10, 150, 20), "LEVEL: " + Data.number);    //!  CurrentNumber
+            GUI.Label(new Rect(10, 10, 150, 20), "LEVEL: " + Data.number);
             GUI.Label(new Rect(10, 30, 200, 20), "Press key: 'C' to Complete level");
             GUI.Label(new Rect(78, 45, 150, 20), "'F' to Failed level");
             GUI.Label(new Rect(78, 60, 150, 20), "'R' to Restart level");

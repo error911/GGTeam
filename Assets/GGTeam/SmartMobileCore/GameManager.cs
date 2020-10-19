@@ -60,6 +60,7 @@ using UnityEngine.EventSystems;
         [Obsolete("Будет исключено в будующем (Используйте Level->Game)")]
         public static GameManager API;
 
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         void Awake()
         {
             gameConfig = Resources.Load<GameConfigSO>("SmartMobileCore/MainConfig");
@@ -68,8 +69,7 @@ using UnityEngine.EventSystems;
 #pragma warning restore CS0618 // Тип или член устарел
             Prepare();
 
-            //Invoke("Init", 8);
-            Init();
+            InitInternal();
         }
 
         void Prepare()
@@ -85,11 +85,10 @@ using UnityEngine.EventSystems;
             var metrGo = Instantiate(metrPref);
             metrGo.name = "[Analytics]";
             Metrica = metrGo.GetComponent<Analytics>();
-
             #endregion
         }
 
-        void Init()
+        void InitInternal()
         {
             // Проверяем есть ли EventSystem
             var es = FindObjectOfType<EventSystem>();
