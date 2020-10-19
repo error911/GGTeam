@@ -13,7 +13,22 @@ namespace GGTeam.SmartMobileCore
         /// <summary>
         /// Текущая, используемая конфигурация (только для чтения)
         /// </summary>
-        public GameConfigSO GameConfig { get; private set; }
+        public GameConfigSO GameConfig{ get; private set; }
+        /*
+        public GameConfigSO GameConfig
+        {
+            get
+            {
+                if (_GameConfig == null) _GameConfig = Resources.Load<GameConfigSO>("SmartMobileCore/MainConfig");
+                return _GameConfig;
+            }
+            set
+            {
+                _GameConfig = value;
+            }
+        }
+        GameConfigSO _GameConfig;
+        */
 
         /// <summary>
         /// Сохраняемые настройки и данные игры. При изменении, необходимо сохранить Save()
@@ -43,7 +58,7 @@ namespace GGTeam.SmartMobileCore
             this.GameSetup = new GameData();
             GameSetup.Load();
 
-            if (this.GameConfig == null) this.GameConfig = ScriptableObject.CreateInstance<GameConfigSO>();
+//            if (this.GameConfig == null) this.GameConfig = ScriptableObject.CreateInstance<GameConfigSO>();
 
             /*
             s_data_level_lastplayed = GameConfig.DATA_SAVE_PREFIX + "." + GameConfig.DATA_SAVE_SUFFIX + ".Config.Level.lastplayed";

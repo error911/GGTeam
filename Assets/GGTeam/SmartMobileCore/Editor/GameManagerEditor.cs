@@ -49,11 +49,12 @@ using UnityEngine.Purchasing;
         {
             serializedObject.Update();
 
-            if (gameConfig == null) gameConfig = serializedObject.FindProperty("gameConfig");
+            if (gameConfig == null) gameConfig = serializedObject.FindProperty("gameConfig"); //gameConfig configSO
 
             //GameManager gm = this.target as GameManager;
             //GameConfigSO cfg = gm.cfgEditor;
-            GameConfigSO cfg = gameConfig.objectReferenceValue as GameConfigSO;
+        //    GameConfigSO cfg = gameConfig.objectReferenceValue as GameConfigSO;
+        GameConfigSO cfg = Resources.Load<GameConfigSO>("SmartMobileCore/MainConfig");
 
             bool b_ads = false;
             bool b_stat = false;

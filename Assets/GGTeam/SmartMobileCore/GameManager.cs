@@ -16,7 +16,8 @@ using UnityEngine.EventSystems;
         //        protected GameConfigSO cfgEditor => gameConfig;
         //#endif
 
-        [SerializeField] GameConfigSO gameConfig = null;
+        //[SerializeField] 
+        GameConfigSO gameConfig = null;
 
         /// <summary>
         /// Конфигурация
@@ -66,6 +67,7 @@ using UnityEngine.EventSystems;
 
         void Awake()
         {
+            gameConfig = Resources.Load<GameConfigSO>("SmartMobileCore/MainConfig");
 #pragma warning disable CS0618 // Тип или член устарел
             API = this;
 #pragma warning restore CS0618 // Тип или член устарел
