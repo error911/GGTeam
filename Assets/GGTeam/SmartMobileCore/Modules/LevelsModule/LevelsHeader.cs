@@ -382,7 +382,7 @@ namespace GGTeam.SmartMobileCore
 
             void _OnLoadComplete()
             {
-Debug.Log("Уровень #" + levelNumber + " загружен.");
+//Debug.Log("Уровень #" + levelNumber + " загружен.");
                 Game.Log.Debug("Level", "Уровень #" + levelNumber + " загружен.");
                 ChangeCurrentNumber(levelNumber);
                 _LevelInit();
