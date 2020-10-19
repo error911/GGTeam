@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MobileCoreSettingsEditor : EditorWindow
 {
-    
     [SerializeField] GameConfigSO configSO
     {
         get
@@ -25,7 +24,7 @@ public class MobileCoreSettingsEditor : EditorWindow
         var window = GetWindow(typeof(MobileCoreSettingsEditor));
         window.Show();
         window.titleContent = new GUIContent("SmartMobileCore");
-        window.maxSize = new Vector2(512, 9999);    //469
+        window.maxSize = new Vector2(512, 9999);
         window.minSize = new Vector2(512, 480);
     }
 
@@ -33,13 +32,11 @@ public class MobileCoreSettingsEditor : EditorWindow
     {
         GetConfig();
         editor = UnityEditor.Editor.CreateEditor(configSO);
-        //editor = UnityEditor.Editor.CreateEditor(GameManager.API.Config.GameConfig);
     }
 
     private void GetConfig()
     {
         if (_configSO == null) _configSO = Resources.Load<GameConfigSO>("SmartMobileCore/MainConfig");
-//        configSO = Resources.Load<GameConfigSO>("SmartMobileCore/MainConfig");
     }
 
     private void OnGUI()
@@ -245,35 +242,20 @@ public class MobileCoreSettingsEditor : EditorWindow
                 {
                     name = property.displayName;
                 }
-                //DrawLabel(name, property.type);
                 if (property.type == "bool")
                 {
-                    //GUILayout.BeginArea(new Rect(0, startPoint + i * spacing, Screen.width, elementHeight), new GUIContent("", tooltip), EditorStyles.helpBox);
-                    //    GUILayout.BeginHorizontal();
                     DrawLabel(name, property.type);
                     EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(74));
-                    //    GUILayout.EndHorizontal();
-                    //GUILayout.EndArea();
                 }
                 else if (property.type == "int")
                 {
-                    //GUILayout.BeginArea(new Rect(0, startPoint + i * spacing, Screen.width, elementHeight), new GUIContent("", tooltip), EditorStyles.helpBox);
-                    //    GUILayout.BeginHorizontal();
-                    //GUILayout.FlexibleSpace();
-                    //      DrawLabel(name, property.type);
                         EditorGUILayout.LabelField(name);
                         EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(74));
-                    //GUILayout.EndHorizontal();
-                    //GUILayout.EndArea();
                 }
                 else if (property.type == "string")
                 {
                     EditorGUILayout.LabelField(name, GUILayout.Width(230));
                     EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(Screen.width-250));
-
-                    //EditorGUILayout.TextField("Hello",property.stringValue);
-                    //Debug.Log(property.stringValue);
-                    //EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(74));
                 }
 
 

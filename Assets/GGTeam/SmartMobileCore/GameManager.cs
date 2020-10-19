@@ -11,11 +11,6 @@ using UnityEngine.EventSystems;
 //{
     public class GameManager : MonoBehaviour
     {
-
-        //#if UNITY_EDITOR
-        //        protected GameConfigSO cfgEditor => gameConfig;
-        //#endif
-
         //[SerializeField] 
         GameConfigSO gameConfig = null;
 
@@ -81,10 +76,6 @@ using UnityEngine.EventSystems;
         {
             Config = new ConfigHeader(this, gameConfig);
             Log = new LogHeader(this);
-            //#pragma warning disable CS0618 // Тип или член устарел
-            //            Scenes = new ScenesHeader(this);
-            //#pragma warning restore CS0618 // Тип или член устарел
-            //            Levels = new LevelsHeader(this);
             UI = new UIHeader(this);
             ADS = new AdsHeader(this, adsProvider);
 
@@ -93,9 +84,6 @@ using UnityEngine.EventSystems;
             if (metrPref == null) Debug.LogError("Не найден префаб SmartMobileCore/Prefabs/[Analytics]");
             var metrGo = Instantiate(metrPref);
             metrGo.name = "[Analytics]";
-            //Metrica = Analytics.Instance;
-            //Metrica.OnActivation += dfsdfsd;
-            //Metrica.ResumeSession();
             Metrica = metrGo.GetComponent<Analytics>();
 
             #endregion
@@ -104,7 +92,6 @@ using UnityEngine.EventSystems;
         void Init()
         {
             // Проверяем есть ли EventSystem
-            //var es = GetComponent<EventSystem>();
             var es = FindObjectOfType<EventSystem>();
             if (es == null)
             {
@@ -138,12 +125,10 @@ using UnityEngine.EventSystems;
 
             void On_GDRPP_Complete()
             {
-                //UI.Init();
                 Loading();
             }
         }
 
-        //void Start()
         void InitAds()
         {
             if (Config.GameConfig.ADS_APP_KEY.Length > 0)
@@ -187,76 +172,3 @@ using UnityEngine.EventSystems;
         }
 
     }
-//}
-
-
-#region === Хлам (удалить в релизе) ===
-
-/*
-[SerializeField] private UIConfigHeader InterfaceConfig;
-
-[Serializable]
-public struct UIConfigHeader
-{
-    [Header("Настройки интерфейса")]
-    [Tooltip("Интерфейс главного экрана игры. Чаще всего там есть кнопка - [PLAY] и [QUIT]")]
-    [SerializeField] UIScreen ScreenMainMenu;
-    [Tooltip("Интерфейс в самой игре. Чаще всего отображает кол-во жизней, набранных очков и т.п.")]
-    [SerializeField] UIScreen ScreenInGameUI;
-    [Tooltip("Интерфейс, отображающийся после успешного прохождения уровня. Может отображать например - кол-во набранных очков и кнопку [NEXT]")]
-    [SerializeField] UIScreen ScreenLevelComplete;
-    [Tooltip("Интерфейс, отображающийся после провала уровня. Может отображать например - кнопку [RETRY]")]
-    [SerializeField] UIScreen ScreenLevelFailed;
-}
-*/
-
-/*
-public class ExampleWindow : EditorWindow
-{
-    // Add menu item named "Example Window" to the Window menu
-    [MenuItem("Window/Example Window1")]
-    public static void ShowWindow()
-    {
-        //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(ExampleWindow));
-    }
-
-    List<SceneAsset> m_SceneAssets = new List<SceneAsset>();
-    [ExecuteInEditMode]
-    void OnGUI()
-    {
-        GUILayout.Label("Scenes to include in build:", EditorStyles.boldLabel);
-        for (int i = 0; i < m_SceneAssets.Count; ++i)
-        {
-            m_SceneAssets[i] = (SceneAsset)EditorGUILayout.ObjectField(m_SceneAssets[i], typeof(SceneAsset), false);
-        }
-        if (GUILayout.Button("Add"))
-        {
-            m_SceneAssets.Add(null);
-        }
-
-        GUILayout.Space(8);
-
-        if (GUILayout.Button("Apply To Build Settings"))
-        {
-            SetEditorBuildSettingsScenes();
-        }
-
-        void SetEditorBuildSettingsScenes()
-        {
-            // Find valid Scene paths and make a list of EditorBuildSettingsScene
-            List<EditorBuildSettingsScene> editorBuildSettingsScenes = new List<EditorBuildSettingsScene>();
-            foreach (var sceneAsset in m_SceneAssets)
-            {
-                string scenePath = AssetDatabase.GetAssetPath(sceneAsset);
-                if (!string.IsNullOrEmpty(scenePath))
-                    editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(scenePath, true));
-            }
-
-            // Set the Build Settings window Scene list
-            EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
-        }
-    }
-}
-*/
-#endregion
