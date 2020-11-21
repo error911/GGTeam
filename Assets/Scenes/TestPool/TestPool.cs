@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using GGTeam.SmartMobileCore;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestPool : MonoBehaviour
 {
-    public GameObject goPuuled;
     public PObj pObj;
     PoolManager poolManager = new PoolManager();
 

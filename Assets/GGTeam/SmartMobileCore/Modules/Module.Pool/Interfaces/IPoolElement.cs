@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPoolElement
+namespace GGTeam.SmartMobileCore
 {
-    void Return();
+    public interface IPoolElement
+    {
+        void Return();
+    }
 }

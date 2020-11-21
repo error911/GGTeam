@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public abstract class PoolElement : MonoBehaviour, IPoolElement
+namespace GGTeam.SmartMobileCore
 {
-    private IPool _pool;
-
-    internal void Initialize(IPool pool)
+    public abstract class PoolElement : MonoBehaviour, IPoolElement
     {
-        _pool = pool;
-    }
+        private IPool _pool;
 
-    public void Return()
-    {
-        _pool.ReturnElement(this);
-    }
+        internal void Initialize(IPool pool)
+        {
+            _pool = pool;
+        }
 
-    public abstract void OnRelease();
-    public abstract void OnReturn();
+        public void Return()
+        {
+            _pool.ReturnElement(this);
+        }
+
+        public abstract void OnRelease();
+        public abstract void OnReturn();
+    }
 }
