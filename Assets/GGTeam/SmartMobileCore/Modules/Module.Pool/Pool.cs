@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace GGTeam.SmartMobileCore
+namespace GGTeam.SmartMobileCore.Modules.PoolModule
 {
     public enum PoolExpandMethodType
     {
@@ -153,6 +153,12 @@ namespace GGTeam.SmartMobileCore
 
         private PoolElement Duplicate(PoolElement element)
         {
+            if (element == null)
+            {
+                Debug.LogWarning("Не могу создать пустой элемент");
+                return null;
+            }
+
             var result = Instantiate(element, transform);
 
             if (!result.gameObject.activeSelf)

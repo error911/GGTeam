@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace GGTeam.SmartMobileCore
+namespace GGTeam.SmartMobileCore.Modules.PoolModule
 {
-    public interface IPoolManager
+    public interface IPoolModule
     {
         T GetElement<T>(Transform newParent = null) where T : PoolElement;
         T[] GetElements<T>(int count = 1, Transform newParent = null) where T : PoolElement;

@@ -1,21 +1,22 @@
-﻿using GGTeam.SmartMobileCore;
+﻿using GGTeam.SmartMobileCore.Modules.PoolModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestPool : MonoBehaviour
 {
-    public PObj pObj;
-    PoolManager poolManager = new PoolManager();
+    public PObj prefObj;
+    //PoolModule poolManager = new PoolModule();
 
     void Start()
     {
-        //IPool pool = poolManager.PutElement<PObj>(pObj, 1);
-        IPool pool = poolManager.PutElement(pObj, 10);
+        PoolModule poolManager = new PoolModule();
+        var pool = poolManager.PutElement(prefObj, 10);
 
+        var el1 = pool.GetElement(transform);
+        var el2 = pool.GetElement(transform);
 
-        pool.GetElement(transform);
-        pool.GetElement(transform);
+        el2.Return();
     }
 
     // Update is called once per frame

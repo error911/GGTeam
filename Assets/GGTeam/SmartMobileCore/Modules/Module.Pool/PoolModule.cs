@@ -3,38 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GGTeam.SmartMobileCore
+namespace GGTeam.SmartMobileCore.Modules.PoolModule
 {
-    public class PoolManager
+    public class PoolModule
     {
         private Dictionary<Type, IPool> _pools = new Dictionary<Type, IPool>();
         private GameObject _root;
 
-
-        //public override void Initialize()   //Transform poolRootObj
-        //{
-        //    Core.Coroutine.Start(CleanUpCycle());
-        //}
-
-        //public IPool PutElement(PoolElement prefab, int count = 1)// where T : PoolElement
-        //{
-        //    IPool pool;
-
-        //    if (Exists(typeof(PoolElement)))
-        //    {
-        //        pool = GetPool<PoolElement>();
-        //    }
-        //    else
-        //    {
-        //        pool = CreatePool<PoolElement>(prefab);
-        //    }
-
-        //    pool.PutElement(prefab, count);
-
-        //    return pool;
-        //}
-
-        public IPool PutElement<T>(T prefab, int count = 1) where T : SmartMobileCore.PoolElement
+        public IPool PutElement<T>(T prefab, int count = 1) where T : PoolElement
         {
             IPool pool;
 
@@ -140,7 +116,7 @@ namespace GGTeam.SmartMobileCore
         {
             var type = typeof(T);
 
-            var poolRoot = new GameObject("[Pool of type]: " + type.Name);
+            var poolRoot = new GameObject("[Pool]: " + type.Name);
 
             if (!_root)
             {

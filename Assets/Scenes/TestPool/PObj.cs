@@ -1,4 +1,4 @@
-﻿using GGTeam.SmartMobileCore;
+﻿using GGTeam.SmartMobileCore.Modules.PoolModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

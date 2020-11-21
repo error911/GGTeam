@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GGTeam.SmartMobileCore
+namespace GGTeam.SmartMobileCore.Modules.PoolModule
 {
     public abstract class PoolElement : MonoBehaviour, IPoolElement
     {
