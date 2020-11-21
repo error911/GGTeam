@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GGTeam.SmartMobileCore
+namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
 {
     [RequireComponent(typeof(RectTransform))]
     public abstract class UIScreen : MonoBehaviour

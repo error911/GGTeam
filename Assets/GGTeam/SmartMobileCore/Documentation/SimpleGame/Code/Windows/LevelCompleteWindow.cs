@@ -3,6 +3,7 @@
 // ====================================
 
 using GGTeam.SmartMobileCore;
+using GGTeam.SmartMobileCore.Modules.UIScreenModule;
 using GGTeam.Tools.Tween;
 using System;
 using UnityEngine;

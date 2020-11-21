@@ -3,6 +3,7 @@
 // ====================================
 
 using GGTeam.SmartMobileCore;
+using GGTeam.SmartMobileCore.Modules.UIScreenModule;
 using System;
 using System.Collections;
 using System.Collections.Generic;

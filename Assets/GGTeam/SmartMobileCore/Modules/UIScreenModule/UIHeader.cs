@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GGTeam.SmartMobileCore
+namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
 {
     public sealed class UIHeader
     {
