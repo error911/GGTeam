@@ -2,13 +2,13 @@
 // Free license: CC BY Murnik Roman
 // ================================
 
-using GGTeam.SmartMobileCore;
+//using GGTeam.SmartMobileCore;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-//namespace GGTeam.SmartMobileCore
-//{
+namespace GGTeam.SmartMobileCore
+{
     public class GameManager : MonoBehaviour
     {
         //[SerializeField] 
@@ -74,7 +74,7 @@ using UnityEngine.EventSystems;
 
         void Prepare()
         {
-            Config = new ConfigHeader(this, gameConfig);
+            Config = new ConfigHeader(gameConfig);
             Log = new LogHeader(this);
             UI = new UIHeader(this);
             ADS = new AdsHeader(this, adsProvider);
@@ -171,3 +171,4 @@ using UnityEngine.EventSystems;
         }
 
     }
+}
