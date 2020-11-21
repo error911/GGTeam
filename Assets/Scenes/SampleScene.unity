@@ -233,8 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a14e8bc2b986e4aa9e7f599b62491e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goPuuled: {fileID: 0}
-  pObj: {fileID: 8317267189811472481, guid: 54757787f7b989c46b566b1861768413, type: 3}
+  prefObj: {fileID: 8317267189811472481, guid: 54757787f7b989c46b566b1861768413, type: 3}
 --- !u!4 &1797783687
 Transform:
   m_ObjectHideFlags: 0
