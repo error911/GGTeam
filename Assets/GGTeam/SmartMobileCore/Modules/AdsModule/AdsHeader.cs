@@ -69,7 +69,7 @@ namespace GGTeam.SmartMobileCore
 
         public void AcceptPolicy(bool ok)
         {
-            IronSource.Agent.setConsent(ok);
+            if (IsEnabled) IronSource.Agent.setConsent(ok);
         }
 
         /// <summary>
