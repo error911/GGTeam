@@ -1,5 +1,3 @@
-// This class is not a part of the Smart Localization system, it only utilizes it.
-// Created by Daniele Giardini - 2011 - Holoville - http://www.holoville.com
 // Found at: http://wiki.unity3d.com/index.php?title=EditorUndoManager
 
 namespace GGTools.SmartLocalization.Editor
