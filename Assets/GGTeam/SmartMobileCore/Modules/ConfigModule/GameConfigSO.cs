@@ -14,7 +14,6 @@ public class GameConfigSO : ScriptableObject
     [SerializeField] private bool _GAMEPLAY_CLEAR_SCORE_ON_START_LEVEL = true;
     public bool GAMEPLAY_CLEAR_SCORE_ON_START_LEVEL => _GAMEPLAY_CLEAR_SCORE_ON_START_LEVEL;
 
-    // ========== GAMEPLAY ==========
     //[Space(8)]
     //[Header("- LEVEL -----------------------------------------------------------------")]
     //[Tooltip("Использовать одну сцену для всех уровней")]

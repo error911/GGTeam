@@ -24,8 +24,8 @@ public class MobileCoreSettingsEditor : EditorWindow
         var window = GetWindow(typeof(MobileCoreSettingsEditor));
         window.Show();
         window.titleContent = new GUIContent("SmartMobileCore");
-        window.maxSize = new Vector2(512, 9999);
-        window.minSize = new Vector2(512, 480);
+        window.maxSize = new Vector2(640, 9999);
+        window.minSize = new Vector2(640, 480);
     }
 
     private void OnEnable()
@@ -172,16 +172,16 @@ public class MobileCoreSettingsEditor : EditorWindow
         private void DrawLabel(string content, string type)
         {
             float offset = 0;
-
             switch (type)
             {
                 case "bool": offset = 40; break;
                 case "Enum": offset = 100; break;
                 case "float": offset = 100; break;
                 case "uint": offset = 100; break;
+                case "int": offset = 100; break;
+                case "string": offset = 360; break;
+                case "PPtr<$GameObject>": offset = 210; break;
             }
-
-
             GUILayout.Label(content, GUILayout.Width(Screen.width - offset));
         }
 
@@ -208,7 +208,7 @@ public class MobileCoreSettingsEditor : EditorWindow
 
         public float DrawWindow(float offset, List<SerializedProperty> properties, string title)
         {
-            var spacing = 25;
+            var spacing = 24;
             var padding = 1 * spacing;
             var elementHeight = 24;
             var startPoint = offset * spacing + padding;
@@ -235,30 +235,38 @@ public class MobileCoreSettingsEditor : EditorWindow
                 GUILayout.BeginArea(new Rect(0, startPoint + i * spacing, Screen.width, elementHeight), new GUIContent("", tooltip), EditorStyles.helpBox);
                 GUILayout.BeginHorizontal();
 
-
                 var name = FieldData.GetValue(property.name, typeof(GameConfigSO), FieldData.ValueType.Description);
 
                 if (name == null)
                 {
                     name = property.displayName;
                 }
-                if (property.type == "bool")
+                //if (property.type == "bool")
+                if (property.propertyType == SerializedPropertyType.Boolean)
                 {
                     DrawLabel(name, property.type);
                     EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(74));
                 }
-                else if (property.type == "int")
+                //else if (property.type == "int")
+                else if (property.propertyType == SerializedPropertyType.Integer)
                 {
-                        EditorGUILayout.LabelField(name);
-                        EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(74));
+                    //EditorGUILayout.LabelField(name);
+                    DrawLabel(name, property.type);
+                    EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(74));
                 }
-                else if (property.type == "string")
+                //else if (property.type == "string")
+                else if (property.propertyType == SerializedPropertyType.String)
                 {
-                    EditorGUILayout.LabelField(name, GUILayout.Width(230));
-                    EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(Screen.width-250));
+                    //EditorGUILayout.LabelField(name, GUILayout.Width(230));
+                    DrawLabel(name, property.type);
+                    //EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(Screen.width - 250));
+                    EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(334));
                 }
-
-
+                else if (property.propertyType == SerializedPropertyType.ObjectReference)
+                {
+                    DrawLabel(name, property.type);
+                    EditorGUILayout.PropertyField(property, GUIContent.none, true, GUILayout.Width(184));
+                }
 
                 GUILayout.EndHorizontal();
                 GUILayout.EndArea();
