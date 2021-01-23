@@ -413,4 +413,19 @@ clicked = true;
         }
     }
 }
+
+#else
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace GGTeam.SmartMobileCore.Modules.IAP
+{
+    [RequireComponent(typeof(Button))]
+    [AddComponentMenu("GGTeam/SmartMobileCore/Modules/IAP/IAP-Button")]
+    public class IAPButton : MonoBehaviour
+    {
+
+    }
+}
+
 #endif

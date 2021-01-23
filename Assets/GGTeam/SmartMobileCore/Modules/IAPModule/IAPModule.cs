@@ -623,5 +623,13 @@ if (button.clicked) btn_clicked.Add(button);
         }
     }
 }
+#else
+using UnityEngine;
+namespace GGTeam.SmartMobileCore.Modules.IAP
+{
+    public class IAPModule : MonoBehaviour
+    {
 
+    }
+}
 #endif
