@@ -138,6 +138,7 @@ namespace GGTeam.SmartMobileCore
                 // Реклама - Старт
                 void _AdShow()
                 {
+                    if (Current == null) _AdsEnd(false);
                     Game.ADS.Show(Current.Data.number, _AdsEnd);
                     Game.ADS.ReloadBanner();    // ShowBanner();
                 }
@@ -340,12 +341,14 @@ namespace GGTeam.SmartMobileCore
             if (lvl != null) { Current = lvl; }
             else
             {
+                Debug.Log("<color=yellow><b>GAME LEVEL> </b></color> не найден класс, наследник от Level.");
                 GameObject go = new GameObject("[Gameplay]");
                 go.name = "[Gameplay]";
                 go.transform.position = Vector3.zero;
                 go.transform.rotation = Quaternion.identity;
                 go.transform.SetSiblingIndex(0);
                 lvl = go.AddComponent<SimpleGameplay>();
+                Current = lvl;
             }
             return lvl;
         }
