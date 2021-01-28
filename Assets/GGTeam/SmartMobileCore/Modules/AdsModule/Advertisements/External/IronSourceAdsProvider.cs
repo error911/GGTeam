@@ -22,7 +22,7 @@ public sealed class IronSourceAdsProvider : IAdsProvider
     private bool ENABLE_BANNER = false;
 
     bool ready_interst = false;
-    bool ready_rewarded = false;
+//1    bool ready_rewarded = false;
 
     Action<bool> OnInterstEnded;
     //Action OnInterstError;
@@ -231,7 +231,7 @@ public sealed class IronSourceAdsProvider : IAdsProvider
         //bool rewardedVideoAvailability = available;
 
         //Debug.Log("> RewardedVideoAvailabilityChangedEvent " + available);
-        ready_rewarded = available;
+//1        ready_rewarded = available;
     }
 
     // Примечание. Указанные ниже события доступны не для всех поддерживаемых сетей видео-рекламы с вознаграждением.
