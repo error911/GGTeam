@@ -95,6 +95,7 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
                 content = go;
             }
             else content = c.gameObject;
+            uiscreen_opened = content.activeSelf;
         }
 
         [EditorButton("Open / Close")]
