@@ -16,14 +16,11 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
     public abstract class UIScreen : MonoBehaviour
     {
         [SerializeField] UITypes uiType = UITypes.Custom;
-        //[SerializeField] UIOrientation uIOrientation = UIOrientation.Portrait;
         public bool showOnStart = false;
         public bool animate = false;
-        public TweenType animateTypeOpen = TweenType.SoftEaseOutQuint;// Bounce;
-        public TweenType animateTypeClose = TweenType.SoftEaseOutQuint; // Bounce;
+        public TweenType animateTypeOpen = TweenType.SoftEaseOutQuint;
+        public TweenType animateTypeClose = TweenType.SoftEaseOutQuint;
         public GameObject content;
-
-        //private Action OnCloseAction = null;
 
         #region === Публичные ===
 
@@ -181,7 +178,6 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
             void EndAnim1()
             {
                 OnOpen();
-                //                OnOpenAction?.Invoke();
             }
         }
 
@@ -207,10 +203,6 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
                         Tween.TweenVector3((a) => item.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, null, false, animateTypeClose);
                     n++;
                 }
-
-
-
-                //twId = Tween.TweenVector3((a) => content.transform.localScale = a, s_sc, Vector3.zero, _anim_close_duration, 0, EndAnim, false, animateTypeClose);
             }
             else
             {
@@ -225,21 +217,6 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
             }
         }
 
-        /*
-        private async void WaitForInit()
-        {
-            await Task.Run(() =>
-            {
-                if (!Game.inited)
-                {
-                    WaitForInit();
-                    return;
-                }
-            });
-            ui_screen_inited = true;
-            OnInit();
-        }
-        */
         protected void OnEnable()
         {
             if (Game == null) return;
@@ -248,13 +225,10 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
                 contentImgStartColor = contentImg.color;
                 contentImgEndColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, contentImgStartColor.a);
                 contentImgStartColor = new Color(contentImgStartColor.r, contentImgStartColor.g, contentImgStartColor.b, 0.0f);
-
-
             }
-            StartCoroutine(SkipFrameAndReg());
 
+            StartCoroutine(SkipFrameAndReg());
             StartCoroutine(SkipFrameAndInit());
-            //            WaitForInit();
         }
 
         private IEnumerator SkipFrameAndInit()
@@ -263,7 +237,6 @@ namespace GGTeam.SmartMobileCore.Modules.UIScreenModule
             while (!Game.IsInited)
             {
                 yield return new WaitForEndOfFrame();
-
             }
             ui_screen_inited = true;
             OnInit();
